@@ -12529,12 +12529,14 @@ var AdvancedSearch = function (_Component) {
     _this.state = {
       value: undefined
     };
+
+    _this.handleClick = _this.handleClick.bind(_this);
     return _this;
   }
 
   _createClass(AdvancedSearch, [{
-    key: 'handleSelect',
-    value: function handleSelect(event) {
+    key: 'handleClick',
+    value: function handleClick(event) {
       event.preventDefault;
       this.setState({ value: event.target.value });
     }
@@ -12573,18 +12575,18 @@ var AdvancedSearch = function (_Component) {
             _react2.default.createElement(
               'button',
               { className: 'btn btn-default dropdown-toggle', type: 'button', id: 'dropdownMenu1', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true', value: this.state.value },
-              'Relevance',
+              this.state.value,
               _react2.default.createElement('span', { className: 'caret' })
             ),
             _react2.default.createElement(
               'ul',
-              { className: 'dropdown-menu', 'aria-labelledby': 'dropdownMenu1', onSelect: this.handleSelect },
+              { className: 'dropdown-menu', 'aria-labelledby': 'dropdownMenu1' },
               _react2.default.createElement(
                 'li',
                 null,
                 _react2.default.createElement(
                   'a',
-                  { href: '#', ref: 'relevance', initial: true },
+                  { href: '#', value: this.state.value, onClick: this.handleClick },
                   'Relevance'
                 )
               ),
@@ -12593,7 +12595,7 @@ var AdvancedSearch = function (_Component) {
                 null,
                 _react2.default.createElement(
                   'a',
-                  { href: '#' },
+                  { href: '#', value: this.state.value, onClick: this.handleClick },
                   'Product Name'
                 )
               ),
@@ -12602,7 +12604,7 @@ var AdvancedSearch = function (_Component) {
                 null,
                 _react2.default.createElement(
                   'a',
-                  { href: '#' },
+                  { href: '#', value: this.state.value, onClick: this.handleClick },
                   'Price'
                 )
               ),
@@ -12611,7 +12613,7 @@ var AdvancedSearch = function (_Component) {
                 null,
                 _react2.default.createElement(
                   'a',
-                  { href: '#' },
+                  { href: '#', value: this.state.value, onClick: this.handleClick },
                   'Avg Customer Review'
                 )
               ),
@@ -12621,7 +12623,7 @@ var AdvancedSearch = function (_Component) {
                 null,
                 _react2.default.createElement(
                   'a',
-                  { href: '#' },
+                  { href: '#', value: this.state.value, onClick: this.handleClick },
                   'MSRP'
                 )
               )

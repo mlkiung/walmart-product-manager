@@ -7,9 +7,11 @@ class AdvancedSearch extends Component {
     this.state = {
       value: undefined,
     }
+
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  handleSelect(event) {
+  handleClick(event) {
     event.preventDefault
     this.setState({ value: event.target.value })
   }
@@ -37,13 +39,13 @@ class AdvancedSearch extends Component {
           <div className="dropdown">
             <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{this.state.value}<span className="caret"></span>
             </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenu1" onSelect={this.handleSelect}>
-              <li><a href="#" ref="relevance" initial>Relevance</a></li>
-              <li><a href="#">Product Name</a></li>
-              <li><a href="#">Price</a></li>
-              <li><a href="#">Avg Customer Review</a></li>
+            <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><a href="#" onClick={this.handleClick}>Relevance</a></li>
+              <li><a href="#" onClick={this.handleClick}>Product Name</a></li>
+              <li><a href="#" onClick={this.handleClick}>Price</a></li>
+              <li><a href="#" onClick={this.handleClick}>Avg Customer Review</a></li>
               <li role="separator" className="divider"></li>
-              <li><a href="#">MSRP</a></li>
+              <li><a href="#" onClick={this.handleClick}>MSRP</a></li>
             </ul>
           </div>
         </li>
