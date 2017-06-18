@@ -1,7 +1,7 @@
-import { apiKey, pubId } from '../api.config'
+import apiKey from '../api.config'
 
 const makeQueryString = (input) => {
-  const queryStarter = `http://api.walmartlabs.com/v1/search?apiKey={apiKey}&lsPublisherId={Your LinkShare Publisher Id}`
+  const queryStarter = `http://api.walmartlabs.com/v1/search?apiKey={apiKey}}&format=json&callback=foo`
   const query = input.query ? `$query=${input.query}` : null
   const sortOption = input.sortOption ? `&sort=${input.sortOption}` : null
   const responseGroup = `&responseGroup=full`
