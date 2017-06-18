@@ -36,11 +36,15 @@ class ProductsList extends Component {
           <thead>
             <tr className="active">
               <th scope="col">Product</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
               <th scope="col">Brand Name</th>
               <th scope="col">Category</th>
               <th scope="col">Price</th>
               <th scope="col">MSRP</th>
               <th scope="col">Reviews</th>
+              <th scope="col"></th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -51,11 +55,11 @@ class ProductsList extends Component {
                   <td>{`<image>`}</td>
                   <td>{product.name}</td>
                   <td>{`${product.size} oz`}</td>
-                  <td>{product.link}</td>
+                  <td><a href={product.link} target="_blank"><span className="glyphicon glyphicon-new-window" aria-hidden="true" aria-label="Open product in a new window"></span></a></td>
                   <td>{product.brand}</td>
                   <td>{product.category}</td>
                   <td>{`$${product.price}`}</td>
-                  <td>{`$${product.msrp ? product.msrp : '(none)'}`}</td>
+                  <td>{`${product.msrp ? `$${product.msrp}` : '(none)'}`}</td>
                   <td>{product.reviews.rating}</td>
                   <td>{`(${product.reviews.numReviews})`}</td>
                   <td></td>
