@@ -12574,59 +12574,9 @@ var AdvancedSearch = function (_Component) {
             { className: 'dropdown' },
             _react2.default.createElement(
               'button',
-              { className: 'btn btn-default dropdown-toggle', type: 'button', id: 'dropdownMenu1', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true', value: this.state.value },
+              { className: 'btn btn-default dropdown-toggle', type: 'button', id: 'dropdownMenu1', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true' },
               this.state.value,
               _react2.default.createElement('span', { className: 'caret' })
-            ),
-            _react2.default.createElement(
-              'ul',
-              { className: 'dropdown-menu', 'aria-labelledby': 'dropdownMenu1' },
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  'a',
-                  { href: '#', value: this.state.value, onClick: this.handleClick },
-                  'Relevance'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  'a',
-                  { href: '#', value: this.state.value, onClick: this.handleClick },
-                  'Product Name'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  'a',
-                  { href: '#', value: this.state.value, onClick: this.handleClick },
-                  'Price'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  'a',
-                  { href: '#', value: this.state.value, onClick: this.handleClick },
-                  'Avg Customer Review'
-                )
-              ),
-              _react2.default.createElement('li', { role: 'separator', className: 'divider' }),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  'a',
-                  { href: '#', value: this.state.value, onClick: this.handleClick },
-                  'MSRP'
-                )
-              )
             )
           )
         )
