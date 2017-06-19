@@ -7,10 +7,6 @@ import { getState, saveState } from '../../localStorage'
 
 const persistedState = getState()
 
-// store.subscribe(() => {
-//   localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-// })
-
 const store = createStore(
   reducer,
   persistedState,
@@ -18,9 +14,6 @@ const store = createStore(
     thunkMiddleware))
 )
 
-store.subscribe(() => {
-  saveState()
-})
-// saveState()
+store.subscribe(() => saveState())
 
 export default store

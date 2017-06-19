@@ -13149,35 +13149,27 @@ var _store2 = _interopRequireDefault(_store);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const loadState = () => {
-//   try {
-//     const serializedState = localStorage.getItem('state')
-
-//     if (serializedState === null) return undefined
-//     return JSON.parse(serializedState)
-//   } catch (err) { return undefined }
-// }
 var localStorage = window.localStorage;
 
 var getState = function getState() {
-  localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {};
+  var persistedState = localStorage.getItem('reduxState');
+
+  persistedState && JSON.stringify(persistedState);
+  persistedState && console.log('persisted state', persistedState
+  // localStorage.getItem('reduxState')
+  //   ? JSON.parse(localStorage.getItem('reduxState'))
+  //   : {}
+  );
 };
 
-// const saveState = (state) => {
-//   try {
-//     const serializedState = JSON.stringify(state)
-//     localStorage.setItem('state', serializedState)
-//   } catch (err) { /* ignore write errors */ }
-// }
-
 var saveState = function saveState() {
-  var reduxState = _store2.default.getState();
+  var reduxState = _store2.default.getState
 
-  reduxState && console.log('REDUX STATE', reduxState);
+  // reduxState && console.log('REDUX STATE', reduxState)
 
-  reduxState && localStorage.setItem('reduxState', JSON.stringify(reduxState));
+  ();reduxState && localStorage.setItem('reduxState', JSON.stringify(reduxState));
 
-  var saved = localStorage.getItem('reduxState', JSON.stringify(reduxState));
+  var saved = localStorage.getItem('reduxState');
   saved && console.log('SAVED', saved);
 };
 
