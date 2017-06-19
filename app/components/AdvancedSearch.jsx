@@ -1,32 +1,25 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import { receiveProducts } from '../redux/search'
 
 class AdvancedSearch extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      brandName: '',
-      results: '',
-      startAt: '',
-      sortOption: 'relevance',
-    }
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.search !== this.props.search) {
-      const brandName = nextProps.search.brandName
-      const results = nextProps.search.results
-      const startAt = nextProps.search.startAt
-      const sortOption = nextProps.search.sortOption
-      this.setState({brandName, results, startAt, sortOption})
-    }
+  handleChange(event) {
+    this.props.handleChange(event)
   }
 
   render() {
+    console.log('PROPS PROPS PROPS', this.props)
     const advancedSearchOptions = [
-      { placeholder: 'Brand Name', name: 'brandName', value: this.state.brandName },
-      { placeholder: 'Results', name: 'results', value: this.state.results },
-      { placeholder: 'Start at', name: 'startAt', value: this.state.startAt }
+      { placeholder: 'Brand Name', name: 'brandName', value: this.props.search.brandName },
+      { placeholder: 'Results', name: 'results', value: this.props.search.results },
+      { placeholder: 'Start at', name: 'startAt', value: this.props.search.startAt }
     ]
     const sortOptions = [
       { value: 'relevance', viewValue: 'Relevance' },
@@ -50,7 +43,7 @@ class AdvancedSearch extends Component {
                   placeholder={advancedSearchOption.placeholder}
                   aria-describedby="basic-addon1"
                   name={advancedSearchOption.name}
-                  onChange={this.props.handleChange}
+                  onChange={this.handleChange}
                   value={advancedSearchOption.value} />
               </div>
             </li>
@@ -58,9 +51,9 @@ class AdvancedSearch extends Component {
         }
         <li role="presentation">{'Sorted by'}</li>
         <li role="presentation">
-          <select value={this.state.sortOption} name="sortOption" onChange={this.props.handleChange}>
+          <select value={this.props.sortOption} name="sortOption" onChange={this.handleChange}>
             {
-              // making the different options for sorting results in dropdown
+              // populating the "sort by" dropdown
               sortOptions.map((sortOption, i) => (
                 <option key={i}>{sortOption.viewValue}</option>
               ))

@@ -1,7 +1,9 @@
 import apiKey from '../api.config'
 
 const makeQueryString = (input) => {
-  const queryStarter = `http://api.walmartlabs.com/v1/search?apiKey={apiKey}}&format=json&callback=foo`
+  // input is an object
+
+  const queryStarter = `http://api.walmartlabs.com/v1/search?apiKey={${apiKey}}&format=json&callback=cb`
   const query = input.query ? `$query=${input.query}` : null
   const sortOption = input.sortOption ? `&sort=${input.sortOption}` : null
   const responseGroup = `&responseGroup=full`
