@@ -36,9 +36,9 @@ const getProductsFromApi = function(queryObj) {
     .then((json) => {
       console.log('parsed json', json)
       store.dispatch(receiveProducts(json))
-      store.subscribe(() => {
-        localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-      })
+      // store.subscribe(() => {
+      //   localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+      // })
     })
     .catch((ex) => console.log('parsing failed', ex))
 }

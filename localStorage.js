@@ -4,14 +4,14 @@ const localStorage = window.localStorage
 
 /* ~~~~~~~~~~ GET STATE FROM LOCAL STORAGE ~~~~~~~~~~ */
 const getState = () => {
-  const persistedState = localStorage.getItem('reduxState')
+  const persistedState = JSON.parse(localStorage.getItem('reduxState'))
 
-  persistedState
-    && JSON.stringify(persistedState)
+  // persistedState && JSON.stringify(persistedState)
 
   // check to make sure its there
   persistedState
-    && console.log('persistedState is loaded from localStorage')
+    && console.log('persistedState is loaded from localStorage', persistedState)
+  return persistedState
 }
 
 /* ~~~~~~~~~~ SAVE REDUX STATE TO LOCAL STORAGE ~~~~~~~~~~ */
@@ -32,8 +32,8 @@ const saveState = () => {
     && console.log('reduxState is saved in localStorage')
 
   // DEBUG: double check for duplicates
-  newPersistedState
-    && checkForDuplicates(newPersistedState)
+  // newPersistedState
+  //   && checkForDuplicates(newPersistedState)
 }
 
 /* ~~~~~~~~~~ CHECK FOR DUPLICATES ~~~~~~~~~~ */
@@ -44,25 +44,25 @@ If a duplicate entry is found in localStorage, need to check if the entry has up
 If it does, overwrite localStorage. Else, skip over it.
 */
 
-const checkForDuplicates = (state) => {
-  const products = state['items'] // an array of the products listings
-  products && console.log('PRODUCTS', products)
-  const directory = {}
+// const checkForDuplicates = (state) => {
+//   const products = state['items'] // an array of the products listings
+//   products && console.log('PRODUCTS', products)
+//   const directory = {}
 
-  // for each product, grab its name check if it already exists in the directory
-  // if it does, write an error to the console
-  // if it doesn't, add it to the directory
-  products && products.forEach((product, i) => {
-    const name = product.name
+//   // for each product, grab its name check if it already exists in the directory
+//   // if it does, write an error to the console
+//   // if it doesn't, add it to the directory
+//   products && products.forEach((product, i) => {
+//     const name = product.name
 
-    directory[name]
-      ? console.log('ERROR: Duplicate entry found; saveState not checking properly.')
-      : directory[name] = true
-  })
-}
+//     directory[name]
+//       ? console.log('ERROR: Duplicate entry found; saveState not checking properly.')
+//       : directory[name] = true
+//   })
+// }
 
 /* ~~~~~~~~~~ CLEAR LOCAL STORAGE FOR NEW QUERY ~~~~~~~~~~ */
-const clearStorage = () => {
+/*const clearStorage = () => {
   localStorage.clear()
 
   // double check to make sure localStorage is empty
@@ -70,6 +70,6 @@ const clearStorage = () => {
   _items === {} || _items === null
     ? console.log('Current localStorage contents: ', _items)
     : console.log('localStorage reset; ready for new query')
-}
+}*/
 
-export { getState, saveState, clearStorage }
+export { getState, saveState }

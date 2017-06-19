@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import AdvancedSearch from './AdvancedSearch'
 import { getProductsFromApi } from '../utils'
-import { clearStorage } from '../../localStorage'
+// import { clearStorage } from '../../localStorage'
 
 class Toolbar extends Component {
   constructor() {
@@ -53,7 +53,8 @@ class Toolbar extends Component {
 
     if (query && query !== '') {
       const products = getProductsFromApi(queryObj)
-      clearStorage()
+      // localStorage.clear()
+      // clearStorage()
     } else {
       window.alert('Please enter a query.')
     }

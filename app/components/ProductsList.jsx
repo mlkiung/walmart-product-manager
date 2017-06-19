@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import Table from './Table'
-import TableSearch from './TableSearch'
+import TableControlPanel from './TableControlPanel'
 
 class ProductsList extends Component {
   constructor() {
@@ -18,6 +18,7 @@ class ProductsList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('nextProps in ProductsList.jsx', nextProps)
     if (nextProps.products !== this.props.products) {
       this.setState({ products: nextProps.products })
     }
@@ -28,13 +29,16 @@ class ProductsList extends Component {
 
     return (
       <div id="products-container">
-        <TableSearch />
+        <TableControlPanel />
         <Table products={products} />
       </div>
     )
   }
 }
 
-const mstp = (state) => ({products: state.items})
+const mstp = (state) => {
+  console.log('STATE in ProductsList.js', state)
+  return { products: state.items }
+}
 
 export default connect(mstp)(ProductsList)
