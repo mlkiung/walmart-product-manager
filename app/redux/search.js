@@ -1,17 +1,10 @@
-import { makeQueryString } from '../utils'
-import jsonp from 'jsonp'
+// import { makeQueryString } from '../utils'
+import store from './store'
 
-const receiveProducts = (query) => {
-  // query is an object!
-  const queryString = makeQueryString(query)
-  console.log('QUERY STRING IN ACTION CREATOR', queryString)
-  const cb = (err, data) => {
-    if (err) console.error('HERE IS THE ERROR')
-    else console.log(data)
-  }
-  // do the jsonp axios request
-  // products are returned
-  // call dispatch(loadProducts(productsFromJSONP))
+// import data from '../../dummyData'
+
+const receiveProducts = (products) => {
+  store.dispatch(loadProducts(products))
 }
 
 const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
@@ -20,3 +13,5 @@ const loadProducts = (products) => ({
   type: LOAD_PRODUCTS,
   payload: products
 })
+
+export default { receiveProducts, LOAD_PRODUCTS }

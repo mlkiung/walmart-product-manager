@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 
 import { receiveProducts } from '../redux/search'
 import AdvancedSearch from './AdvancedSearch'
+import { getProductsFromApi } from '../utils'
+// import getProductsFromApi from '../utils'
 
 class Toolbar extends Component {
   constructor() {
@@ -31,20 +33,31 @@ class Toolbar extends Component {
       startAt: '',
       sortOption: 'relevance',
     })
-    setTimeout(() => { console.log('state', this.state) }, 1000)
   }
 
   handleChange(event) {
     const name = event.target.name
     const value = event.target.value
     this.setState({ [name]: value })
-    console.log('STATE', this.state)
   }
 
   handleSubmit(event) {
     event.preventDefault()
+
     const query = this.state.query
-    query && (query !== '' && query !== undefined) ? this.props.receiveProducts({ query: this.state.query }) : window.alert('Please enter a query.')
+    const brandName = this.state.brandName
+    const results = this.state.results
+    const startAt = this.state.startAt
+    const sortOption = this.state.sortOption
+
+    const queryObj = { query, brandName, results, startAt, sortOption }
+
+    if (query && query !== '') {
+      const products = getProductsFromApi(queryObj)
+      console.log('PRODUCTS!!!!!', products)
+    } else {
+      window.alert('Please enter a query.')
+    }
   }
 
   render() {
@@ -70,7 +83,7 @@ class Toolbar extends Component {
             <li>
               <a href="#" className="navbar-link" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</a>
             </li>
-            <button onSubmit={this.handleSubmit} type="button" className="btn btn-primary">Add Products</button>
+            <button onClick={this.handleSubmit} type="button" className="btn btn-primary">Add Products</button>
           </ul>
         </div>
         <hr />
@@ -80,6 +93,11 @@ class Toolbar extends Component {
 }
 
 const mstp = (state) => ({})
-const mdtp = (dispatch) => ({ receiveProducts })
+const mdtp = (dispatch) => ({
+  // submitQuery: (query) => receiveProducts(query)
+  receiveProducts
+})
 
 export default connect(mstp, mdtp)(Toolbar)
+
+// export default Toolbar

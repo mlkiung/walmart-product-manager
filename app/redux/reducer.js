@@ -1,7 +1,15 @@
-const initialState = {};
+import store from './store'
+import { LOAD_PRODUCTS } from './search'
+
+const initialState = {}
 
 const reducer = (state = initialState, action) => {
-	return state;
-};
+  const newState = Object.assign({}, state, action.payload)
 
-export default reducer;
+  switch (action.type) {
+    case LOAD_PRODUCTS: return newState
+    default: return state
+  }
+}
+
+export default reducer

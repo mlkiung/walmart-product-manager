@@ -21,6 +21,8 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "axios": "^0.16.2",
+    "fetch-jsonp": "^1.1.1",
     "jsonp": "^0.2.1",
     "lodash.values": "^4.3.0",
     "react": "^15.6.1",
