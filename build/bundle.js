@@ -3164,20 +3164,15 @@ var _localStorage = __webpack_require__(122);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var persistedState = (0, _localStorage.getState
+var persistedState = (0, _localStorage.getState)();
 
-// store.subscribe(() => {
-//   localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-// })
-
-)();var store = (0, _redux.createStore)(_reducer2.default, persistedState, (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)((0, _reduxLogger.createLogger)({ collapsed: true }), _reduxThunk2.default)));
+var store = (0, _redux.createStore)(_reducer2.default, persistedState, (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)((0, _reduxLogger.createLogger)({ collapsed: true }), _reduxThunk2.default)));
 
 store.subscribe(function () {
-  (0, _localStorage.saveState)();
-}
-// saveState()
+  return (0, _localStorage.saveState)();
+});
 
-);exports.default = store;
+exports.default = store;
 
 /***/ }),
 /* 25 */
@@ -13153,24 +13148,19 @@ var localStorage = window.localStorage;
 
 var getState = function getState() {
   var persistedState = localStorage.getItem('reduxState');
+  persistedState && JSON.stringify(persistedState
 
-  persistedState && JSON.stringify(persistedState);
-  persistedState && console.log('persisted state', persistedState
-  // localStorage.getItem('reduxState')
-  //   ? JSON.parse(localStorage.getItem('reduxState'))
-  //   : {}
-  );
+  // check to make sure its there
+  );persistedState && console.log('persistedState is loaded from localStorage', persistedState);
 };
 
 var saveState = function saveState() {
-  var reduxState = _store2.default.getState
+  var reduxState = _store2.default.getState();
+  reduxState && localStorage.setItem('reduxState', JSON.stringify(reduxState)
 
-  // reduxState && console.log('REDUX STATE', reduxState)
-
-  ();reduxState && localStorage.setItem('reduxState', JSON.stringify(reduxState));
-
-  var saved = localStorage.getItem('reduxState');
-  saved && console.log('SAVED', saved);
+  // check to make sure it's saved
+  );var persistedState = localStorage.getItem('reduxState');
+  persistedState && console.log('reduxState is saved in localStorage', persistedState);
 };
 
 exports.getState = getState;

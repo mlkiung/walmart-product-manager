@@ -3,4 +3,5 @@ npm-debug.log
 build/bundle.js
 build/index.html
 api.config.js
+/tmp*
 
