@@ -1,6 +1,7 @@
 import apiKey from '../api.config'
 import fetchJsonp from 'fetch-jsonp'
 import store from './redux/store'
+import { receiveProducts } from './redux/search'
 
 const makeQueryString = (input) => {
   const queryStarter = `http://api.walmartlabs.com/v1/search?apiKey=${apiKey}&format=json`
@@ -27,15 +28,11 @@ const getProductsFromApi = function(queryObj) {
   const queryString = makeQueryString(queryObj)
 
   fetchJsonp(queryString)
-    .then((response) => {
-      return response.json()
-    })
-    .then((json) => {
-      console.log('parsed json', json)
-    })
-    .catch((ex) => {
-      console.log('parsing failed', ex)
-    })
+    .then((response) => response.json())
+    // .then((json) => console.log('parsed json', json))
+    .then((json) => store.dispatch(receiveProducts(json)))
+    .catch((ex) => console.log('parsing failed', ex))
+
 }
 
 export { getProductsFromApi }

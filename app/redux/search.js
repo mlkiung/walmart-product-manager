@@ -1,7 +1,4 @@
-// import { makeQueryString } from '../utils'
 import store from './store'
-
-// import data from '../../dummyData'
 
 const receiveProducts = (products) => {
   store.dispatch(loadProducts(products))
@@ -14,4 +11,4 @@ const loadProducts = (products) => ({
   payload: products
 })
 
-export default { receiveProducts, LOAD_PRODUCTS }
+export { receiveProducts, LOAD_PRODUCTS }
