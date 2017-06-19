@@ -4,6 +4,7 @@ import store from './redux/store'
 import { receiveProducts } from './redux/search'
 
 const makeQueryString = (input) => {
+  // CONSTANTS ('input' is an array of search parameters)
   const queryStarter = `http://api.walmartlabs.com/v1/search?`
   const apiKey = `&apiKey=${key}`
   const json = `&format=json`
@@ -18,6 +19,7 @@ const makeQueryString = (input) => {
 
   const buildArr = []
 
+  // BUILDING THE STRING
   buildOptions.forEach((buildOption) => {
     buildOption && buildArr.push(buildOption)
   })
@@ -28,6 +30,7 @@ const makeQueryString = (input) => {
 const getProductsFromApi = function(queryObj) {
   const queryString = makeQueryString(queryObj)
 
+  // uses fetchJsonp library to get products from Walmart API
   fetchJsonp(queryString)
     .then((response) => response.json())
     .then((json) => {

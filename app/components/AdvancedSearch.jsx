@@ -15,7 +15,6 @@ class AdvancedSearch extends Component {
   }
 
   render() {
-    console.log('PROPS PROPS PROPS', this.props)
     const advancedSearchOptions = [
       { placeholder: 'Brand Name', name: 'brandName', value: this.props.search.brandName },
       { placeholder: 'Results', name: 'results', value: this.props.search.results },

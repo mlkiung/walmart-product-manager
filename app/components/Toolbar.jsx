@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { receiveProducts } from '../redux/search'
 import AdvancedSearch from './AdvancedSearch'
 import { getProductsFromApi } from '../utils'
-// import getProductsFromApi from '../utils'
 
 class Toolbar extends Component {
   constructor() {
@@ -54,7 +52,6 @@ class Toolbar extends Component {
 
     if (query && query !== '') {
       const products = getProductsFromApi(queryObj)
-      console.log('PRODUCTS!!!!!', products)
     } else {
       window.alert('Please enter a query.')
     }
@@ -92,12 +89,4 @@ class Toolbar extends Component {
   }
 }
 
-const mstp = (state) => ({})
-const mdtp = (dispatch) => ({
-  // submitQuery: (query) => receiveProducts(query)
-  receiveProducts
-})
-
-export default connect(mstp, mdtp)(Toolbar)
-
-// export default Toolbar
+export default Toolbar

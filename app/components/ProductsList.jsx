@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import { values } from 'lodash'
 import { connect } from 'react-redux'
-
-// import data from '../../dummyData'
 
 class ProductsList extends Component {
   constructor() {
@@ -13,11 +10,6 @@ class ProductsList extends Component {
     }
   }
 
-  // most likely will need a lifecycle hook to grab products from store, set them on local state, and re-render table, or grab products from store and properly render the table (nextProps)
-  // componentDidMount() {
-  //   // using lodash to transform incoming data into an array
-  //   this.setState({ products: _.values(data) })
-  // }
   componentDidMount() {
     this.setState({products: this.props.products})
   }
@@ -30,9 +22,6 @@ class ProductsList extends Component {
 
   render() {
     const products = this.state.products
-
-    // console.log('DATA', data)
-    console.log('PRODUCTS', products)
 
     return (
       <div id="products-container">
@@ -82,6 +71,5 @@ class ProductsList extends Component {
 }
 
 const mstp = (state) => ({products: state.items})
-// const mdtp = () => ({})
 
 export default connect(mstp)(ProductsList)
