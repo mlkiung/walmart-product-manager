@@ -36,8 +36,26 @@ const getProductsFromApi = function(queryObj) {
     .then((json) => {
       console.log('parsed json', json)
       store.dispatch(receiveProducts(json))
+      store.subscribe(() => {
+        localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+      })
     })
     .catch((ex) => console.log('parsing failed', ex))
 }
 
 export { getProductsFromApi }
+
+/*
+
+store.subscribe(() => {
+  localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+})
+
+const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {}
+
+const store = createStore(reducer, persistedState,
+ any middleware...)
+
+)
+
+*/

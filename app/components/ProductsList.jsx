@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import TableRows from './TableRows'
+import Table from './Table'
+import TableSearch from './TableSearch'
 
 class ProductsList extends Component {
   constructor() {
@@ -27,29 +28,8 @@ class ProductsList extends Component {
 
     return (
       <div id="products-container">
-        <div className="input-group">
-          <span className="input-group-addon" id="sizing-addon2">
-            <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
-          </span>
-          <input type="text" className="form-control" placeholder="Search products" aria-describedby="sizing-addon2" />
-        </div>
-        <table className="table-condensed">
-          <thead>
-            <tr className="active">
-              <th scope="col">Product</th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col">Brand Name</th>
-              <th scope="col">Category</th>
-              <th scope="col">Price</th>
-              <th scope="col">MSRP</th>
-              <th scope="col">Reviews</th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <TableRows products={products} />
-        </table>
+        <TableSearch />
+        <Table products={products} />
       </div>
     )
   }
