@@ -1,11 +1,12 @@
 import store from './store'
 
-const receiveProducts = (products) => {
-  store.dispatch(loadProducts(products))
-}
+// action creator
+const receiveProducts = (products) => loadProducts(products)
 
+// constant
 const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
 
+// action
 const loadProducts = (products) => ({
   type: LOAD_PRODUCTS,
   payload: products

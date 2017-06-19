@@ -23,8 +23,8 @@ class ProductsList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.items !== this.props.items) {
-      this.setState({ products: nextProps.items })
+    if (nextProps.products !== this.props.products) {
+      this.setState({ products: nextProps.products })
     }
   }
 
@@ -48,7 +48,6 @@ class ProductsList extends Component {
               <th scope="col">Product</th>
               <th scope="col"></th>
               <th scope="col"></th>
-              <th scope="col"></th>
               <th scope="col">Brand Name</th>
               <th scope="col">Category</th>
               <th scope="col">Price</th>
@@ -62,16 +61,15 @@ class ProductsList extends Component {
             {
               products && products.map((product, i) => (
                 <tr key={i}>
-                  <td>{`<image>`}</td>
+                  <td>{product.thumbnailImage}</td>
                   <td>{product.name}</td>
-                  <td>{`${product.size} oz`}</td>
-                  <td><a href={product.link} target="_blank"><span className="glyphicon glyphicon-new-window" aria-hidden="true" aria-label="Open product in a new window"></span></a></td>
-                  <td>{product.brand}</td>
-                  <td>{product.category}</td>
-                  <td>{`$${product.price}`}</td>
+                  <td><a href={product.productUrl} target="_blank"><span className="glyphicon glyphicon-new-window" aria-hidden="true" aria-label="Open product in a new window"></span></a></td>
+                  <td>{product.brandName}</td>
+                  <td>{product.categoryPath}</td>
+                  <td>{`$${product.salePrice}`}</td>
                   <td>{`${product.msrp ? `$${product.msrp}` : '(none)'}`}</td>
-                  <td>{product.reviews.rating}</td>
-                  <td>{`(${product.reviews.numReviews})`}</td>
+                  <td>{product.customerRating}</td>
+                  <td>{`(${product.numReviews})`}</td>
                   <td></td>
                 </tr>
               ))
@@ -83,7 +81,7 @@ class ProductsList extends Component {
   }
 }
 
-const mstp = (state) => ({products: state.products})
+const mstp = (state) => ({products: state.items})
 // const mdtp = () => ({})
 
 export default connect(mstp)(ProductsList)

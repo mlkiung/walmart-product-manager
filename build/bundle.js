@@ -3797,12 +3797,15 @@ var _store2 = _interopRequireDefault(_store);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// action creator
 var receiveProducts = function receiveProducts(products) {
-  _store2.default.dispatch(loadProducts(products));
-};
+  return loadProducts(products
 
-var LOAD_PRODUCTS = 'LOAD_PRODUCTS';
+  // constant
+  );
+};var LOAD_PRODUCTS = 'LOAD_PRODUCTS';
 
+// action
 var loadProducts = function loadProducts(products) {
   return {
     type: LOAD_PRODUCTS,
@@ -12396,8 +12399,8 @@ var ProductsList = function (_Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      if (nextProps.items !== this.props.items) {
-        this.setState({ products: nextProps.items });
+      if (nextProps.products !== this.props.products) {
+        this.setState({ products: nextProps.products });
       }
     }
   }, {
@@ -12435,7 +12438,6 @@ var ProductsList = function (_Component) {
                 { scope: 'col' },
                 'Product'
               ),
-              _react2.default.createElement('th', { scope: 'col' }),
               _react2.default.createElement('th', { scope: 'col' }),
               _react2.default.createElement('th', { scope: 'col' }),
               _react2.default.createElement(
@@ -12477,7 +12479,7 @@ var ProductsList = function (_Component) {
                 _react2.default.createElement(
                   'td',
                   null,
-                  '<image>'
+                  product.thumbnailImage
                 ),
                 _react2.default.createElement(
                   'td',
@@ -12487,31 +12489,26 @@ var ProductsList = function (_Component) {
                 _react2.default.createElement(
                   'td',
                   null,
-                  product.size + ' oz'
-                ),
-                _react2.default.createElement(
-                  'td',
-                  null,
                   _react2.default.createElement(
                     'a',
-                    { href: product.link, target: '_blank' },
+                    { href: product.productUrl, target: '_blank' },
                     _react2.default.createElement('span', { className: 'glyphicon glyphicon-new-window', 'aria-hidden': 'true', 'aria-label': 'Open product in a new window' })
                   )
                 ),
                 _react2.default.createElement(
                   'td',
                   null,
-                  product.brand
+                  product.brandName
                 ),
                 _react2.default.createElement(
                   'td',
                   null,
-                  product.category
+                  product.categoryPath
                 ),
                 _react2.default.createElement(
                   'td',
                   null,
-                  '$' + product.price
+                  '$' + product.salePrice
                 ),
                 _react2.default.createElement(
                   'td',
@@ -12521,12 +12518,12 @@ var ProductsList = function (_Component) {
                 _react2.default.createElement(
                   'td',
                   null,
-                  product.reviews.rating
+                  product.customerRating
                 ),
                 _react2.default.createElement(
                   'td',
                   null,
-                  '(' + product.reviews.numReviews + ')'
+                  '(' + product.numReviews + ')'
                 ),
                 _react2.default.createElement('td', null)
               );
@@ -12541,7 +12538,7 @@ var ProductsList = function (_Component) {
 }(_react.Component);
 
 var mstp = function mstp(state) {
-  return { products: state.products };
+  return { products: state.items };
 };
 // const mdtp = () => ({})
 
@@ -12837,9 +12834,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var apiKey = '6z8nwt58gmyqb9zhzsqvmuub';
+var key = '6z8nwt58gmyqb9zhzsqvmuub';
 
-exports.default = apiKey;
+exports.default = key;
 
 /***/ }),
 /* 117 */
@@ -13072,8 +13069,9 @@ var _search = __webpack_require__(31);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var makeQueryString = function makeQueryString(input) {
-  var queryStarter = 'http://api.walmartlabs.com/v1/search?apiKey=' + _api2.default + '&format=json';
-
+  var queryStarter = 'http://api.walmartlabs.com/v1/search?';
+  var apiKey = '&apiKey=' + _api2.default;
+  var json = '&format=json';
   var query = input.query ? '&query=' + input.query : null;
   var sortOption = input.sortOption ? '&sort=' + input.sortOption : null;
   var responseGroup = '&responseGroup=full';
@@ -13081,7 +13079,7 @@ var makeQueryString = function makeQueryString(input) {
   var startAt = input.startAt ? '&start=' + input.startAt : null;
   var brandName = input.brandName ? '&facet=on&facet.filter=brand:' + input.brandName : null;
 
-  var buildOptions = [queryStarter, query, sortOption, responseGroup, results, startAt, brandName];
+  var buildOptions = [queryStarter, query, json, brandName, sortOption, responseGroup, results, startAt, apiKey];
 
   var buildArr = [];
 
@@ -13097,10 +13095,9 @@ var getProductsFromApi = function getProductsFromApi(queryObj) {
 
   (0, _fetchJsonp2.default)(queryString).then(function (response) {
     return response.json();
-  }
-  // .then((json) => console.log('parsed json', json))
-  ).then(function (json) {
-    return _store2.default.dispatch((0, _search.receiveProducts)(json));
+  }).then(function (json) {
+    console.log('parsed json', json);
+    _store2.default.dispatch((0, _search.receiveProducts)(json));
   }).catch(function (ex) {
     return console.log('parsing failed', ex);
   });
