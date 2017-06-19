@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import TableRows from './TableRows'
+
 class ProductsList extends Component {
   constructor() {
     super()
@@ -46,24 +48,7 @@ class ProductsList extends Component {
               <th scope="col"></th>
             </tr>
           </thead>
-          <tbody>
-            {
-              products && products.map((product, i) => (
-                <tr key={i}>
-                  <td>{product.thumbnailImage}</td>
-                  <td>{product.name}</td>
-                  <td><a href={product.productUrl} target="_blank"><span className="glyphicon glyphicon-new-window" aria-hidden="true" aria-label="Open product in a new window"></span></a></td>
-                  <td>{product.brandName}</td>
-                  <td>{product.categoryPath}</td>
-                  <td>{`$${product.salePrice}`}</td>
-                  <td>{`${product.msrp ? `$${product.msrp}` : '(none)'}`}</td>
-                  <td>{product.customerRating}</td>
-                  <td>{`(${product.numReviews})`}</td>
-                  <td></td>
-                </tr>
-              ))
-            }
-          </tbody>
+          <TableRows products={products} />
         </table>
       </div>
     )
