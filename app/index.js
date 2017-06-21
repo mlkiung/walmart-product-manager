@@ -13,13 +13,6 @@ import { loadProducts } from './redux/search'
 
 const history = createBrowserHistory()
 
-const onAppEnter = () => {
-  const localStorage = window.localStorage.getItem('reduxState')
-  localStorage && store.dispatch(loadProducts(localStorage))
-
-  // store.dispatch(loadProducts(JSON.stringify(localStorage.getItem('reduxState'))))
-}
-
 const App = ({children}) => (
   <div id="app-container">
     <Toolbar />
@@ -31,7 +24,7 @@ const App = ({children}) => (
 render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={App} onEnter={onAppEnter} />
+      <Route path="/" component={App} />
     </Router>
   </Provider>,
   document.getElementById('main')
