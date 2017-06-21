@@ -12385,6 +12385,7 @@ var ProductsList = function (_Component) {
     key: 'render',
     value: function render() {
       var products = this.state.products;
+      console.log('this.state in products list', this.state);
 
       return _react2.default.createElement(
         'div',
@@ -12399,7 +12400,7 @@ var ProductsList = function (_Component) {
 }(_react.Component);
 
 var mstp = function mstp(state) {
-  return { products: state };
+  return { products: state.items };
 };
 
 exports.default = (0, _reactRedux.connect)(mstp)(ProductsList);
