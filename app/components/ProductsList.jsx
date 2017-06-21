@@ -26,6 +26,7 @@ class ProductsList extends Component {
 
   render() {
     const products = this.state.products
+    console.log('this.state in products list', this.state)
 
     return (
       <div id="products-container">
@@ -36,6 +37,6 @@ class ProductsList extends Component {
   }
 }
 
-const mstp = (state) => ({products: state.products})
+const mstp = (state) => ({products: state.items})
 
 export default connect(mstp)(ProductsList)

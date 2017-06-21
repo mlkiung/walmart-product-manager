@@ -3798,7 +3798,7 @@ var receiveProducts = function receiveProducts(products) {
 var loadProducts = function loadProducts(products) {
   return {
     type: LOAD_PRODUCTS,
-    payload: products
+    products: products
   };
 };
 
@@ -12399,7 +12399,7 @@ var ProductsList = function (_Component) {
 }(_react.Component);
 
 var mstp = function mstp(state) {
-  return { products: state.products };
+  return { products: state };
 };
 
 exports.default = (0, _reactRedux.connect)(mstp)(ProductsList);
@@ -13098,7 +13098,7 @@ var reducer = function reducer() {
 
   switch (action.type) {
     case _search.LOAD_PRODUCTS:
-      return newState;
+      return Object.assign({}, state, action.products);
     default:
       return state;
   }
@@ -13227,7 +13227,7 @@ var getState = function getState() {
 /* ~~~~~~~~~~ SAVE REDUX STATE TO LOCAL STORAGE ~~~~~~~~~~ */
 var saveState = function saveState() {
   var reduxState = _store2.default.getState // new state to be stored
-  ();var persistedState = localStorage.getItem('reduxState' // state already in storage
+  ();var persistedState = JSON.parse(localStorage.getItem('reduxState') // state already in storage
 
   // merge new state and old state
   );var newState = Object.assign({}, reduxState, persistedState

@@ -7,7 +7,7 @@ const reducer = (state = initialState, action) => {
   const newState = Object.assign({}, state, action.payload)
 
   switch (action.type) {
-    case LOAD_PRODUCTS: return newState
+    case LOAD_PRODUCTS: return Object.assign({}, state, action.products)
     default: return state
   }
 }
