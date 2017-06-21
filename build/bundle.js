@@ -12399,8 +12399,7 @@ var ProductsList = function (_Component) {
 }(_react.Component);
 
 var mstp = function mstp(state) {
-  console.log('STATE in ProductsList.js', state);
-  return { products: state.items };
+  return { products: state.products };
 };
 
 exports.default = (0, _reactRedux.connect)(mstp)(ProductsList);

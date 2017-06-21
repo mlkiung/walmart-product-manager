@@ -36,9 +36,6 @@ class ProductsList extends Component {
   }
 }
 
-const mstp = (state) => {
-  console.log('STATE in ProductsList.js', state)
-  return { products: state.items }
-}
+const mstp = (state) => ({products: state.products})
 
 export default connect(mstp)(ProductsList)
