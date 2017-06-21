@@ -13,16 +13,16 @@ class ProductsList extends Component {
     }
   }
 
-  componentDidMount() {
-    this.setState({products: this.props.products})
-  }
+  // componentDidMount() {
+  //   this.setState({products: this.props.products})
+  // }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('nextProps in ProductsList.jsx', nextProps)
-    if (nextProps.products !== this.props.products) {
-      this.setState({ products: nextProps.products })
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log('nextProps in ProductsList.jsx', nextProps)
+  //   if (nextProps.products !== this.props.products) {
+  //     this.setState({ products: nextProps.products })
+  //   }
+  // }
 
   render() {
     const products = this.state.products
@@ -31,7 +31,7 @@ class ProductsList extends Component {
     return (
       <div id="products-container">
         <TableControlPanel />
-        <Table products={products} />
+        <Table />
       </div>
     )
   }

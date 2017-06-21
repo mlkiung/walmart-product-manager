@@ -12368,20 +12368,18 @@ var ProductsList = function (_Component) {
     return _this;
   }
 
+  // componentDidMount() {
+  //   this.setState({products: this.props.products})
+  // }
+
+  // componentWillReceiveProps(nextProps) {
+  //   console.log('nextProps in ProductsList.jsx', nextProps)
+  //   if (nextProps.products !== this.props.products) {
+  //     this.setState({ products: nextProps.products })
+  //   }
+  // }
+
   _createClass(ProductsList, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.setState({ products: this.props.products });
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      console.log('nextProps in ProductsList.jsx', nextProps);
-      if (nextProps.products !== this.props.products) {
-        this.setState({ products: nextProps.products });
-      }
-    }
-  }, {
     key: 'render',
     value: function render() {
       var products = this.state.products;
@@ -12391,7 +12389,7 @@ var ProductsList = function (_Component) {
         'div',
         { id: 'products-container' },
         _react2.default.createElement(_TableControlPanel2.default, null),
-        _react2.default.createElement(_Table2.default, { products: products })
+        _react2.default.createElement(_Table2.default, null)
       );
     }
   }]);
@@ -12833,18 +12831,20 @@ var Table = function (_Component) {
     return _this;
   }
 
-  // componentDidMount() {
-  //   this.setState({products: this.props.products})
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   console.log('nextProps in ProductsList.jsx', nextProps)
-  //   if (nextProps.products !== this.props.products) {
-  //     this.setState({ products: nextProps.products })
-  //   }
-  // }
-
   _createClass(Table, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.setState({ products: this.props.products });
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      console.log('nextProps in ProductsList.jsx', nextProps);
+      if (nextProps.products !== this.props.products) {
+        this.setState({ products: nextProps.products });
+      }
+    }
+  }, {
     key: 'handleClick',
     value: function handleClick(event) {
       event.preventDefault();
@@ -12984,7 +12984,7 @@ var Table = function (_Component) {
 }(_react.Component);
 
 var mstp = function mstp(state) {
-  return {};
+  return { products: state.items };
 };
 var mdtp = function mdtp(dispatch) {
   return {};

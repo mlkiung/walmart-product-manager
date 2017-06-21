@@ -8,16 +8,16 @@ class Table extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  // componentDidMount() {
-  //   this.setState({products: this.props.products})
-  // }
+  componentDidMount() {
+    this.setState({products: this.props.products})
+  }
 
-  // componentWillReceiveProps(nextProps) {
-  //   console.log('nextProps in ProductsList.jsx', nextProps)
-  //   if (nextProps.products !== this.props.products) {
-  //     this.setState({ products: nextProps.products })
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps in ProductsList.jsx', nextProps)
+    if (nextProps.products !== this.props.products) {
+      this.setState({ products: nextProps.products })
+    }
+  }
 
   handleClick(event) {
     event.preventDefault()
@@ -78,7 +78,7 @@ class Table extends Component {
   }
 }
 
-const mstp = (state) => ({})
+const mstp = (state) => ({products: state.items})
 const mdtp = (dispatch) => ({})
 
 export default connect(mstp, mdtp)(Table)
