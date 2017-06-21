@@ -13140,10 +13140,10 @@ var makeQueryString = function makeQueryString(input) {
   var queryStarter = 'http://api.walmartlabs.com/v1/search?';
   var apiKey = '&apiKey=' + _api2.default;
   var json = '&format=json';
+  var responseGroup = '&responseGroup=full';
   var query = input.query ? '&query=' + input.query : null;
   var sortOption = input.sortOption ? '&sort=' + input.sortOption : null;
-  var responseGroup = '&responseGroup=full';
-  var results = input.results ? '&numItems=' + input.results : null;
+  var results = input.results ? '&numItems=' + input.results : '&numItems=' + 25;
   var startAt = input.startAt ? '&start=' + input.startAt : null;
   var brandName = input.brandName ? '&facet=on&facet.filter=brand:' + input.brandName : null;
 
