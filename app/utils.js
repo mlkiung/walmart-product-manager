@@ -3,7 +3,7 @@ import fetchJsonp from 'fetch-jsonp'
 import store from './redux/store'
 import { receiveProducts } from './redux/search'
 
-const makeQueryString = (input) => {
+const makeQueryString = (input, startingNumber) => {
   // CONSTANTS ('input' is an array of search parameters)
   const queryStarter = `http://api.walmartlabs.com/v1/search?`
   const apiKey = `&apiKey=${key}`
@@ -37,35 +37,68 @@ const makeQueryString = (input) => {
   return buildArr.join('')
 }
 
+const formatNewData = (data) => {
+  const query = {
+    numItems: data.numItems,
+    query: data.query,
+    responseGroup: data.responseGroup,
+    sort: data.sort,
+    start: data.start,
+    totalResults: data.totalResults
+  }
+
+  const itemsArr = data.items
+  const mappedItems = new Map()
+  itemsArr.forEach((item) => {
+    const key = item.itemId
+    const value = {
+      name: item.name,
+      brandName: item.brandName,
+      customerRating: item.customerRating,
+      customerRatingImage: item.customerRatingImage,
+      itemId: item.itemId,
+      categoryPath: item.categoryPath,
+      numReviews: item.numReviews,
+      productUrl: item.productUrl,
+      salePrice: item.salePrice,
+      thumbnailImage: item.thumbnailImage
+    }
+    mappedItems.set(key, value)
+  })
+  console.log('MAP OF ITEMS', mappedItems)
+  return [query, mappedItems]
+}
+
 const getProductsFromApi = function(queryObj) {
   const queryString = makeQueryString(queryObj)
 
-  // uses fetchJsonp library to get products from Walmart API
-  fetchJsonp(queryString)
-    .then((response) => response.json())
-    .then((json) => {
-      console.log('parsed json', json)
-      store.dispatch(receiveProducts(json))
-      // store.subscribe(() => {
-      //   localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-      // })
-    })
-    .catch((ex) => console.log('parsing failed', ex))
+  return new Promise((resolve, reject) => {
+    fetchJsonp(queryString)
+      .then((response) => response.json())
+      .then((json) => {
+        console.log('parsed json', json)
+        const formattedData = formatNewData(json)
+        resolve(formattedData)
+      })
+      // .catch((ex) => console.log('parsing failed', ex))
+      .catch((ex) => new Error('parsing failed', ex))
+  })
 }
 
+// const getProductsFromApi = function(queryObj) {
+//   const queryString = makeQueryString(queryObj)
+//   console.log('queryString', queryString)
+
+//   // uses fetchJsonp library to get products from Walmart API
+//   fetchJsonp(queryString)
+//     .then((response) => response.json())
+//     .then((json) => {
+//       console.log('parsed json', json)
+//       const formattedData = formatNewData(json)
+//       return formattedData
+//     })
+//     // .catch((ex) => console.log('parsing failed', ex))
+//     .catch((ex) => new Error('parsing failed', ex))
+// }
+
 export { getProductsFromApi }
-
-/*
-
-store.subscribe(() => {
-  localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-})
-
-const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {}
-
-const store = createStore(reducer, persistedState,
- any middleware...)
-
-)
-
-*/

@@ -21,7 +21,7 @@ class Table extends Component {
 
   handleClick(event) {
     event.preventDefault()
-    const target = event.target
+    const target = event.target.name
   }
 
   render() {

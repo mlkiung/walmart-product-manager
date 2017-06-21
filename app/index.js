@@ -9,7 +9,6 @@ import { createBrowserHistory } from 'history'
 import store from './redux/store'
 import Toolbar from './components/Toolbar'
 import ProductsList from './components/ProductsList'
-import { loadProducts } from './redux/search'
 
 const history = createBrowserHistory()
 

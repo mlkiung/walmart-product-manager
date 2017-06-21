@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import AdvancedSearch from './AdvancedSearch'
 import { getProductsFromApi } from '../utils'
-// import { clearStorage } from '../../localStorage'
+import {receiveProducts} from '../redux/search'
 
 class Toolbar extends Component {
   constructor() {
@@ -16,6 +16,7 @@ class Toolbar extends Component {
       results: '',
       startAt: '',
       sortOption: 'relevance',
+      data: {},
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -50,11 +51,16 @@ class Toolbar extends Component {
     const sortOption = this.state.sortOption
 
     const queryObj = { query, brandName, results, startAt, sortOption }
+    // const data = new Promise((resolve, reject) => {
+    //   resolve(getProductsFromApi(queryObj))
+    // })
 
     if (query && query !== '') {
-      const products = getProductsFromApi(queryObj)
-      // localStorage.clear()
-      // clearStorage()
+      const data = getProductsFromApi(queryObj)
+      data.then((products) => {
+        this.props.receiveProducts(products)
+      })
+        .catch(console.error)
     } else {
       window.alert('Please enter a query.')
     }
@@ -92,4 +98,7 @@ class Toolbar extends Component {
   }
 }
 
-export default Toolbar
+const mstp = (state) => ({})
+const mdtp = (dispatch) => ({receiveProducts})
+
+export default connect(mstp, mdtp)(Toolbar)

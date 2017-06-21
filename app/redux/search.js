@@ -1,7 +1,10 @@
 import store from './store'
 
 // action creator
-const receiveProducts = (products) => loadProducts(products)
+const receiveProducts = (products) => {
+  console.log('products in action creator', products)
+  store.dispatch(loadProducts(products))
+}
 
 // constant
 const LOAD_PRODUCTS = 'LOAD_PRODUCTS'

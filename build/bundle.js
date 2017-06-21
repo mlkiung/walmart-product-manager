@@ -3770,6 +3770,25 @@ module.exports = SyntheticUIEvent;
 
 /***/ }),
 /* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Provider__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(224);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createProvider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connect", function() { return __WEBPACK_IMPORTED_MODULE_2__connect_connect__["a"]; });
+
+
+
+
+
+
+/***/ }),
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3788,11 +3807,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // action creator
 var receiveProducts = function receiveProducts(products) {
-  return loadProducts(products
+  console.log('products in action creator', products);
+  _store2.default.dispatch(loadProducts(products));
+};
 
-  // constant
-  );
-};var LOAD_PRODUCTS = 'LOAD_PRODUCTS';
+// constant
+var LOAD_PRODUCTS = 'LOAD_PRODUCTS';
 
 // action
 var loadProducts = function loadProducts(products) {
@@ -3804,25 +3824,6 @@ var loadProducts = function loadProducts(products) {
 
 exports.receiveProducts = receiveProducts;
 exports.LOAD_PRODUCTS = LOAD_PRODUCTS;
-
-/***/ }),
-/* 31 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Provider__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(98);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(224);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createProvider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["b"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connect", function() { return __WEBPACK_IMPORTED_MODULE_2__connect_connect__["a"]; });
-
-
-
-
-
 
 /***/ }),
 /* 32 */
@@ -12372,13 +12373,15 @@ var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(31);
+var _reactRedux = __webpack_require__(30);
 
 var _AdvancedSearch = __webpack_require__(116);
 
 var _AdvancedSearch2 = _interopRequireDefault(_AdvancedSearch);
 
 var _utils = __webpack_require__(121);
+
+var _search = __webpack_require__(31);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12389,8 +12392,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// import { clearStorage } from '../../localStorage'
 
 var Toolbar = function (_Component) {
   _inherits(Toolbar, _Component);
@@ -12406,7 +12407,8 @@ var Toolbar = function (_Component) {
       brandName: '',
       results: '',
       startAt: '',
-      sortOption: 'relevance'
+      sortOption: 'relevance',
+      data: {}
     };
 
     _this.handleClick = _this.handleClick.bind(_this);
@@ -12437,6 +12439,8 @@ var Toolbar = function (_Component) {
   }, {
     key: 'handleSubmit',
     value: function handleSubmit(event) {
+      var _this2 = this;
+
       event.preventDefault();
 
       var query = this.state.query;
@@ -12446,12 +12450,16 @@ var Toolbar = function (_Component) {
       var sortOption = this.state.sortOption;
 
       var queryObj = { query: query, brandName: brandName, results: results, startAt: startAt, sortOption: sortOption };
+      var data = new Promise(function (resolve, reject) {
+        resolve((0, _utils.getProductsFromApi)(queryObj));
+      });
+
+      data.then(function (products) {
+        _this2.props.receiveProducts(products);
+      }).catch(console.error);
 
       if (query && query !== '') {
-        var products = (0, _utils.getProductsFromApi)(queryObj
-        // localStorage.clear()
-        // clearStorage()
-        );
+        data();
       } else {
         window.alert('Please enter a query.');
       }
@@ -12509,7 +12517,14 @@ var Toolbar = function (_Component) {
   return Toolbar;
 }(_react.Component);
 
-exports.default = Toolbar;
+var mstp = function mstp(state) {
+  return {};
+};
+var mdtp = function mdtp(dispatch) {
+  return { receiveProducts: _search.receiveProducts };
+};
+
+exports.default = (0, _reactRedux.connect)(mstp, mdtp)(Toolbar);
 
 /***/ }),
 /* 112 */
@@ -12653,9 +12668,9 @@ var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(31);
+var _reactRedux = __webpack_require__(30);
 
-var _search = __webpack_require__(30);
+var _search = __webpack_require__(31);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12761,7 +12776,7 @@ var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(31);
+var _reactRedux = __webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12800,7 +12815,7 @@ var Table = function (_Component) {
     key: 'handleClick',
     value: function handleClick(event) {
       event.preventDefault();
-      var target = event.target;
+      var target = event.target.name;
     }
   }, {
     key: 'render',
@@ -13039,7 +13054,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(113);
 
-var _reactRedux = __webpack_require__(31);
+var _reactRedux = __webpack_require__(30);
 
 var _reactRouter = __webpack_require__(114);
 
@@ -13056,8 +13071,6 @@ var _Toolbar2 = _interopRequireDefault(_Toolbar);
 var _ProductsList = __webpack_require__(110);
 
 var _ProductsList2 = _interopRequireDefault(_ProductsList);
-
-var _search = __webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13099,7 +13112,7 @@ var _store = __webpack_require__(24);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _search = __webpack_require__(30);
+var _search = __webpack_require__(31);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13109,11 +13122,13 @@ var reducer = function reducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments[1];
 
-  var newState = Object.assign({}, state, action.payload);
+  console.log('action', action);
 
   switch (action.type) {
+
     case _search.LOAD_PRODUCTS:
-      return Object.assign({}, state, action.products);
+      return Object.assign({}, state, { query: action[0], products: action[1] });
+
     default:
       return state;
   }
@@ -13145,11 +13160,11 @@ var _store = __webpack_require__(24);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _search = __webpack_require__(30);
+var _search = __webpack_require__(31);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var makeQueryString = function makeQueryString(input) {
+var makeQueryString = function makeQueryString(input, startingNumber) {
   // CONSTANTS ('input' is an array of search parameters)
   var queryStarter = 'http://api.walmartlabs.com/v1/search?';
   var apiKey = '&apiKey=' + _api2.default;
@@ -13173,40 +13188,57 @@ var makeQueryString = function makeQueryString(input) {
   return buildArr.join('');
 };
 
+var formatNewData = function formatNewData(data) {
+  var query = {
+    numItems: data.numItems,
+    query: data.query,
+    responseGroup: data.responseGroup,
+    sort: data.sort,
+    start: data.start,
+    totalResults: data.totalResults
+  };
+
+  var itemsArr = data.items;
+  var mappedItems = new Map();
+  itemsArr.forEach(function (item) {
+    var key = item.itemId;
+    var value = {
+      name: item.name,
+      brandName: item.brandName,
+      customerRating: item.customerRating,
+      customerRatingImage: item.customerRatingImage,
+      itemId: item.itemId,
+      categoryPath: item.categoryPath,
+      numReviews: item.numReviews,
+      productUrl: item.productUrl,
+      salePrice: item.salePrice,
+      thumbnailImage: item.thumbnailImage
+    };
+    mappedItems.set(key, value);
+  });
+  console.log('MAP OF ITEMS', mappedItems);
+  return [query, mappedItems];
+};
+
 var getProductsFromApi = function getProductsFromApi(queryObj) {
-  var queryString = makeQueryString(queryObj
+  var queryString = makeQueryString(queryObj);
+  console.log('queryString', queryString
 
   // uses fetchJsonp library to get products from Walmart API
   );(0, _fetchJsonp2.default)(queryString).then(function (response) {
     return response.json();
   }).then(function (json) {
     console.log('parsed json', json);
-    _store2.default.dispatch((0, _search.receiveProducts)(json)
-    // store.subscribe(() => {
-    //   localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-    // })
-    );
-  }).catch(function (ex) {
-    return console.log('parsing failed', ex);
+    var formattedData = formatNewData(json);
+    return formattedData;
+  }
+  // .catch((ex) => console.log('parsing failed', ex))
+  ).catch(function (ex) {
+    return new Error('parsing failed', ex);
   });
 };
 
 exports.getProductsFromApi = getProductsFromApi;
-
-/*
-
-store.subscribe(() => {
-  localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-})
-
-const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {}
-
-const store = createStore(reducer, persistedState,
- any middleware...)
-
-)
-
-*/
 
 /***/ }),
 /* 122 */
@@ -13232,8 +13264,6 @@ var localStorage = window.localStorage;
 var getState = function getState() {
   var persistedState = JSON.parse(localStorage.getItem('reduxState')
 
-  // persistedState && JSON.stringify(persistedState)
-
   // check to make sure its there
   );persistedState && console.log('persistedState is loaded from localStorage', persistedState);
   return persistedState;
@@ -13241,60 +13271,17 @@ var getState = function getState() {
 
 /* ~~~~~~~~~~ SAVE REDUX STATE TO LOCAL STORAGE ~~~~~~~~~~ */
 var saveState = function saveState() {
-  var reduxState = _store2.default.getState // new state to be stored
-  ();var persistedState = JSON.parse(localStorage.getItem('reduxState') // state already in storage
+  var redux = _store2.default.getState // new state to be stored
+  ();var storage = JSON.parse(localStorage.getItem('reduxState') // state already in storage
 
   // merge new state and old state
-  );var newState = Object.assign({}, reduxState, persistedState
+  // const newState = Object.assign({}, persistedState, reduxState)
+  );var merge = Object.assign({}, storage, redux
+  // const copy = JSON.parse(JSON.stringify(merge))
 
   // set localStorage to new value
-  );newState && localStorage.setItem('reduxState', JSON.stringify(newState)
-
-  // check to make sure it's saved
-  );var newPersistedState = localStorage.getItem('reduxState');
-  newPersistedState && console.log('reduxState is saved in localStorage'
-
-  // DEBUG: double check for duplicates
-  // newPersistedState
-  //   && checkForDuplicates(newPersistedState)
-  );
+  );merge && localStorage.setItem('reduxState', JSON.stringify(merge));
 };
-
-/* ~~~~~~~~~~ CHECK FOR DUPLICATES ~~~~~~~~~~ */
-/*
-Need to check for 'name' duplicates in dataset; 10MB localStorage; order doesn't matter
-
-If a duplicate entry is found in localStorage, need to check if the entry has update information.
-If it does, overwrite localStorage. Else, skip over it.
-*/
-
-// const checkForDuplicates = (state) => {
-//   const products = state['items'] // an array of the products listings
-//   products && console.log('PRODUCTS', products)
-//   const directory = {}
-
-//   // for each product, grab its name check if it already exists in the directory
-//   // if it does, write an error to the console
-//   // if it doesn't, add it to the directory
-//   products && products.forEach((product, i) => {
-//     const name = product.name
-
-//     directory[name]
-//       ? console.log('ERROR: Duplicate entry found; saveState not checking properly.')
-//       : directory[name] = true
-//   })
-// }
-
-/* ~~~~~~~~~~ CLEAR LOCAL STORAGE FOR NEW QUERY ~~~~~~~~~~ */
-/*const clearStorage = () => {
-  localStorage.clear()
-
-  // double check to make sure localStorage is empty
-  const _items = JSON.stringify(localStorage.getItem('reduxState'))
-  _items === {} || _items === null
-    ? console.log('Current localStorage contents: ', _items)
-    : console.log('localStorage reset; ready for new query')
-}*/
 
 exports.getState = getState;
 exports.saveState = saveState;
