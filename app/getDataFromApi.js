@@ -48,7 +48,7 @@ const formatNewData = (data) => {
   }
 
   const itemsArr = data.items
-  const mappedItems = new Map()
+  const mappedItems = {}
   itemsArr.forEach((item) => {
     const key = item.itemId
     const value = {
@@ -63,13 +63,13 @@ const formatNewData = (data) => {
       salePrice: item.salePrice,
       thumbnailImage: item.thumbnailImage
     }
-    mappedItems.set(key, value)
+    mappedItems[key] = value
   })
   console.log('MAP OF ITEMS', mappedItems)
   return [query, mappedItems]
 }
 
-const getProductsFromApi = function(queryObj) {
+const getDataFromApi = function(queryObj) {
   const queryString = makeQueryString(queryObj)
 
   return new Promise((resolve, reject) => {
@@ -85,7 +85,7 @@ const getProductsFromApi = function(queryObj) {
   })
 }
 
-// const getProductsFromApi = function(queryObj) {
+// const getDataFromApi = function(queryObj) {
 //   const queryString = makeQueryString(queryObj)
 //   console.log('queryString', queryString)
 
@@ -101,4 +101,4 @@ const getProductsFromApi = function(queryObj) {
 //     .catch((ex) => new Error('parsing failed', ex))
 // }
 
-export { getProductsFromApi }
+export { getDataFromApi }

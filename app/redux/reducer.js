@@ -1,5 +1,5 @@
 import store from './store'
-import { LOAD_PRODUCTS } from './search'
+import { LOAD_PRODUCTS, LOAD_QUERY } from './search'
 
 const initialState = {}
 
@@ -9,7 +9,10 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
 
     case LOAD_PRODUCTS:
-      return Object.assign({}, state, { query: action[0], products: action[1] })
+      return Object.assign({}, state, action)
+
+    case LOAD_QUERY:
+      return Object.assign({}, state, action)
 
     default: return state
   }

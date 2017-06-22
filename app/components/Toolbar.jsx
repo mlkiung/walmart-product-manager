@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import AdvancedSearch from './AdvancedSearch'
-import { getProductsFromApi } from '../utils'
+import { getDataFromApi } from '../getDataFromApi'
 import {receiveProducts} from '../redux/search'
 
 class Toolbar extends Component {
@@ -51,12 +51,9 @@ class Toolbar extends Component {
     const sortOption = this.state.sortOption
 
     const queryObj = { query, brandName, results, startAt, sortOption }
-    // const data = new Promise((resolve, reject) => {
-    //   resolve(getProductsFromApi(queryObj))
-    // })
 
     if (query && query !== '') {
-      const data = getProductsFromApi(queryObj)
+      const data = getDataFromApi(queryObj)
       data.then((products) => {
         this.props.receiveProducts(products)
       })

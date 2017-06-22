@@ -15,11 +15,14 @@ const getState = () => {
 /* ~~~~~~~~~~ SAVE REDUX STATE TO LOCAL STORAGE ~~~~~~~~~~ */
 const saveState = () => {
   const redux = store.getState() // new state to be stored
+  console.log('reduxstate for merging into localstorage', redux)
   const storage = JSON.parse(localStorage.getItem('reduxState')) // state already in storage
+  console.log('storage', storage)
 
   // merge new state and old state
   // const newState = Object.assign({}, persistedState, reduxState)
   const merge = Object.assign({}, storage, redux)
+
   // const copy = JSON.parse(JSON.stringify(merge))
 
   // set localStorage to new value

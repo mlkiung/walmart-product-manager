@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { values } from 'lodash'
 
 class Table extends Component {
   constructor(props) {
@@ -25,6 +26,8 @@ class Table extends Component {
   }
 
   render() {
+    console.log('this.props', this.props)
+    const products = _.values(this.props.products)
     return (
       <table className="table-condensed">
         <thead>
@@ -42,7 +45,7 @@ class Table extends Component {
           </tr>
         </thead>
         <tbody>
-          {this.props.products && this.props.products.map((product, i) => (
+          {products && products.map((product, i) => (
             <tr key={i}>
               <td><img src={product.thumbnailImage}/></td>
               <td>{product.name}</td>
@@ -78,7 +81,7 @@ class Table extends Component {
   }
 }
 
-const mstp = (state) => ({products: state.items})
+const mstp = (state) => ({products: state.products})
 const mdtp = (dispatch) => ({})
 
 export default connect(mstp, mdtp)(Table)
