@@ -35,13 +35,11 @@ class TableRow extends Component {
 
   handleDelete(event) {
     event.preventDefault()
-    this.props.deleteProduct(event.target.id)
+    event.target.id && this.props.deleteProduct(event.target.id)
   }
 
   render() {
     const product = this.props.product
-    console.log('PRODUCT', this.props.product)
-
     return (
       <tr>
         <td><img src={product.thumbnailImage}/></td>
@@ -79,6 +77,6 @@ class TableRow extends Component {
 }
 
 const mstp = (state, ownProps) => ({product: state.products[ownProps.product.itemId]})
-const mdtp = (dispatch, ownProps) => ({ deleteProduct, updateBrand })
+const mdtp = (dispatch) => ({ deleteProduct, updateBrand })
 
 export default connect(mstp, mdtp)(TableRow)

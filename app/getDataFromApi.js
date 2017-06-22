@@ -65,7 +65,6 @@ const formatNewData = (data) => {
     }
     mappedItems[key] = value
   })
-  console.log('MAP OF ITEMS', mappedItems)
   return [query, mappedItems]
 }
 

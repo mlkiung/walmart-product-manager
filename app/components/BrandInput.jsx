@@ -43,7 +43,7 @@ class BrandInput extends Component {
               className="btn btn-default"
               id={`input-brand-${product.itemId}`}
               name={product.itemId}
-              onClick={this.handleClick}></button>
+              onClick={this.handleClick}>Update Brand</button>
           </div>
         </form>
       </td>
