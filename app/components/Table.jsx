@@ -13,37 +13,35 @@ class Table extends Component {
     this.state = {
       products: [],
     }
-
-    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
     this.setState({products: this.props.products})
   }
 
-  handleClick(event) {
-    event.preventDefault()
-    const name = event.target.name
-    console.log('TARGET: ', name)
-    if (name.indexOf('toggle-brand')) this.setState({ editable: true })
-    else if (name.indexOf('input-brand')) this.setState({ editable: false })
-    else if (name.indexOf('table-row')) this.props.deleteProduct(name)
-    else console.log('None of the target names matched the event target name!')
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps in ProductsList.jsx', nextProps)
+    if (nextProps.products !== this.props.products) {
+      this.setState({ products: nextProps.products })
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps !== this.props || nextState !== this.state
   }
 
   render() {
     const products = _.values(this.state.products)
     return (
       <div>
+        <TableControlPanel />
         <table className="table-condensed">
-          <TableControlPanel />
           <TableHead />
           <tbody>
             {products && products.map((product, i) => (
               <TableRow
                 product={product}
-                key={i}
-                handleClick={this.handleClick} />
+                key={i} />
             ))}
           </tbody>
         </table>
@@ -53,9 +51,8 @@ class Table extends Component {
 }
 
 const mstp = (state) => ({ products: state.products })
-const mdtp = (dispatch) => ({ deleteProduct })
 
-export default connect(mstp, mdtp)(Table)
+export default connect(mstp)(Table)
 
 // componentDidMount() {
 //   this.setState({products: this.props.products})

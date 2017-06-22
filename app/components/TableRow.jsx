@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { deleteProduct } from '../redux/search'
 import BrandInput from './BrandInput'
 import BrandToggle from './BrandToggle'
 
@@ -13,10 +14,19 @@ class TableRow extends Component {
     }
 
     this.handleClick = this.handleClick.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   handleClick(event) {
-    this.props.handleClick(event)
+    event.preventDefault()
+    const name = event.target.name.slice(0, 5)
+    if (name === 'toggl') this.setState({ editable: true })
+    else if (name === 'input') this.setState({ editable: false })
+  }
+
+  handleDelete(event) {
+    event.preventDefault()
+    this.props.deleteProduct(event.target.name)
   }
 
   render() {
@@ -49,8 +59,8 @@ class TableRow extends Component {
             type="submit"
             className="btn btn-default"
             aria-label="Left Align"
-            onClick={this.handleClick}
-            name={`table-row-${product.itemId}`}>
+            onClick={this.handleDelete}
+            name={product.itemId}>
             <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
           </button>
         </td>
@@ -59,4 +69,7 @@ class TableRow extends Component {
   }
 }
 
-export default TableRow
+const mstp = () => ({})
+const mdtp = (dispatch) => ({ deleteProduct })
+
+export default connect(mstp, mdtp)(TableRow)

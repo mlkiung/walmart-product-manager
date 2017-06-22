@@ -23,7 +23,6 @@ class BrandToggle extends Component {
 
   render() {
     const product = this.props.product
-    // console.log('this.props', this.props)
     return (
       <td>
         {product.brandName}
