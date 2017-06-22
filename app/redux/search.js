@@ -8,8 +8,13 @@ const receiveProducts = (data) => {
   // need query????
 }
 
+const receiveNewProducts = () => {
+  store.dispatch(loadAllProducts())
+}
+
 // constant
 const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
+const LOAD_ALL_PRODUCTS = 'LOAD_ALL_PRODUCTS'
 const LOAD_QUERY = 'LOAD_QUERY'
 
 // action
@@ -18,9 +23,13 @@ const loadProducts = (products) => ({
   products
 })
 
+const loadAllProducts = () => ({
+  type: LOAD_ALL_PRODUCTS,
+})
+
 const loadQuery = (query) => ({
   type: LOAD_QUERY,
   query
 })
 
-export { receiveProducts, LOAD_PRODUCTS, LOAD_QUERY }
+export { receiveProducts, receiveNewProducts, LOAD_PRODUCTS, LOAD_QUERY }
