@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { values } from 'lodash'
+import { deleteProduct } from '../redux/search'
 
 class Table extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      products: this.props.products
+    }
 
     this.handleClick = this.handleClick.bind(this)
   }
@@ -20,14 +25,21 @@ class Table extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps !== this.props || nextState !== this.state
+  }
+
   handleClick(event) {
     event.preventDefault()
     const target = event.target.name
+    console.log(target)
+    target !== undefined && window.localStorage.removeItem(target)
+    target !== undefined && window.location.reload()
   }
 
   render() {
-    console.log('this.props', this.props)
-    const products = _.values(this.props.products)
+    console.log('this.props', this.state)
+    const products = _.values(this.state.products)
     return (
       <table className="table-condensed">
         <thead>
@@ -82,6 +94,6 @@ class Table extends Component {
 }
 
 const mstp = (state) => ({products: state.products})
-const mdtp = (dispatch) => ({})
+const mdtp = (dispatch) => ({ deleteProduct })
 
 export default connect(mstp, mdtp)(Table)

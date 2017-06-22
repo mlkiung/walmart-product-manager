@@ -1,5 +1,16 @@
 import store from './store'
 
+const getStorage = () => {
+  const products = {}
+
+  for (let i = 0; i < window.localStorage.length; i++) {
+    const key = window.localStorage.key(i)
+    const value = JSON.parse(window.localStorage.getItem(key))
+    products[key] = value
+  }
+
+  return products
+}
 // action creator
 const receiveProducts = (data) => {
   console.log('products in action creator', data)
@@ -8,7 +19,14 @@ const receiveProducts = (data) => {
   // need query????
 }
 
-const receiveNewProducts = () => {
+const getAllProducts = () => {
+  store.dispatch(loadAllProducts(getStorage()))
+}
+
+const deleteProduct = (itemId) => {
+  console.log(window.localStorage.getItem(itemId))
+  window.localStorage.removeItem(itemId)
+  console.log('STORESTATE', store.getState())
   store.dispatch(loadAllProducts())
 }
 
@@ -23,8 +41,9 @@ const loadProducts = (products) => ({
   products
 })
 
-const loadAllProducts = () => ({
+const loadAllProducts = (products) => ({
   type: LOAD_ALL_PRODUCTS,
+  products
 })
 
 const loadQuery = (query) => ({
@@ -32,4 +51,4 @@ const loadQuery = (query) => ({
   query
 })
 
-export { receiveProducts, receiveNewProducts, LOAD_PRODUCTS, LOAD_QUERY }
+export { receiveProducts, getAllProducts, deleteProduct, LOAD_PRODUCTS, LOAD_QUERY, LOAD_ALL_PRODUCTS }

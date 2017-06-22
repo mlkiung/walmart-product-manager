@@ -12,7 +12,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, action)
 
     case LOAD_ALL_PRODUCTS:
-      return Object.assign({}, state.products, action)
+      return Object.assign({}, state, action)
 
     case LOAD_QUERY:
       return Object.assign({}, state, action)
