@@ -14,6 +14,8 @@ const store = createStore(
     thunkMiddleware))
 )
 
+console.log('STORE STATE', store.getState())
+
 store.subscribe(() => saveState())
 
 export default store

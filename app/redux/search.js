@@ -24,13 +24,22 @@ const receiveProducts = (data) => {
 const getAllProducts = () => {
   const products = getStorage()
   products.then((products) => {
-    store.dispatch(loadAllProducts(products))
+    loadAllProducts(products)
   }).catch(console.error)
 }
 
 const deleteProduct = (itemId) => {
-  window.localStorage.removeItem(itemId)
-  getAllProducts()
+  const remove = new Promise((resolve, reject) => {
+    const l1 = localStorage.length
+    const r = localStorage.removeItem(itemId)
+    const l2 = localStorage.length
+    resolve(l1 !== l2)
+    reject(new Error('Item has not been removed from localStorage'))
+  })
+
+  remove.then(() => {
+    store.dispatch(removeProduct(itemId))
+  }).catch(console.error)
 }
 
 const updateBrand = (itemId, brand) => {
@@ -44,6 +53,7 @@ const updateBrand = (itemId, brand) => {
 const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
 const LOAD_ALL_PRODUCTS = 'LOAD_ALL_PRODUCTS'
 const LOAD_QUERY = 'LOAD_QUERY'
+const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 
 // action creators
 const loadProducts = (products) => ({
@@ -61,4 +71,9 @@ const loadQuery = (query) => ({
   query
 })
 
-export { receiveProducts, getAllProducts, deleteProduct, LOAD_PRODUCTS, LOAD_QUERY, LOAD_ALL_PRODUCTS }
+const removeProduct = (itemId) => ({
+  type: REMOVE_PRODUCT,
+  itemId
+})
+
+export { receiveProducts, getAllProducts, deleteProduct, LOAD_PRODUCTS, LOAD_QUERY, LOAD_ALL_PRODUCTS, REMOVE_PRODUCT }

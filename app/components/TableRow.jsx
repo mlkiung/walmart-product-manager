@@ -19,7 +19,7 @@ class TableRow extends Component {
 
   handleClick(event) {
     event.preventDefault()
-    console.log('event.target', event.target.value)
+    console.log('event.target', event.target)
     const name = event.target.id.slice(0, 5)
     if (name === 'toggl') this.setState({ editable: true })
     else if (name === 'input') this.setState({ editable: false })
@@ -31,7 +31,7 @@ class TableRow extends Component {
   }
 
   render() {
-    const product = this.state.product
+    const product = this.props.product
 
     return (
       <tr>
@@ -69,7 +69,7 @@ class TableRow extends Component {
   }
 }
 
-const mstp = () => ({})
+const mstp = (state, ownProps) => ({product: state.products[ownProps.product.itemId]})
 const mdtp = (dispatch) => ({ deleteProduct })
 
 export default connect(mstp, mdtp)(TableRow)

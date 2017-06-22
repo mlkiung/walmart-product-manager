@@ -16,18 +16,18 @@ class Table extends Component {
   }
 
   componentDidMount() {
-    this.setState({products: this.props.products})
+    this.setState({ products: this.props.products })
   }
 
   componentWillReceiveProps(nextProps) {
     console.log('nextProps in ProductsList.jsx', nextProps)
-    if (nextProps.products !== this.props.products) {
+    if (Object.keys(nextProps.products) !== Object.keys(this.props.products)) {
       this.setState({ products: nextProps.products })
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps !== this.props || nextState !== this.state
+    return nextProps.products !== this.props.products || nextState.products !== this.state.products
   }
 
   render() {
@@ -53,35 +53,3 @@ class Table extends Component {
 const mstp = (state) => ({ products: state.products })
 
 export default connect(mstp)(Table)
-
-// componentDidMount() {
-//   this.setState({products: this.props.products})
-// }
-
-// componentWillReceiveProps(nextProps) {
-//   console.log('nextProps in ProductsList.jsx', nextProps)
-//   if (nextProps.products !== this.props.products) {
-//     this.setState({ products: nextProps.products })
-//   }
-// }
-
-// shouldComponentUpdate(nextProps, nextState) {
-//   return nextProps !== this.props || nextState !== this.state
-// }
-
-//
-
-// handleSubmit(event) {
-//   event.preventDefault()
-//   const brandName = this.state.updatedBrandName
-//   const itemId = this.state.itemId
-//   this.setState({ editable: false })
-//   this.props.updateBrand(itemId, brandName)
-// }
-
-// handleChange(event) {
-//   this.setState({
-//     updatedBrandName: event.target.value,
-//     itemId: event.target.name,
-//   })
-// }

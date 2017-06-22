@@ -1301,7 +1301,7 @@ var _prodInvariant = __webpack_require__(3),
     _assign = __webpack_require__(4);
 
 var CallbackQueue = __webpack_require__(77);
-var PooledClass = __webpack_require__(16);
+var PooledClass = __webpack_require__(17);
 var ReactFeatureFlags = __webpack_require__(82);
 var ReactReconciler = __webpack_require__(22);
 var Transaction = __webpack_require__(37);
@@ -1590,7 +1590,7 @@ module.exports = ReactCurrentOwner;
 
 var _assign = __webpack_require__(4);
 
-var PooledClass = __webpack_require__(16);
+var PooledClass = __webpack_require__(17);
 
 var emptyFunction = __webpack_require__(9);
 var warning = __webpack_require__(2);
@@ -2063,6 +2063,116 @@ module.exports = DOMProperty;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.REMOVE_PRODUCT = exports.LOAD_ALL_PRODUCTS = exports.LOAD_QUERY = exports.LOAD_PRODUCTS = exports.deleteProduct = exports.getAllProducts = exports.receiveProducts = undefined;
+
+var _store = __webpack_require__(25);
+
+var _store2 = _interopRequireDefault(_store);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var getStorage = function getStorage() {
+  return new Promise(function (resolve, reject) {
+    var products = {};
+
+    for (var i = 0; i < window.localStorage.length; i++) {
+      var key = window.localStorage.key(i);
+      var value = JSON.parse(window.localStorage.getItem(key));
+      products[key] = value;
+    }
+
+    resolve(products);
+    reject(new Error('Error retrieving products from localStorage!'));
+  });
+};
+// utils
+var receiveProducts = function receiveProducts(data) {
+  console.log('products in action creator', data);
+  _store2.default.dispatch(loadProducts(data[1]));
+  _store2.default.dispatch(loadQuery(data[0]));
+};
+
+var getAllProducts = function getAllProducts() {
+  var products = getStorage();
+  products.then(function (products) {
+    loadAllProducts(products);
+  }).catch(console.error);
+};
+
+var deleteProduct = function deleteProduct(itemId) {
+  var remove = new Promise(function (resolve, reject) {
+    var l1 = localStorage.length;
+    var r = localStorage.removeItem(itemId);
+    var l2 = localStorage.length;
+    resolve(l1 !== l2);
+    reject(new Error('Item has not been removed from localStorage'));
+  });
+
+  remove.then(function () {
+    _store2.default.dispatch(removeProduct(itemId));
+  }).catch(console.error);
+};
+
+var updateBrand = function updateBrand(itemId, brand) {
+  var item = JSON.parse(window.localStorage.getItem(itemId));
+  item.brandName = brand;
+  window.localStorage.setItem(itemId, item);
+  getAllProducts();
+};
+
+// constants
+var LOAD_PRODUCTS = 'LOAD_PRODUCTS';
+var LOAD_ALL_PRODUCTS = 'LOAD_ALL_PRODUCTS';
+var LOAD_QUERY = 'LOAD_QUERY';
+var REMOVE_PRODUCT = 'REMOVE_PRODUCT';
+
+// action creators
+var loadProducts = function loadProducts(products) {
+  return {
+    type: LOAD_PRODUCTS,
+    products: products
+  };
+};
+
+var loadAllProducts = function loadAllProducts(products) {
+  return {
+    type: LOAD_ALL_PRODUCTS,
+    products: products
+  };
+};
+
+var loadQuery = function loadQuery(query) {
+  return {
+    type: LOAD_QUERY,
+    query: query
+  };
+};
+
+var removeProduct = function removeProduct(itemId) {
+  return {
+    type: REMOVE_PRODUCT,
+    itemId: itemId
+  };
+};
+
+exports.receiveProducts = receiveProducts;
+exports.getAllProducts = getAllProducts;
+exports.deleteProduct = deleteProduct;
+exports.LOAD_PRODUCTS = LOAD_PRODUCTS;
+exports.LOAD_QUERY = LOAD_QUERY;
+exports.LOAD_ALL_PRODUCTS = LOAD_ALL_PRODUCTS;
+exports.REMOVE_PRODUCT = REMOVE_PRODUCT;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -2177,7 +2287,7 @@ module.exports = PooledClass;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2524,7 +2634,7 @@ module.exports = ReactElement;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2590,92 +2700,6 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = warning;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.LOAD_ALL_PRODUCTS = exports.LOAD_QUERY = exports.LOAD_PRODUCTS = exports.deleteProduct = exports.getAllProducts = exports.receiveProducts = undefined;
-
-var _store = __webpack_require__(25);
-
-var _store2 = _interopRequireDefault(_store);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var getStorage = function getStorage() {
-  var products = {};
-
-  for (var i = 0; i < window.localStorage.length; i++) {
-    var key = window.localStorage.key(i);
-    var value = JSON.parse(window.localStorage.getItem(key));
-    products[key] = value;
-  }
-
-  return products;
-};
-// utils
-var receiveProducts = function receiveProducts(data) {
-  console.log('products in action creator', data);
-  _store2.default.dispatch(loadProducts(data[1]));
-  _store2.default.dispatch(loadQuery(data[0]));
-};
-
-var getAllProducts = function getAllProducts() {
-  _store2.default.dispatch(loadAllProducts(getStorage()));
-};
-
-var deleteProduct = function deleteProduct(itemId) {
-  window.localStorage.removeItem(itemId);
-  _store2.default.dispatch(loadAllProducts(getStorage()));
-};
-
-var updateBrand = function updateBrand(itemId, brand) {
-  var item = JSON.parse(window.localStorage.getItem(itemId));
-  item.brandName = brand;
-  window.localStorage.setItem(itemId, item);
-  _store2.default.dispatch(loadAllProducts(getStorage()));
-};
-
-// constants
-var LOAD_PRODUCTS = 'LOAD_PRODUCTS';
-var LOAD_ALL_PRODUCTS = 'LOAD_ALL_PRODUCTS';
-var LOAD_QUERY = 'LOAD_QUERY';
-
-// action creators
-var loadProducts = function loadProducts(products) {
-  return {
-    type: LOAD_PRODUCTS,
-    products: products
-  };
-};
-
-var loadAllProducts = function loadAllProducts(products) {
-  return {
-    type: LOAD_ALL_PRODUCTS,
-    products: products
-  };
-};
-
-var loadQuery = function loadQuery(query) {
-  return {
-    type: LOAD_QUERY,
-    query: query
-  };
-};
-
-exports.receiveProducts = receiveProducts;
-exports.getAllProducts = getAllProducts;
-exports.deleteProduct = deleteProduct;
-exports.LOAD_PRODUCTS = LOAD_PRODUCTS;
-exports.LOAD_QUERY = LOAD_QUERY;
-exports.LOAD_ALL_PRODUCTS = LOAD_ALL_PRODUCTS;
 
 /***/ }),
 /* 20 */
@@ -3061,7 +3085,7 @@ var _assign = __webpack_require__(4);
 var ReactBaseClasses = __webpack_require__(103);
 var ReactChildren = __webpack_require__(245);
 var ReactDOMFactories = __webpack_require__(246);
-var ReactElement = __webpack_require__(17);
+var ReactElement = __webpack_require__(18);
 var ReactPropTypes = __webpack_require__(248);
 var ReactVersion = __webpack_require__(250);
 
@@ -3253,6 +3277,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var persistedState = (0, _localStorage.getState)();
 
 var store = (0, _redux.createStore)(_reducer2.default, persistedState, (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)((0, _reduxLogger.createLogger)({ collapsed: true }), _reduxThunk2.default)));
+
+console.log('STORE STATE', store.getState());
 
 store.subscribe(function () {
   return (0, _localStorage.saveState)();
@@ -5253,7 +5279,7 @@ module.exports = shallowEqual;
 
 exports.__esModule = true;
 
-var _warning = __webpack_require__(18);
+var _warning = __webpack_require__(19);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -7199,7 +7225,7 @@ function warning(message) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
@@ -7764,7 +7790,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _warning = __webpack_require__(18);
+var _warning = __webpack_require__(19);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -8727,7 +8753,7 @@ var _prodInvariant = __webpack_require__(3);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var PooledClass = __webpack_require__(16);
+var PooledClass = __webpack_require__(17);
 
 var invariant = __webpack_require__(1);
 
@@ -11349,7 +11375,7 @@ function verifyPlainObject(value, displayName, methodName) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
@@ -11688,7 +11714,7 @@ module.exports = REACT_ELEMENT_TYPE;
 
 var ReactCurrentOwner = __webpack_require__(13);
 var ReactComponentTreeHook = __webpack_require__(8);
-var ReactElement = __webpack_require__(17);
+var ReactElement = __webpack_require__(18);
 
 var checkReactTypeSpec = __webpack_require__(251);
 
@@ -12417,7 +12443,7 @@ var _reactRedux = __webpack_require__(26);
 
 var _lodash = __webpack_require__(154);
 
-var _search = __webpack_require__(19);
+var _search = __webpack_require__(16);
 
 var _TableHead = __webpack_require__(121);
 
@@ -12462,14 +12488,14 @@ var Table = function (_Component) {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       console.log('nextProps in ProductsList.jsx', nextProps);
-      if (nextProps.products !== this.props.products) {
+      if (Object.keys(nextProps.products) !== Object.keys(this.props.products)) {
         this.setState({ products: nextProps.products });
       }
     }
   }, {
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(nextProps, nextState) {
-      return nextProps !== this.props || nextState !== this.state;
+      return nextProps.products !== this.props.products || nextState.products !== this.state.products;
     }
   }, {
     key: 'render',
@@ -12504,40 +12530,7 @@ var mstp = function mstp(state) {
   return { products: state.products };
 };
 
-exports.default = (0, _reactRedux.connect)(mstp)(Table
-
-// componentDidMount() {
-//   this.setState({products: this.props.products})
-// }
-
-// componentWillReceiveProps(nextProps) {
-//   console.log('nextProps in ProductsList.jsx', nextProps)
-//   if (nextProps.products !== this.props.products) {
-//     this.setState({ products: nextProps.products })
-//   }
-// }
-
-// shouldComponentUpdate(nextProps, nextState) {
-//   return nextProps !== this.props || nextState !== this.state
-// }
-
-//
-
-// handleSubmit(event) {
-//   event.preventDefault()
-//   const brandName = this.state.updatedBrandName
-//   const itemId = this.state.itemId
-//   this.setState({ editable: false })
-//   this.props.updateBrand(itemId, brandName)
-// }
-
-// handleChange(event) {
-//   this.setState({
-//     updatedBrandName: event.target.value,
-//     itemId: event.target.name,
-//   })
-// }
-);
+exports.default = (0, _reactRedux.connect)(mstp)(Table);
 
 /***/ }),
 /* 112 */
@@ -12564,7 +12557,7 @@ var _AdvancedSearch2 = _interopRequireDefault(_AdvancedSearch);
 
 var _getDataFromApi = __webpack_require__(123);
 
-var _search = __webpack_require__(19);
+var _search = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12849,7 +12842,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(26);
 
-var _search = __webpack_require__(19);
+var _search = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13013,15 +13006,10 @@ var BrandInput = function (_Component) {
               value: this.state.updatedBrandName,
               onChange: this.handleChange,
               type: 'text',
-              name: product.itemId,
               className: 'form-control',
-              id: 'editable-brand',
-              placeholder: 'Brand' }),
-            _react2.default.createElement('button', {
-              type: 'submit',
-              className: 'btn btn-default',
-              name: 'input-brand-' + product.itemId,
-              onClick: this.handleClick })
+              id: 'input-brand-' + product.itemId,
+              placeholder: 'Brand',
+              onSubmit: this.handleClick })
           )
         )
       );
@@ -13075,31 +13063,31 @@ var BrandToggle = function (_Component) {
   }
 
   _createClass(BrandToggle, [{
-    key: 'shouldComponentUpdate',
+    key: "shouldComponentUpdate",
     value: function shouldComponentUpdate(nextProps, nextState) {
       return nextProps !== this.props || nextState !== this.state;
     }
   }, {
-    key: 'handleClick',
+    key: "handleClick",
     value: function handleClick(event) {
       this.props.handleClick(event);
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var product = this.props.product;
-      console.log('props', this.props);
       return _react2.default.createElement(
-        'td',
+        "td",
         null,
         product.brandName,
         _react2.default.createElement(
-          'a',
+          "a",
           {
-            href: '#',
-            onClick: this.handleClick,
-            name: 'toggle-brand-' + product.itemId },
-          _react2.default.createElement('span', { className: 'caret' })
+            href: "#",
+            onClick: this.handleClick },
+          _react2.default.createElement("span", {
+            className: "caret",
+            id: "toggle-brand-" + product.itemId })
         )
       );
     }
@@ -13275,7 +13263,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(26);
 
-var _search = __webpack_require__(19);
+var _search = __webpack_require__(16);
 
 var _BrandInput = __webpack_require__(118);
 
@@ -13315,14 +13303,15 @@ var TableRow = function (_Component) {
     key: 'handleClick',
     value: function handleClick(event) {
       event.preventDefault();
-      var name = event.target.name.slice(0, 5);
+      console.log('event.target', event.target);
+      var name = event.target.id.slice(0, 5);
       if (name === 'toggl') this.setState({ editable: true });else if (name === 'input') this.setState({ editable: false });
     }
   }, {
     key: 'handleDelete',
     value: function handleDelete(event) {
       event.preventDefault();
-      this.props.deleteProduct(event.target.name);
+      this.props.deleteProduct(event.target.id);
     }
   }, {
     key: 'render',
@@ -13354,7 +13343,7 @@ var TableRow = function (_Component) {
               'aria-label': 'Open product in a new window' })
           )
         ),
-        this.state.editable ? _react2.default.createElement(_BrandInput2.default, { product: product, onClick: this.handleClick }) : _react2.default.createElement(_BrandToggle2.default, { product: product, onClick: this.handleClick }),
+        this.state.editable ? _react2.default.createElement(_BrandInput2.default, { product: product, handleClick: this.handleClick }) : _react2.default.createElement(_BrandToggle2.default, { product: product, handleClick: this.handleClick }),
         _react2.default.createElement(
           'td',
           null,
@@ -13389,9 +13378,8 @@ var TableRow = function (_Component) {
               type: 'submit',
               className: 'btn btn-default',
               'aria-label': 'Left Align',
-              onClick: this.handleDelete,
-              name: product.itemId },
-            _react2.default.createElement('span', { className: 'glyphicon glyphicon-remove', 'aria-hidden': 'true' })
+              onClick: this.handleDelete },
+            _react2.default.createElement('span', { className: 'glyphicon glyphicon-remove', 'aria-hidden': 'true', id: product.itemId })
           )
         )
       );
@@ -13434,7 +13422,7 @@ var _store = __webpack_require__(25);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _search = __webpack_require__(19);
+var _search = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13601,7 +13589,7 @@ var _store = __webpack_require__(25);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _search = __webpack_require__(19);
+var _search = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13614,7 +13602,6 @@ var reducer = function reducer() {
   console.log('action', action);
 
   switch (action.type) {
-
     case _search.LOAD_PRODUCTS:
       return Object.assign({}, state, action);
 
@@ -13623,6 +13610,16 @@ var reducer = function reducer() {
 
     case _search.LOAD_QUERY:
       return Object.assign({}, state, action);
+
+    case _search.REMOVE_PRODUCT:
+      return Object.assign({}, state, {
+        products: Object.keys(state.products).filter(function (itemId) {
+          return state.products[action.itemId].itemId.toString() !== itemId;
+        }).reduce(function (obj, id) {
+          obj[id] = state.products[id];
+          return obj;
+        }, {})
+      });
 
     default:
       return state;
@@ -13647,6 +13644,8 @@ var _store = __webpack_require__(25);
 
 var _store2 = _interopRequireDefault(_store);
 
+var _search = __webpack_require__(16);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var localStorage = window.localStorage;
@@ -13655,10 +13654,12 @@ var localStorage = window.localStorage;
 var getState = function getState() {
   var initialState = { products: {} };
 
-  for (var i = 0; i < window.localStorage.length; i++) {
-    var key = localStorage.key(i);
-    var value = JSON.parse(localStorage.getItem(key));
-    initialState.products[key] = value;
+  if (localStorage.length) {
+    for (var i = 0; i < window.localStorage.length; i++) {
+      var key = localStorage.key(i);
+      var value = JSON.parse(localStorage.getItem(key));
+      initialState.products[key] = value;
+    }
   }
 
   return initialState;
@@ -15436,7 +15437,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _warning = __webpack_require__(18);
+var _warning = __webpack_require__(19);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -15747,7 +15748,7 @@ exports.__esModule = true;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _warning = __webpack_require__(18);
+var _warning = __webpack_require__(19);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -35196,7 +35197,7 @@ module.exports = EnterLeaveEventPlugin;
 
 var _assign = __webpack_require__(4);
 
-var PooledClass = __webpack_require__(16);
+var PooledClass = __webpack_require__(17);
 
 var getTextContentAccessor = __webpack_require__(92);
 
@@ -39909,7 +39910,7 @@ var _assign = __webpack_require__(4);
 
 var EventListener = __webpack_require__(67);
 var ExecutionEnvironment = __webpack_require__(7);
-var PooledClass = __webpack_require__(16);
+var PooledClass = __webpack_require__(17);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactUpdates = __webpack_require__(12);
 
@@ -40826,7 +40827,7 @@ module.exports = ReactPropTypeLocationNames;
 var _assign = __webpack_require__(4);
 
 var CallbackQueue = __webpack_require__(77);
-var PooledClass = __webpack_require__(16);
+var PooledClass = __webpack_require__(17);
 var ReactBrowserEventEmitter = __webpack_require__(35);
 var ReactInputSelection = __webpack_require__(84);
 var ReactInstrumentation = __webpack_require__(10);
@@ -41103,7 +41104,7 @@ module.exports = ReactRef;
 
 var _assign = __webpack_require__(4);
 
-var PooledClass = __webpack_require__(16);
+var PooledClass = __webpack_require__(17);
 var Transaction = __webpack_require__(37);
 var ReactInstrumentation = __webpack_require__(10);
 var ReactServerUpdateQueue = __webpack_require__(202);
@@ -44343,7 +44344,7 @@ StaticRouter.childContextTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__matchPath__ = __webpack_require__(63);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -44665,7 +44666,7 @@ module.exports = PooledClass;
 
 
 var PooledClass = __webpack_require__(244);
-var ReactElement = __webpack_require__(17);
+var ReactElement = __webpack_require__(18);
 
 var emptyFunction = __webpack_require__(9);
 var traverseAllChildren = __webpack_require__(255);
@@ -44860,7 +44861,7 @@ module.exports = ReactChildren;
 
 
 
-var ReactElement = __webpack_require__(17);
+var ReactElement = __webpack_require__(18);
 
 /**
  * Create a factory that creates HTML tag elements.
@@ -45066,7 +45067,7 @@ module.exports = ReactPropTypeLocationNames;
 
 
 
-var _require = __webpack_require__(17),
+var _require = __webpack_require__(18),
     isValidElement = _require.isValidElement;
 
 var factory = __webpack_require__(74);
@@ -45227,7 +45228,7 @@ module.exports = checkReactTypeSpec;
 var _require = __webpack_require__(103),
     Component = _require.Component;
 
-var _require2 = __webpack_require__(17),
+var _require2 = __webpack_require__(18),
     isValidElement = _require2.isValidElement;
 
 var ReactNoopUpdateQueue = __webpack_require__(106);
@@ -45279,7 +45280,7 @@ module.exports = getNextDebugID;
 
 var _prodInvariant = __webpack_require__(24);
 
-var ReactElement = __webpack_require__(17);
+var ReactElement = __webpack_require__(18);
 
 var invariant = __webpack_require__(1);
 

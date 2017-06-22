@@ -1,4 +1,5 @@
 import store from './app/redux/store'
+import { getAllProducts } from './app/redux/search'
 
 const localStorage = window.localStorage
 
@@ -6,10 +7,12 @@ const localStorage = window.localStorage
 const getState = () => {
   const initialState = { products: {} }
 
-  for (let i = 0; i < window.localStorage.length; i++) {
-    const key = localStorage.key(i)
-    const value = JSON.parse(localStorage.getItem(key))
-    initialState.products[key] = value
+  if (localStorage.length) {
+    for (let i = 0; i < window.localStorage.length; i++) {
+      const key = localStorage.key(i)
+      const value = JSON.parse(localStorage.getItem(key))
+      initialState.products[key] = value
+    }
   }
 
   return initialState

@@ -26,9 +26,10 @@ class BrandToggle extends Component {
         {product.brandName}
         <a
           href="#"
-          onClick={this.handleClick}
-          name={`toggle-brand-${product.itemId}`}>
-          <span className="caret"></span>
+          onClick={this.handleClick}>
+          <span
+            className="caret"
+            id={`toggle-brand-${product.itemId}`}></span>
         </a>
       </td>
     )

@@ -33,13 +33,14 @@ class BrandInput extends Component {
               onChange={this.handleChange}
               type="text"
               className="form-control"
-              id="editable-brand"
-              placeholder="Brand"/>
-            <button
+              id={`input-brand-${product.itemId}`}
+              placeholder="Brand"
+              onSubmit={this.handleClick}/>
+            {/*<button
               type="submit"
               className="btn btn-default"
               name={`input-brand-${product.itemId}`}
-              onClick={this.handleClick}></button>
+              onClick={this.handleClick}></button>*/}
           </div>
         </form>
       </td>
