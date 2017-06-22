@@ -1,17 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { values } from 'lodash'
-import { deleteProduct } from '../redux/search'
+import { deleteProduct, updateBrand } from '../redux/search'
 
 class Table extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      products: this.props.products
+      products: this.props.products,
+      editable: false,
+      updatedBrandName: '',
+      itemId: '',
     }
 
     this.handleClick = this.handleClick.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
@@ -33,8 +37,26 @@ class Table extends Component {
     event.preventDefault()
     const target = event.target.name
     console.log(target)
-    target !== undefined && window.localStorage.removeItem(target)
-    target !== undefined && window.location.reload()
+    if (target && target === 'brand') this.setState({ editable: true })
+    else {
+      target !== undefined ? window.localStorage.removeItem(target) : null
+      target !== undefined ? window.location.reload() : null
+    }
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    const brandName = this.state.updatedBrandName
+    const itemId = this.state.itemId
+    this.setState({ editable: false })
+    this.props.updateBrand(itemId, brandName)
+  }
+
+  handleChange(event) {
+    this.setState({
+      updatedBrandName: event.target.value,
+      itemId: event.target.name,
+    })
   }
 
   render() {
@@ -69,7 +91,26 @@ class Table extends Component {
                     aria-label="Open product in a new window"></span>
                 </a>
               </td>
-              <td>{product.brandName}</td>
+              {
+                this.state.editable
+                  ? (<td>
+                      <form className="form-inline">
+                        <div className="form-group">
+                          <label className="sr-only" htmlFor="editable-brand">Brand</label>
+                          <input
+                            value={this.state.updatedBrandName}
+                            onChange={this.handleChange}
+                            type="text"
+                            name={product.itemId}
+                            className="form-control"
+                            id="editable-brand"
+                            placeholder="Brand" />
+                          <input type="submit" className="btn btn-default" onClick={this.handleSubmit}></input>
+                        </div>
+                      </form>
+                    </td>)
+                  : (<td>{product.brandName}<a onClick={this.handleClick}href="#" name="brand"><span className="caret"></span></a></td>)
+              }
               <td>{product.categoryPath}</td>
               <td>{`$${product.salePrice}`}</td>
               <td>{`${product.msrp ? `$${product.msrp}` : '(none)'}`}</td>
@@ -94,6 +135,6 @@ class Table extends Component {
 }
 
 const mstp = (state) => ({products: state.products})
-const mdtp = (dispatch) => ({ deleteProduct })
+const mdtp = (dispatch) => ({ deleteProduct, updateBrand })
 
 export default connect(mstp, mdtp)(Table)

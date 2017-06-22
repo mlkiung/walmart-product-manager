@@ -30,6 +30,13 @@ const deleteProduct = (itemId) => {
   store.dispatch(loadAllProducts())
 }
 
+const updateBrand = (itemId, brand) => {
+  const item = JSON.parse(window.localStorage.getItem(itemId))
+  item.brandName = brand
+  window.localStorage.setItem(itemId, item)
+  store.dispatch(loadAllProducts())
+}
+
 // constant
 const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
 const LOAD_ALL_PRODUCTS = 'LOAD_ALL_PRODUCTS'
