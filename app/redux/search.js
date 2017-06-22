@@ -14,7 +14,7 @@ const getStorage = () => {
     reject(new Error('Error retrieving products from localStorage!'))
   })
 }
-// utils
+
 const receiveProducts = (data) => {
   console.log('products in action creator', data)
   store.dispatch(loadProducts(data[1]))
@@ -43,10 +43,12 @@ const deleteProduct = (itemId) => {
 }
 
 const updateBrand = (itemId, brand) => {
+  console.log('itemId', itemId)
   const item = JSON.parse(window.localStorage.getItem(itemId))
   item.brandName = brand
-  window.localStorage.setItem(itemId, item)
-  getAllProducts()
+  window.localStorage.setItem(itemId, JSON.stringify(item))
+  const storage = getStorage()
+  storage.then((updatedProducts) => store.dispatch(reloadBrand(updatedProducts))).catch(console.error)
 }
 
 // constants
@@ -54,6 +56,7 @@ const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
 const LOAD_ALL_PRODUCTS = 'LOAD_ALL_PRODUCTS'
 const LOAD_QUERY = 'LOAD_QUERY'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
+const RELOAD_BRAND = 'RELOAD_BRAND'
 
 // action creators
 const loadProducts = (products) => ({
@@ -76,4 +79,9 @@ const removeProduct = (itemId) => ({
   itemId
 })
 
-export { receiveProducts, getAllProducts, deleteProduct, LOAD_PRODUCTS, LOAD_QUERY, LOAD_ALL_PRODUCTS, REMOVE_PRODUCT }
+const reloadBrand = (updatedProducts) => ({
+  type: RELOAD_BRAND,
+  updatedProducts
+})
+
+export { receiveProducts, getAllProducts, deleteProduct, updateBrand, LOAD_PRODUCTS, LOAD_QUERY, LOAD_ALL_PRODUCTS, REMOVE_PRODUCT, RELOAD_BRAND }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { deleteProduct } from '../redux/search'
+import { deleteProduct, updateBrand } from '../redux/search'
 import BrandInput from './BrandInput'
 import BrandToggle from './BrandToggle'
 
@@ -17,12 +17,19 @@ class TableRow extends Component {
     this.handleDelete = this.handleDelete.bind(this)
   }
 
-  handleClick(event) {
+  handleClick(event, ...args) {
     event.preventDefault()
     console.log('event.target', event.target)
     const name = event.target.id.slice(0, 5)
     if (name === 'toggl') this.setState({ editable: true })
-    else if (name === 'input') this.setState({ editable: false })
+    else if (name === 'input') {
+      const argsArr = [...args]
+      const itemId = argsArr[0].toString()
+      const brand = argsArr[1]
+      console.log('value', argsArr)
+      this.props.updateBrand(itemId, brand)
+      this.setState({ editable: false })
+    }
   }
 
   handleDelete(event) {
@@ -32,6 +39,7 @@ class TableRow extends Component {
 
   render() {
     const product = this.props.product
+    console.log('PRODUCT', this.props.product)
 
     return (
       <tr>
@@ -70,6 +78,6 @@ class TableRow extends Component {
 }
 
 const mstp = (state, ownProps) => ({product: state.products[ownProps.product.itemId]})
-const mdtp = (dispatch) => ({ deleteProduct })
+const mdtp = (dispatch, ownProps) => ({ deleteProduct, updateBrand })
 
 export default connect(mstp, mdtp)(TableRow)

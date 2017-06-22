@@ -19,9 +19,10 @@ class Table extends Component {
     this.setState({ products: this.props.products })
   }
 
+
   componentWillReceiveProps(nextProps) {
     console.log('nextProps in ProductsList.jsx', nextProps)
-    if (Object.keys(nextProps.products) !== Object.keys(this.props.products)) {
+    if (nextProps.products !== this.props.products) {
       this.setState({ products: nextProps.products })
     }
   }
@@ -50,6 +51,6 @@ class Table extends Component {
   }
 }
 
-const mstp = (state) => ({ products: state.products })
+const mstp = (state, ownProps) => ({ products: state.products })
 
 export default connect(mstp)(Table)

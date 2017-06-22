@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 class BrandInput extends Component {
   constructor(props) {
@@ -13,7 +14,9 @@ class BrandInput extends Component {
   }
 
   handleClick(event) {
-    this.props.handleClick(event)
+    event.preventDefault()
+    console.log('event.taret', event.target)
+    this.props.handleClick(event, this.props.product.itemId, this.state.updatedBrandName)
   }
 
   handleChange(event) {
@@ -31,16 +34,16 @@ class BrandInput extends Component {
             <input
               value={this.state.updatedBrandName}
               onChange={this.handleChange}
+              name={product.itemId}
               type="text"
               className="form-control"
-              id={`input-brand-${product.itemId}`}
-              placeholder="Brand"
-              onSubmit={this.handleClick}/>
-            {/*<button
+              placeholder="Brand"/>
+            <button
               type="submit"
               className="btn btn-default"
-              name={`input-brand-${product.itemId}`}
-              onClick={this.handleClick}></button>*/}
+              id={`input-brand-${product.itemId}`}
+              name={product.itemId}
+              onClick={this.handleClick}></button>
           </div>
         </form>
       </td>
@@ -48,4 +51,7 @@ class BrandInput extends Component {
   }
 }
 
-export default BrandInput
+const mstp = (state, ownProps) => ({product: state.products[ownProps.product.itemId]})
+const mdtp = (dispatch) => ({})
+
+export default connect(mstp, mdtp)(BrandInput)
