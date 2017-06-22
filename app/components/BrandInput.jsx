@@ -20,7 +20,7 @@ class BrandInput extends Component {
     this.setState({updatedBrandName: event.target.value})
   }
 
-  render(props) {
+  render() {
     const product = this.props.product
 
     return (
@@ -32,15 +32,14 @@ class BrandInput extends Component {
               value={this.state.updatedBrandName}
               onChange={this.handleChange}
               type="text"
-              name={product.itemId}
               className="form-control"
               id="editable-brand"
               placeholder="Brand"/>
-            <input
+            <button
               type="submit"
               className="btn btn-default"
               name={`input-brand-${product.itemId}`}
-              onClick={this.handleClick}></input>
+              onClick={this.handleClick}></button>
           </div>
         </form>
       </td>

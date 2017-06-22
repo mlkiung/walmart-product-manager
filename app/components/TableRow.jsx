@@ -19,14 +19,15 @@ class TableRow extends Component {
 
   handleClick(event) {
     event.preventDefault()
-    const name = event.target.name.slice(0, 5)
+    console.log('event.target', event.target.value)
+    const name = event.target.id.slice(0, 5)
     if (name === 'toggl') this.setState({ editable: true })
     else if (name === 'input') this.setState({ editable: false })
   }
 
   handleDelete(event) {
     event.preventDefault()
-    this.props.deleteProduct(event.target.name)
+    this.props.deleteProduct(event.target.id)
   }
 
   render() {
@@ -46,8 +47,8 @@ class TableRow extends Component {
         </td>
         {
           this.state.editable
-            ? <BrandInput product={product} onClick={this.handleClick} />
-            : <BrandToggle product={product} onClick={this.handleClick} />
+            ? <BrandInput product={product} handleClick={this.handleClick} />
+            : <BrandToggle product={product} handleClick={this.handleClick} />
         }
         <td>{product.categoryPath}</td>
         <td>{`$${product.salePrice}`}</td>
@@ -59,9 +60,8 @@ class TableRow extends Component {
             type="submit"
             className="btn btn-default"
             aria-label="Left Align"
-            onClick={this.handleDelete}
-            name={product.itemId}>
-            <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            onClick={this.handleDelete}>
+            <span className="glyphicon glyphicon-remove" aria-hidden="true" id={product.itemId}></span>
           </button>
         </td>
       </tr>
