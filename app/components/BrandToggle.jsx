@@ -21,9 +21,10 @@ class BrandToggle extends Component {
 
   render() {
     const product = this.props.product
+    const newBrand = this.props.newBrand
     return (
       <td>
-        {product.brandName}
+        {newBrand !== '' ? newBrand : product.brandName}
         <a
           href="#"
           onClick={this.handleClick}>

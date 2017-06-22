@@ -11,6 +11,7 @@ class TableRow extends Component {
     this.state = {
       product: this.props.product,
       editable: false,
+      newBrandName: '',
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -28,7 +29,7 @@ class TableRow extends Component {
       const brand = argsArr[1]
       console.log('value', argsArr)
       this.props.updateBrand(itemId, brand)
-      this.setState({ editable: false })
+      this.setState({ editable: false, newBrandName: brand })
     }
   }
 
@@ -56,7 +57,7 @@ class TableRow extends Component {
         {
           this.state.editable
             ? <BrandInput product={product} handleClick={this.handleClick} />
-            : <BrandToggle product={product} handleClick={this.handleClick} />
+            : <BrandToggle product={product} newBrand={this.state.newBrandName} handleClick={this.handleClick} />
         }
         <td>{product.categoryPath}</td>
         <td>{`$${product.salePrice}`}</td>

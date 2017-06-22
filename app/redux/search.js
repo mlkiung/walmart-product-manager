@@ -47,8 +47,7 @@ const updateBrand = (itemId, brand) => {
   const item = JSON.parse(window.localStorage.getItem(itemId))
   item.brandName = brand
   window.localStorage.setItem(itemId, JSON.stringify(item))
-  const storage = getStorage()
-  storage.then((updatedProducts) => store.dispatch(reloadBrand(updatedProducts))).catch(console.error)
+  getAllProducts()
 }
 
 // constants
