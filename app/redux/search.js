@@ -11,12 +11,11 @@ const getStorage = () => {
 
   return products
 }
-// action creator
+// utils
 const receiveProducts = (data) => {
   console.log('products in action creator', data)
   store.dispatch(loadProducts(data[1]))
   store.dispatch(loadQuery(data[0]))
-  // need query????
 }
 
 const getAllProducts = () => {
@@ -24,25 +23,23 @@ const getAllProducts = () => {
 }
 
 const deleteProduct = (itemId) => {
-  console.log(window.localStorage.getItem(itemId))
   window.localStorage.removeItem(itemId)
-  console.log('STORESTATE', store.getState())
-  store.dispatch(loadAllProducts())
+  store.dispatch(loadAllProducts(getStorage()))
 }
 
 const updateBrand = (itemId, brand) => {
   const item = JSON.parse(window.localStorage.getItem(itemId))
   item.brandName = brand
   window.localStorage.setItem(itemId, item)
-  store.dispatch(loadAllProducts())
+  store.dispatch(loadAllProducts(getStorage()))
 }
 
-// constant
+// constants
 const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
 const LOAD_ALL_PRODUCTS = 'LOAD_ALL_PRODUCTS'
 const LOAD_QUERY = 'LOAD_QUERY'
 
-// action
+// action creators
 const loadProducts = (products) => ({
   type: LOAD_PRODUCTS,
   products
