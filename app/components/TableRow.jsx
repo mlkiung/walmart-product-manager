@@ -9,7 +9,7 @@ class TableRow extends Component {
     super(props)
 
     this.state = {
-      product: this.props.product,
+      product: {},
       editable: false,
       newBrandName: '',
     }
@@ -18,15 +18,24 @@ class TableRow extends Component {
     this.handleDelete = this.handleDelete.bind(this)
   }
 
+  componentDidMount() {
+    this.setState({product: this.props.product})
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps !== this.props || nextState !== this.state
+  }
+
   handleClick(event, ...args) {
     event.preventDefault()
     console.log('event.target', event.target)
     const name = event.target.id.slice(0, 5)
     if (name === 'toggl') this.setState({ editable: true })
     else if (name === 'input') {
-      const argsArr = [...args]
-      const itemId = argsArr[0].toString()
-      const brand = argsArr[1]
+      const argsArr = [...args],
+            itemId = argsArr[0].toString(),
+            brand = argsArr[1]
+
       console.log('value', argsArr)
       this.props.updateBrand(itemId, brand)
       this.setState({ editable: false, newBrandName: brand })
@@ -40,9 +49,10 @@ class TableRow extends Component {
 
   render() {
     const product = this.props.product
+
     return (
       <tr>
-        <td><img src={product.thumbnailImage}/></td>
+        <td><img src={product && product.thumbnailImage}/></td>
         <td>{product.name}</td>
         <td>
           <a href={product.productUrl} target="_blank">
@@ -76,7 +86,8 @@ class TableRow extends Component {
   }
 }
 
-const mstp = (state, ownProps) => ({product: state.products[ownProps.product.itemId]})
+// const mstp = (state, ownProps) => ({ product: ownProps.product })
+const mstp = () => ({})
 const mdtp = (dispatch) => ({ deleteProduct, updateBrand })
 
 export default connect(mstp, mdtp)(TableRow)

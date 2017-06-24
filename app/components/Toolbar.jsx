@@ -44,13 +44,12 @@ class Toolbar extends Component {
   handleSubmit(event) {
     event.preventDefault()
 
-    const query = this.state.query
-    const brandName = this.state.brandName
-    const results = this.state.results
-    const startAt = this.state.startAt
-    const sortOption = this.state.sortOption
-
-    const queryObj = { query, brandName, results, startAt, sortOption }
+    const query = this.state.query,
+          brandName = this.state.brandName,
+          results = this.state.results,
+          startAt = this.state.startAt,
+          sortOption = this.state.sortOption,
+          queryObj = { query, brandName, results, startAt, sortOption }
 
     if (query && query !== '') {
       const data = getDataFromApi(queryObj)
@@ -66,7 +65,7 @@ class Toolbar extends Component {
   render() {
     return (
       <nav>
-        <div className="container-fluid">
+        <div className="container-fluid toolbar">
           <ul className="nav nav-pills">
             <li role="presentation">
               <div className="input-group">
@@ -84,7 +83,7 @@ class Toolbar extends Component {
               this.state.showAdvanced ? <AdvancedSearch handleChange={this.handleChange} search={this.state} /> : null
             }
             <li>
-              <a href="#" className="navbar-link" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</a>
+              <a href="#" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</a>
             </li>
             <button onClick={this.handleSubmit} type="button" className="btn btn-primary">Add Products</button>
           </ul>

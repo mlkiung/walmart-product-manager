@@ -15,39 +15,51 @@ const getStorage = () => {
   })
 }
 
+// get products from API
 const receiveProducts = (data) => {
-  console.log('products in action creator', data)
-  store.dispatch(loadProducts(data[1]))
+  store.dispatch(loadProducts(data[1], data[2]))
   store.dispatch(loadQuery(data[0]))
 }
 
 const getAllProducts = () => {
   const products = getStorage()
   products.then((products) => {
-    loadAllProducts(products)
+    store.dispatch(loadAllProducts(products))
   }).catch(console.error)
 }
 
 const deleteProduct = (itemId) => {
   const remove = new Promise((resolve, reject) => {
-    const l1 = localStorage.length
-    const r = localStorage.removeItem(itemId)
-    const l2 = localStorage.length
+    const l1 = window.localStorage.length
+    const r = window.localStorage.removeItem(itemId)
+    const l2 = window.localStorage.length
     resolve(l1 !== l2)
     reject(new Error('Item has not been removed from localStorage'))
   })
 
   remove.then(() => {
-    store.dispatch(removeProduct(itemId))
+    const itemIdForObj = itemId, itemIdNum = +itemId
+    store.dispatch(removeProduct(itemIdForObj, itemIdNum))
   }).catch(console.error)
 }
 
 const updateBrand = (itemId, brand) => {
-  console.log('itemId', itemId)
   const item = JSON.parse(window.localStorage.getItem(itemId))
   item.brandName = brand
   window.localStorage.setItem(itemId, JSON.stringify(item))
   getAllProducts()
+}
+
+const deleteRepository = () => {
+  window.localStorage.setItem('productsArr', JSON.stringify([]))
+  window.localStorage.setItem('products', JSON.stringify({}))
+  const productsArr = JSON.parse(window.localStorage.getItem('productsArr'))
+  const products = JSON.parse(window.localStorage.getItem('products'))
+  store.dispatch(removeRepository(productsArr, products))
+}
+
+const searchProducts = (term) => {
+  return ''
 }
 
 // constants
@@ -56,11 +68,13 @@ const LOAD_ALL_PRODUCTS = 'LOAD_ALL_PRODUCTS'
 const LOAD_QUERY = 'LOAD_QUERY'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 const RELOAD_BRAND = 'RELOAD_BRAND'
+const REMOVE_REPOSITORY = 'REMOVE_REPOSITORY'
 
 // action creators
-const loadProducts = (products) => ({
+const loadProducts = (products, productsArr) => ({
   type: LOAD_PRODUCTS,
-  products
+  products,
+  productsArr
 })
 
 const loadAllProducts = (products) => ({
@@ -73,8 +87,9 @@ const loadQuery = (query) => ({
   query
 })
 
-const removeProduct = (itemId) => ({
+const removeProduct = (itemIdForObj, itemId) => ({
   type: REMOVE_PRODUCT,
+  itemIdForObj,
   itemId
 })
 
@@ -83,4 +98,10 @@ const reloadBrand = (updatedProducts) => ({
   updatedProducts
 })
 
-export { receiveProducts, getAllProducts, deleteProduct, updateBrand, LOAD_PRODUCTS, LOAD_QUERY, LOAD_ALL_PRODUCTS, REMOVE_PRODUCT, RELOAD_BRAND }
+const removeRepository = (productsArr, products) => ({
+  type: REMOVE_REPOSITORY,
+  productsArr,
+  products
+})
+
+export { receiveProducts, getAllProducts, deleteProduct, updateBrand, deleteRepository, searchProducts, LOAD_PRODUCTS, LOAD_QUERY, LOAD_ALL_PRODUCTS, REMOVE_PRODUCT, RELOAD_BRAND, REMOVE_REPOSITORY }

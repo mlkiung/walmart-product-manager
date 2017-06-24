@@ -4,6 +4,7 @@ const TableHead = () => (
   <thead>
     <tr className="active">
       <th scope="col">Product</th>
+      <th scope="col"><span className="caret pull-left"></span></th>
       <th scope="col"></th>
       <th scope="col"></th>
       <th scope="col">Brand Name</th>

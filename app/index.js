@@ -8,14 +8,14 @@ import { createBrowserHistory } from 'history'
 
 import store from './redux/store'
 import Toolbar from './components/Toolbar'
-import Table from './components/Table'
+import SearchableProductsContainer from './components/SearchableProductsContainer'
 
 const history = createBrowserHistory()
 
 const App = ({children}) => (
   <div id="app-container">
     <Toolbar />
-    <Table />
+    <SearchableProductsContainer />
     {children}
   </div>
 )

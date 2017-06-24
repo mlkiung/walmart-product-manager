@@ -16,6 +16,7 @@ const store = createStore(
 
 console.log('STORE STATE', store.getState())
 
+// any time an action is dispatched, saveState() will be called
 store.subscribe(() => saveState())
 
 export default store

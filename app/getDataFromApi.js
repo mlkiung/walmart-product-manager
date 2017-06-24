@@ -49,6 +49,7 @@ const formatNewData = (data) => {
 
   const itemsArr = data.items
   const mappedItems = {}
+  const mappedItemsArr = []
   itemsArr.forEach((item) => {
     const key = item.itemId
     const value = {
@@ -64,8 +65,9 @@ const formatNewData = (data) => {
       thumbnailImage: item.thumbnailImage
     }
     mappedItems[key] = value
+    mappedItemsArr.push(value)
   })
-  return [query, mappedItems]
+  return [query, mappedItems, mappedItemsArr]
 }
 
 const getDataFromApi = function(queryObj) {
@@ -79,7 +81,6 @@ const getDataFromApi = function(queryObj) {
         const formattedData = formatNewData(json)
         resolve(formattedData)
       })
-      // .catch((ex) => console.log('parsing failed', ex))
       .catch((ex) => new Error('parsing failed', ex))
   })
 }
