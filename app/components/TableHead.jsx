@@ -4,7 +4,7 @@ const TableHead = (props) => (
   <thead>
     <tr className="active">
       <th scope="col"></th>
-      <th scope="col">Product<button id="sort-products-name" onClick={props.handleClick} ><span className="caret pull-left"></span></button></th>
+      <th scope="col">Product<span className="caret" id="sort-products-name" onClick={props.handleClick}></span></th>
       <th scope="col">Brand Name</th>
       <th scope="col">Category</th>
       <th scope="col">Price</th>
@@ -16,3 +16,10 @@ const TableHead = (props) => (
 )
 
 export default TableHead
+
+
+/*
+< button id = "sort-products-name" onClick = {
+  props.handleClick
+} > </button>
+*/

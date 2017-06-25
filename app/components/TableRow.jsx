@@ -69,12 +69,7 @@ class TableRow extends Component {
         <td>{product.customerRating}</td>
         <td>{`(${product.numReviews})`}</td>
         <td>
-          <button
-            type="submit"
-            className="btn btn-default"
-            aria-label="Left Align"
-            onClick={this.handleDelete}>
-            <span className="glyphicon glyphicon-remove" aria-hidden="true" id={product.itemId}></span></button></td>
+          <span className="glyphicon glyphicon-remove" onClick={this.handleDelete} aria-hidden="true" id={product.itemId}></span></td>
       </tr>
     )
   }
@@ -85,3 +80,13 @@ const mstp = () => ({})
 const mdtp = (dispatch) => ({ deleteProduct, updateBrand })
 
 export default connect(mstp, mdtp)(TableRow)
+
+/*
+<td>
+          <button
+            type="submit"
+            className="btn btn-default"
+            aria-label="Left Align"
+            onClick={this.handleDelete}>
+            <span className="glyphicon glyphicon-remove" onClick={this.handleDelete} aria-hidden="true" id={product.itemId}></span></button></td>
+*/

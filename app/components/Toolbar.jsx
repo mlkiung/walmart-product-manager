@@ -83,7 +83,7 @@ class Toolbar extends Component {
               this.state.showAdvanced ? <AdvancedSearch handleChange={this.handleChange} search={this.state} /> : null
             }
             <li>
-              <a href="#" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</a>
+              <button type="button" className="btn btn-link" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</button>
             </li>
             <button onClick={this.handleSubmit} type="button" className="btn btn-primary">Add Products</button>
           </ul>
