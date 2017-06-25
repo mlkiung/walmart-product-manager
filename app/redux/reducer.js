@@ -1,5 +1,5 @@
 import store from './store'
-import { LOAD_PRODUCTS, LOAD_ALL_PRODUCTS, LOAD_QUERY, REMOVE_PRODUCT, RELOAD_BRAND, REMOVE_REPOSITORY } from './search'
+import { LOAD_PRODUCTS, LOAD_ALL_PRODUCTS, LOAD_QUERY, REMOVE_PRODUCT, RELOAD_BRAND, REMOVE_REPOSITORY, SORT_AZ, SORT_ZA } from './search'
 
 const initialState = {}
 
@@ -31,6 +31,25 @@ const reducer = (state = initialState, action) => {
 
   case REMOVE_REPOSITORY:
     return { ...state, ...action.products, ...action.productsArr }
+
+  case SORT_AZ:
+    return {
+      ...state,
+      productsArr: action.productsArr.sort((a, b) => {
+        if (a.name < b.name) return -1
+        if (a.name > b.name) return 1
+        return 0
+      })
+    }
+  case SORT_ZA:
+    return {
+      ...state,
+      productsArr: action.productsArr.sort((a, b) => {
+        if (a.name > b.name) return -1
+        if (a.name < b.name) return 1
+        return 0
+      })
+    }
 
   default: return state
   }

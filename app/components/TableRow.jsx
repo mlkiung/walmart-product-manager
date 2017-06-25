@@ -33,8 +33,8 @@ class TableRow extends Component {
     if (name === 'toggl') this.setState({ editable: true })
     else if (name === 'input') {
       const argsArr = [...args],
-            itemId = argsArr[0].toString(),
-            brand = argsArr[1]
+        itemId = argsArr[0].toString(),
+        brand = argsArr[1]
 
       console.log('value', argsArr)
       this.props.updateBrand(itemId, brand)
@@ -53,15 +53,11 @@ class TableRow extends Component {
     return (
       <tr>
         <td><img src={product && product.thumbnailImage}/></td>
-        <td>{product.name}</td>
-        <td>
-          <a href={product.productUrl} target="_blank">
-            <span
-              className="glyphicon glyphicon-new-window"
-              aria-hidden="true"
-              aria-label="Open product in a new window"></span>
-          </a>
-        </td>
+        <td>{product.name}<a href={product.productUrl} target="_blank" className="product-url-button">
+          <span
+            className="glyphicon glyphicon-new-window"
+            aria-hidden="true"
+            aria-label="Open product in a new window"></span></a></td>
         {
           this.state.editable
             ? <BrandInput product={product} handleClick={this.handleClick} />
@@ -78,9 +74,7 @@ class TableRow extends Component {
             className="btn btn-default"
             aria-label="Left Align"
             onClick={this.handleDelete}>
-            <span className="glyphicon glyphicon-remove" aria-hidden="true" id={product.itemId}></span>
-          </button>
-        </td>
+            <span className="glyphicon glyphicon-remove" aria-hidden="true" id={product.itemId}></span></button></td>
       </tr>
     )
   }

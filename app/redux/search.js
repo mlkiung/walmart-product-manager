@@ -62,6 +62,10 @@ const searchProducts = (term) => {
   return ''
 }
 
+const sortByName = (orderAToZ, productsArr) => {
+  orderAToZ ? store.dispatch(sortAZ(productsArr)) : store.dispatch(sortZA(productsArr))
+}
+
 // constants
 const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
 const LOAD_ALL_PRODUCTS = 'LOAD_ALL_PRODUCTS'
@@ -69,6 +73,8 @@ const LOAD_QUERY = 'LOAD_QUERY'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 const RELOAD_BRAND = 'RELOAD_BRAND'
 const REMOVE_REPOSITORY = 'REMOVE_REPOSITORY'
+const SORT_AZ = 'SORT_AZ'
+const SORT_ZA = 'SORT_ZA'
 
 // action creators
 const loadProducts = (products, productsArr) => ({
@@ -104,4 +110,14 @@ const removeRepository = (productsArr, products) => ({
   products
 })
 
-export { receiveProducts, getAllProducts, deleteProduct, updateBrand, deleteRepository, searchProducts, LOAD_PRODUCTS, LOAD_QUERY, LOAD_ALL_PRODUCTS, REMOVE_PRODUCT, RELOAD_BRAND, REMOVE_REPOSITORY }
+const sortAZ = (productsArr) => ({
+  type: SORT_AZ,
+  productsArr
+})
+
+const sortZA = (productsArr) => ({
+  type: SORT_ZA,
+  productsArr
+})
+
+export { receiveProducts, getAllProducts, deleteProduct, updateBrand, deleteRepository, searchProducts, sortByName, LOAD_PRODUCTS, LOAD_QUERY, LOAD_ALL_PRODUCTS, REMOVE_PRODUCT, RELOAD_BRAND, REMOVE_REPOSITORY, SORT_AZ, SORT_ZA }
