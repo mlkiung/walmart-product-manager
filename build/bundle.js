@@ -2112,8 +2112,7 @@ var getStorage = function getStorage() {
 
 // get products from API
 var receiveProducts = function receiveProducts(data) {
-  console.log('products in action creator', data);
-  _store2.default.dispatch(loadProducts(data[1]));
+  _store2.default.dispatch(loadProducts(data[1], data[2]));
   _store2.default.dispatch(loadQuery(data[0]));
 };
 
@@ -2134,12 +2133,13 @@ var deleteProduct = function deleteProduct(itemId) {
   });
 
   remove.then(function () {
-    _store2.default.dispatch(removeProduct(itemId));
+    var itemIdForObj = itemId,
+        itemIdNum = +itemId;
+    _store2.default.dispatch(removeProduct(itemIdForObj, itemIdNum));
   }).catch(console.error);
 };
 
 var updateBrand = function updateBrand(itemId, brand) {
-  console.log('itemId', itemId);
   var item = JSON.parse(window.localStorage.getItem(itemId));
   item.brandName = brand;
   window.localStorage.setItem(itemId, JSON.stringify(item));
@@ -2167,10 +2167,11 @@ var RELOAD_BRAND = 'RELOAD_BRAND';
 var REMOVE_REPOSITORY = 'REMOVE_REPOSITORY';
 
 // action creators
-var loadProducts = function loadProducts(products) {
+var loadProducts = function loadProducts(products, productsArr) {
   return {
     type: LOAD_PRODUCTS,
-    products: products
+    products: products,
+    productsArr: productsArr
   };
 };
 
@@ -2188,9 +2189,10 @@ var loadQuery = function loadQuery(query) {
   };
 };
 
-var removeProduct = function removeProduct(itemId) {
+var removeProduct = function removeProduct(itemIdForObj, itemId) {
   return {
     type: REMOVE_PRODUCT,
+    itemIdForObj: itemIdForObj,
     itemId: itemId
   };
 };
@@ -29603,7 +29605,7 @@ var SearchableProductsContainer = function (_Component) {
     var _this = _possibleConstructorReturn(this, (SearchableProductsContainer.__proto__ || Object.getPrototypeOf(SearchableProductsContainer)).call(this, props));
 
     _this.state = {
-      searchTerm: ''
+      inputValue: ''
     };
 
     _this.handleClick = _this.handleClick.bind(_this);
@@ -29611,41 +29613,35 @@ var SearchableProductsContainer = function (_Component) {
     return _this;
   }
 
-  // componentDidMount() {
-  //   this.setState({ products: this.props.products })
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   console.log('nextProps in ProductsList.jsx', nextProps)
-  //   if (nextProps.products !== this.props.products) {
-  //     this.setState({ products: nextProps.products })
-  //   }
-  // }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return nextProps.products !== this.props.products || nextState.products !== this.state.products
-  // }
-
   _createClass(SearchableProductsContainer, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      nextProps.productsArr !== this.props.productsArr ? this.render() : null;
+    }
+  }, {
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps, nextState) {
+      return nextProps !== this.props || nextState !== this.state;
+    }
+  }, {
     key: 'handleClick',
     value: function handleClick(event) {
       event.preventDefault();
-      if (event.target.name === 'delete-repository') this.props.deleteRepository
-      // else if (event.target.name === 'search-products') this.props.searchProducts()
-      ();
+      if (event.target.name === 'delete-repository') this.props.deleteRepository();
     }
   }, {
     key: 'handleChange',
     value: function handleChange(event) {
-      var inputValue = this.state.inputValue;
+      var inputValue = event.target.value;
+      console.log(inputValue);
       this.setState({ inputValue: inputValue });
     }
   }, {
     key: 'render',
     value: function render() {
       var inputValue = this.state.inputValue;
-      var products = this.props.productArr && this.props.productsArr.filter(function (product) {
-        return product.name.match(inputValue);
+      var products = this.props.products && this.props.products.filter(function (product) {
+        return inputValue && inputValue !== '' ? product.name.toLowerCase().match(inputValue.toLowerCase()) : product;
       });
 
       return _react2.default.createElement(
@@ -29673,7 +29669,7 @@ var SearchableProductsContainer = function (_Component) {
   return SearchableProductsContainer;
 }(_react.Component);
 
-var mstp = function mstp(state, ownProps) {
+var mstp = function mstp(state) {
   return { products: state.productsArr };
 };
 var mdtp = function mdtp(dispatch) {
@@ -30343,6 +30339,7 @@ var SearchInput = function (_Component) {
             ),
             _react2.default.createElement('input', {
               type: 'text',
+              value: this.props.inputValue,
               className: 'form-control',
               name: 'search-products',
               placeholder: 'Search products',
@@ -30488,7 +30485,7 @@ var TableRow = function (_Component) {
     var _this = _possibleConstructorReturn(this, (TableRow.__proto__ || Object.getPrototypeOf(TableRow)).call(this, props));
 
     _this.state = {
-      product: _this.props.product,
+      product: {},
       editable: false,
       newBrandName: ''
     };
@@ -30499,6 +30496,16 @@ var TableRow = function (_Component) {
   }
 
   _createClass(TableRow, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.setState({ product: this.props.product });
+    }
+  }, {
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps, nextState) {
+      return nextProps !== this.props || nextState !== this.state;
+    }
+  }, {
     key: 'handleClick',
     value: function handleClick(event) {
       event.preventDefault();
@@ -30528,6 +30535,7 @@ var TableRow = function (_Component) {
     key: 'render',
     value: function render() {
       var product = this.props.product;
+
       return _react2.default.createElement(
         'tr',
         null,
@@ -30599,8 +30607,11 @@ var TableRow = function (_Component) {
   return TableRow;
 }(_react.Component);
 
-var mstp = function mstp(state, ownProps) {
-  return { product: state.products[ownProps.product.itemId] };
+// const mstp = (state, ownProps) => ({ product: ownProps.product })
+
+
+var mstp = function mstp() {
+  return {};
 };
 var mdtp = function mdtp(dispatch) {
   return { deleteProduct: _search.deleteProduct, updateBrand: _search.updateBrand };
@@ -30672,6 +30683,7 @@ var formatNewData = function formatNewData(data) {
 
   var itemsArr = data.items;
   var mappedItems = {};
+  var mappedItemsArr = [];
   itemsArr.forEach(function (item) {
     var key = item.itemId;
     var value = {
@@ -30687,8 +30699,9 @@ var formatNewData = function formatNewData(data) {
       thumbnailImage: item.thumbnailImage
     };
     mappedItems[key] = value;
+    mappedItemsArr.push(value);
   });
-  return [query, mappedItems];
+  return [query, mappedItems, mappedItemsArr];
 };
 
 var getDataFromApi = function getDataFromApi(queryObj) {
@@ -30808,26 +30821,28 @@ var reducer = function reducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments[1];
 
-  console.log('action', action);
 
   switch (action.type) {
     case _search.LOAD_PRODUCTS:
-      return _extends({}, state, { products: action.products });
+      return _extends({}, state, { products: action.products, productsArr: action.productsArr });
 
     case _search.LOAD_ALL_PRODUCTS:
-      return _extends({}, state, { products: action.products });
+      return _extends({}, state, { products: action.products, productsArr: action.productsArr });
 
     case _search.LOAD_QUERY:
       return _extends({}, state, { query: action.query });
 
     case _search.REMOVE_PRODUCT:
-      return Object.assign({}, state, {
+      return _extends({}, state, {
         products: Object.keys(state.products).filter(function (itemId) {
           return state.products[action.itemId].itemId.toString() !== itemId;
         }).reduce(function (obj, id) {
           obj[id] = state.products[id];
           return obj;
-        }, {})
+        }, {}),
+        productsArr: state.productsArr.filter(function (product) {
+          return product.itemId !== action.itemId;
+        })
       });
 
     case _search.RELOAD_BRAND:
