@@ -59,7 +59,9 @@ const deleteRepository = () => {
   window.localStorage.setItem('productsArr', JSON.stringify([]))
   window.localStorage.setItem('products', JSON.stringify({}))
   const productsArr = JSON.parse(window.localStorage.getItem('productsArr'))
+  console.log('productsArr in deleteRepository', productsArr)
   const products = JSON.parse(window.localStorage.getItem('products'))
+  console.log('products in deleteRepostiry', products)
   store.dispatch(removeRepository(productsArr, products))
 }
 

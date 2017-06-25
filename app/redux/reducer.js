@@ -30,7 +30,7 @@ const reducer = (state = initialState, action) => {
     return { ...state, products: action.products }
 
   case REMOVE_REPOSITORY:
-    return { ...state, ...action.products, ...action.productsArr }
+    return { ...state, products: { ...action.products }, productsArr: [...action.productsArr] }
 
   case SORT_AZ:
     return {
