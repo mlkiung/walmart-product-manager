@@ -50,6 +50,8 @@ class TableRow extends Component {
   render() {
     const product = this.props.product
 
+    const categories = product.categoryPath.split('/')
+
     return (
       <tr>
         <td><img src={product && product.thumbnailImage} className="img-responsive center-block img-rounded" /></td>
@@ -63,7 +65,11 @@ class TableRow extends Component {
             ? <BrandInput product={product} handleClick={this.handleClick} />
             : <BrandToggle product={product} newBrand={this.state.newBrandName ? this.state.newBrandName : product.newBrandName} handleClick={this.handleClick} />
         }
-        <td>{product.categoryPath}</td>
+        <td>
+          <ol className="breadcrumb">
+            {
+              categories && categories.map((category) => <li>{category}</li>)
+            }</ol></td>
         <td>{`$${product.salePrice}`}</td>
         <td>{product.msrp ? `$${product.msrp}` : <em>{`(none)`}</em>}</td>
         <td><img src={product.customerRatingImage}></img>{product.numReviews ? `(${product.numReviews})` : null}</td>
@@ -74,19 +80,7 @@ class TableRow extends Component {
   }
 }
 
-// const mstp = (state, ownProps) => ({ product: ownProps.product })
 const mstp = () => ({})
 const mdtp = (dispatch) => ({ deleteProduct, updateBrand })
 
 export default connect(mstp, mdtp)(TableRow)
-
-/*
-<td>
-  <span type="submit" className="btn btn-default glyphicon glyphicon-remove" onClick={this.handleDelete} aria-hidden="true" aria-label="Left Align" id={product.itemId}></span></td>
-
-< td > <span
-  className="glyphicon glyphicon-remove"
-  onClick={this.handleDelete}
-  aria-hidden="true"
-  id={product.itemId}></span> < /td>
-*/

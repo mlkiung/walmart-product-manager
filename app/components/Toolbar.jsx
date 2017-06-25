@@ -45,11 +45,11 @@ class Toolbar extends Component {
     event.preventDefault()
 
     const query = this.state.query,
-          brandName = this.state.brandName,
-          results = this.state.results,
-          startAt = this.state.startAt,
-          sortOption = this.state.sortOption,
-          queryObj = { query, brandName, results, startAt, sortOption }
+      brandName = this.state.brandName,
+      results = this.state.results,
+      startAt = this.state.startAt,
+      sortOption = this.state.sortOption,
+      queryObj = { query, brandName, results, startAt, sortOption }
 
     if (query && query !== '') {
       const data = getDataFromApi(queryObj)
@@ -64,32 +64,29 @@ class Toolbar extends Component {
 
   render() {
     return (
-      <nav>
-        <div className="container-fluid toolbar">
-          <ul className="nav nav-pills">
-            <li role="presentation">
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Query (required)"
-                  aria-describedby="basic-addon1"
-                  value={this.state.query}
-                  name="query"
-                  onChange={this.handleChange} />
-              </div>
-            </li>
+      <div className="panel panel-default">
+        <div className="panel-body">
+          <div className="row">
+            <div className="input-group col-lg-2">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Query (required)"
+                aria-describedby="basic-addon1"
+                value={this.state.query}
+                name="query"
+                onChange={this.handleChange} />
+              <span className="input-group-btn"><button className="btn btn-default" type="button" onClick={this.handleSubmit}>Go!</button></span>
+            </div>
             {
               this.state.showAdvanced ? <AdvancedSearch handleChange={this.handleChange} search={this.state} /> : null
             }
-            <li>
+            <div className="col-lg-2">
               <button type="button" className="btn btn-link" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</button>
-            </li>
-            <button onClick={this.handleSubmit} type="button" className="btn btn-primary">Add Products</button>
-          </ul>
+            </div>
+          </div>
         </div>
-        <hr />
-      </nav>
+      </div>
     )
   }
 }
@@ -98,3 +95,32 @@ const mstp = (state) => ({})
 const mdtp = (dispatch) => ({receiveProducts})
 
 export default connect(mstp, mdtp)(Toolbar)
+
+/*
+
+<nav>
+        <div className="container-fluid toolbar">
+          <ul className="nav nav-pills">
+            <li role="presentation">
+              <div className="input-group col-lg-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Query (required)"
+                  aria-describedby="basic-addon1"
+                  value={this.state.query}
+                  name="query"
+                  onChange={this.handleChange} />
+                <span className="input-group-btn"><button className="btn btn-default" type="button" onClick={this.handleSubmit}>Go!</button></span>
+              </div></li>
+            {
+              this.state.showAdvanced ? <AdvancedSearch handleChange={this.handleChange} search={this.state} /> : null
+            }
+            <li>
+              <button type="button" className="btn btn-link" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</button></li>
+          </ul>
+        </div>
+        <hr />
+      </nav>
+
+*/

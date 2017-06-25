@@ -34,22 +34,20 @@ class AdvancedSearch extends Component {
         {
           // making the input boxes for brandName, results, and startAt
           advancedSearchOptions.map((advancedSearchOption, i) => (
-            <li role="presentation" key={i}>
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder={advancedSearchOption.placeholder}
-                  aria-describedby="basic-addon1"
-                  name={advancedSearchOption.name}
-                  onChange={this.handleChange}
-                  value={advancedSearchOption.value} />
-              </div>
-            </li>
+            <div className="input-group col-lg-2" key={i}>
+              <input
+                type="text"
+                className="form-control"
+                placeholder={advancedSearchOption.placeholder}
+                aria-describedby="basic-addon1"
+                name={advancedSearchOption.name}
+                onChange={this.handleChange}
+                value={advancedSearchOption.value} />
+            </div>
           ))
         }
-        <li role="presentation">{'Sorted by'}</li>
-        <li role="presentation">
+        <div>{'Sorted by'}</div>
+        <div className="col-lg-2">
           <select value={this.props.sortOption} name="sortOption" onChange={this.handleChange}>
             {
               // populating the "sort by" dropdown
@@ -58,7 +56,7 @@ class AdvancedSearch extends Component {
               ))
             }
           </select>
-        </li>
+        </div>
       </div>
     )
   }
