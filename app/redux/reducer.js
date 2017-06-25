@@ -7,10 +7,10 @@ const reducer = (state = initialState, action) => {
 
   switch (action.type) {
   case LOAD_PRODUCTS:
-    return { ...state, products: action.products }
+    return { ...state, products: action.products, productsArr: action.productsArr }
 
   case LOAD_ALL_PRODUCTS:
-    return { ...state, products: action.products }
+    return { ...state, products: action.products, productsArr: action.productsArr }
 
   case LOAD_QUERY:
     return { ...state, query: action.query }

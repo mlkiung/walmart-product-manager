@@ -41,7 +41,7 @@ class SearchableProductsContainer extends Component {
     const inputValue = this.state.inputValue
     const products = this.props.products && this.props.products.filter(
       product => {
-        return inputValue && inputValue !== '' ? product.name.startsWith(inputValue) : product
+        return inputValue && inputValue !== '' ? product.name.toLowerCase().match(inputValue.toLowerCase()) : product
       })
 
     return (
