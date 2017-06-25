@@ -54,7 +54,7 @@ class SearchableProductsContainer extends Component {
     return (
       <div>
         <SearchInput handleChange={this.handleChange} handleClick={this.handleClick} inputValue={this.props.inputValue} />
-        <table className="table-condensed">
+        <table className="table table-condensed table-bordered table-striped">
           <TableHead handleClick={this.handleClick} />
           <tbody>
             {

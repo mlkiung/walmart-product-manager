@@ -26,13 +26,11 @@ class BrandToggle extends Component {
     return (
       <td>
         {newBrand !== '' ? newBrand : product.newBrandName ? product.newBrandName : null}
-        <a
-          href="#"
-          onClick={this.handleClick}>
-          <span
-            className="caret"
-            id={`toggle-brand-${product.itemId}`}></span>
-        </a>
+        <button
+          className="btn btn-default"
+          onClick={this.handleClick}
+          id={`toggle-brand-${product.itemId}`}>
+          <span className="caret"></span></button>
       </td>
     )
   }

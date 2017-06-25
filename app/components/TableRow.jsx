@@ -52,7 +52,7 @@ class TableRow extends Component {
 
     return (
       <tr>
-        <td><img src={product && product.thumbnailImage}/></td>
+        <td><img src={product && product.thumbnailImage} className="img-responsive center-block img-rounded" /></td>
         <td>{product.name}<a href={product.productUrl} target="_blank" className="button-margin-left">
           <span
             className="glyphicon glyphicon-new-window"
@@ -65,11 +65,10 @@ class TableRow extends Component {
         }
         <td>{product.categoryPath}</td>
         <td>{`$${product.salePrice}`}</td>
-        <td>{`${product.msrp ? `$${product.msrp}` : '(none)'}`}</td>
-        <td>{product.customerRating}</td>
-        <td>{`(${product.numReviews})`}</td>
+        <td>{product.msrp ? `$${product.msrp}` : <em>{`(none)`}</em>}</td>
+        <td><img src={product.customerRatingImage}></img>{product.numReviews ? `(${product.numReviews})` : null}</td>
         <td>
-          <span className="glyphicon glyphicon-remove" onClick={this.handleDelete} aria-hidden="true" id={product.itemId}></span></td>
+          <span type="submit" className="btn btn-default glyphicon glyphicon-remove" onClick={this.handleDelete} aria-hidden="true" aria-label="Left Align" id={product.itemId}></span></td>
       </tr>
     )
   }
@@ -83,10 +82,11 @@ export default connect(mstp, mdtp)(TableRow)
 
 /*
 <td>
-          <button
-            type="submit"
-            className="btn btn-default"
-            aria-label="Left Align"
-            onClick={this.handleDelete}>
-            <span className="glyphicon glyphicon-remove" onClick={this.handleDelete} aria-hidden="true" id={product.itemId}></span></button></td>
+  <span type="submit" className="btn btn-default glyphicon glyphicon-remove" onClick={this.handleDelete} aria-hidden="true" aria-label="Left Align" id={product.itemId}></span></td>
+
+< td > <span
+  className="glyphicon glyphicon-remove"
+  onClick={this.handleDelete}
+  aria-hidden="true"
+  id={product.itemId}></span> < /td>
 */
