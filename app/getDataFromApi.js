@@ -55,6 +55,7 @@ const formatNewData = (data) => {
     const value = {
       name: item.name,
       brandName: item.brandName,
+      newBrandName: '',
       customerRating: item.customerRating,
       customerRatingImage: item.customerRatingImage,
       itemId: item.itemId,

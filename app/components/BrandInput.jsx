@@ -7,10 +7,13 @@ class BrandInput extends Component {
 
     this.state = {
       updatedBrandName: '',
+      showSuggestedBrandName: false,
+      suggestedBrandName: this.props.product.brandName,
     }
 
     this.handleClick = this.handleClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.onBrandInputFocus = this.onBrandInputFocus.bind(this)
   }
 
   handleClick(event) {
@@ -20,7 +23,11 @@ class BrandInput extends Component {
   }
 
   handleChange(event) {
-    this.setState({updatedBrandName: event.target.value})
+    this.setState({showSuggestedBrandName: false, updatedBrandName: event.target.value})
+  }
+
+  onBrandInputFocus() {
+    this.setState({showSuggestedBrandName: true})
   }
 
   render() {
@@ -32,7 +39,8 @@ class BrandInput extends Component {
           <div className="form-group">
             <label className="sr-only" htmlFor="editable-brand">Brand</label>
             <input
-              value={this.state.updatedBrandName}
+              value={this.state.showSuggestedBrandName ? this.state.suggestedBrandName : this.state.updatedBrandName}
+              onFocus={this.onBrandInputFocus}
               onChange={this.handleChange}
               name={product.itemId}
               type="text"

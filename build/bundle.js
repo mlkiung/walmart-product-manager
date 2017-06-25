@@ -2087,7 +2087,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.REMOVE_REPOSITORY = exports.RELOAD_BRAND = exports.REMOVE_PRODUCT = exports.LOAD_ALL_PRODUCTS = exports.LOAD_QUERY = exports.LOAD_PRODUCTS = exports.searchProducts = exports.deleteRepository = exports.updateBrand = exports.deleteProduct = exports.getAllProducts = exports.receiveProducts = undefined;
+exports.SORT_ZA = exports.SORT_AZ = exports.REMOVE_REPOSITORY = exports.RELOAD_BRAND = exports.REMOVE_PRODUCT = exports.LOAD_ALL_PRODUCTS = exports.LOAD_QUERY = exports.LOAD_PRODUCTS = exports.sortByName = exports.searchProducts = exports.deleteRepository = exports.updateBrand = exports.deleteProduct = exports.getAllProducts = exports.receiveProducts = undefined;
 
 var _store = __webpack_require__(26);
 
@@ -2144,6 +2144,7 @@ var updateBrand = function updateBrand(itemId, brand) {
   item.brandName = brand;
   window.localStorage.setItem(itemId, JSON.stringify(item));
   getAllProducts();
+  _store2.default.dispatch(loadNewBrand());
 };
 
 var deleteRepository = function deleteRepository() {
@@ -2158,6 +2159,10 @@ var searchProducts = function searchProducts(term) {
   return '';
 };
 
+var sortByName = function sortByName(orderAToZ, productsArr) {
+  orderAToZ ? _store2.default.dispatch(sortAZ(productsArr)) : _store2.default.dispatch(sortZA(productsArr));
+};
+
 // constants
 var LOAD_PRODUCTS = 'LOAD_PRODUCTS';
 var LOAD_ALL_PRODUCTS = 'LOAD_ALL_PRODUCTS';
@@ -2165,6 +2170,8 @@ var LOAD_QUERY = 'LOAD_QUERY';
 var REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 var RELOAD_BRAND = 'RELOAD_BRAND';
 var REMOVE_REPOSITORY = 'REMOVE_REPOSITORY';
+var SORT_AZ = 'SORT_AZ';
+var SORT_ZA = 'SORT_ZA';
 
 // action creators
 var loadProducts = function loadProducts(products, productsArr) {
@@ -2212,18 +2219,35 @@ var removeRepository = function removeRepository(productsArr, products) {
   };
 };
 
+var sortAZ = function sortAZ(productsArr) {
+  return {
+    type: SORT_AZ,
+    productsArr: productsArr
+  };
+};
+
+var sortZA = function sortZA(productsArr) {
+  return {
+    type: SORT_ZA,
+    productsArr: productsArr
+  };
+};
+
 exports.receiveProducts = receiveProducts;
 exports.getAllProducts = getAllProducts;
 exports.deleteProduct = deleteProduct;
 exports.updateBrand = updateBrand;
 exports.deleteRepository = deleteRepository;
 exports.searchProducts = searchProducts;
+exports.sortByName = sortByName;
 exports.LOAD_PRODUCTS = LOAD_PRODUCTS;
 exports.LOAD_QUERY = LOAD_QUERY;
 exports.LOAD_ALL_PRODUCTS = LOAD_ALL_PRODUCTS;
 exports.REMOVE_PRODUCT = REMOVE_PRODUCT;
 exports.RELOAD_BRAND = RELOAD_BRAND;
 exports.REMOVE_REPOSITORY = REMOVE_REPOSITORY;
+exports.SORT_AZ = SORT_AZ;
+exports.SORT_ZA = SORT_ZA;
 
 /***/ }),
 /* 18 */
@@ -29605,7 +29629,8 @@ var SearchableProductsContainer = function (_Component) {
     var _this = _possibleConstructorReturn(this, (SearchableProductsContainer.__proto__ || Object.getPrototypeOf(SearchableProductsContainer)).call(this, props));
 
     _this.state = {
-      inputValue: ''
+      inputValue: '',
+      orderAToZ: false
     };
 
     _this.handleClick = _this.handleClick.bind(_this);
@@ -29627,7 +29652,13 @@ var SearchableProductsContainer = function (_Component) {
     key: 'handleClick',
     value: function handleClick(event) {
       event.preventDefault();
+      console.log('event name', event.target);
       if (event.target.name === 'delete-repository') this.props.deleteRepository();
+      if (event.target.id === 'sort-products-name') {
+        this.setState({ orderAToZ: !this.state.orderAToZ });
+        this.props.products && console.log('prductsArr', this.props.products);
+        this.props.products && this.props.sortByName(this.state.orderAToZ, this.props.products);
+      }
     }
   }, {
     key: 'handleChange',
@@ -29651,7 +29682,7 @@ var SearchableProductsContainer = function (_Component) {
         _react2.default.createElement(
           'table',
           { className: 'table-condensed' },
-          _react2.default.createElement(_TableHead2.default, null),
+          _react2.default.createElement(_TableHead2.default, { handleClick: this.handleClick }),
           _react2.default.createElement(
             'tbody',
             null,
@@ -29673,7 +29704,7 @@ var mstp = function mstp(state) {
   return { products: state.productsArr };
 };
 var mdtp = function mdtp(dispatch) {
-  return { deleteRepository: _search.deleteRepository, searchProducts: _search.searchProducts };
+  return { deleteRepository: _search.deleteRepository, searchProducts: _search.searchProducts, sortByName: _search.sortByName };
 };
 
 exports.default = (0, _reactRedux.connect)(mstp, mdtp)(SearchableProductsContainer);
@@ -30112,11 +30143,14 @@ var BrandInput = function (_Component) {
     var _this = _possibleConstructorReturn(this, (BrandInput.__proto__ || Object.getPrototypeOf(BrandInput)).call(this, props));
 
     _this.state = {
-      updatedBrandName: ''
+      updatedBrandName: '',
+      showSuggestedBrandName: false,
+      suggestedBrandName: _this.props.product.brandName
     };
 
     _this.handleClick = _this.handleClick.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
+    _this.onBrandInputFocus = _this.onBrandInputFocus.bind(_this);
     return _this;
   }
 
@@ -30130,7 +30164,12 @@ var BrandInput = function (_Component) {
   }, {
     key: 'handleChange',
     value: function handleChange(event) {
-      this.setState({ updatedBrandName: event.target.value });
+      this.setState({ showSuggestedBrandName: false, updatedBrandName: event.target.value });
+    }
+  }, {
+    key: 'onBrandInputFocus',
+    value: function onBrandInputFocus() {
+      this.setState({ showSuggestedBrandName: true });
     }
   }, {
     key: 'render',
@@ -30152,7 +30191,8 @@ var BrandInput = function (_Component) {
               'Brand'
             ),
             _react2.default.createElement('input', {
-              value: this.state.updatedBrandName,
+              value: this.state.showSuggestedBrandName ? this.state.suggestedBrandName : this.state.updatedBrandName,
+              onFocus: this.onBrandInputFocus,
               onChange: this.handleChange,
               name: product.itemId,
               type: 'text',
@@ -30220,7 +30260,8 @@ var BrandToggle = function (_Component) {
     var _this = _possibleConstructorReturn(this, (BrandToggle.__proto__ || Object.getPrototypeOf(BrandToggle)).call(this, props));
 
     _this.state = {
-      product: _this.props.product
+      product: _this.props.product,
+      brandName: _this.props.product.brandName
     };
 
     _this.handleClick = _this.handleClick.bind(_this);
@@ -30245,7 +30286,7 @@ var BrandToggle = function (_Component) {
       return _react2.default.createElement(
         'td',
         null,
-        newBrand !== '' ? newBrand : product.brandName,
+        newBrand !== '' ? newBrand : null,
         _react2.default.createElement(
           'a',
           {
@@ -30387,25 +30428,24 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var TableHead = function TableHead() {
+var TableHead = function TableHead(props) {
   return _react2.default.createElement(
     "thead",
     null,
     _react2.default.createElement(
       "tr",
       { className: "active" },
+      _react2.default.createElement("th", { scope: "col" }),
       _react2.default.createElement(
         "th",
         { scope: "col" },
-        "Product"
+        "Product",
+        _react2.default.createElement(
+          "button",
+          { id: "sort-products-name", onClick: props.handleClick },
+          _react2.default.createElement("span", { className: "caret pull-left" })
+        )
       ),
-      _react2.default.createElement(
-        "th",
-        { scope: "col" },
-        _react2.default.createElement("span", { className: "caret pull-left" })
-      ),
-      _react2.default.createElement("th", { scope: "col" }),
-      _react2.default.createElement("th", { scope: "col" }),
       _react2.default.createElement(
         "th",
         { scope: "col" },
@@ -30431,7 +30471,6 @@ var TableHead = function TableHead() {
         { scope: "col" },
         "Reviews"
       ),
-      _react2.default.createElement("th", { scope: "col" }),
       _react2.default.createElement("th", { scope: "col" })
     )
   );
@@ -30547,14 +30586,10 @@ var TableRow = function (_Component) {
         _react2.default.createElement(
           'td',
           null,
-          product.name
-        ),
-        _react2.default.createElement(
-          'td',
-          null,
+          product.name,
           _react2.default.createElement(
             'a',
-            { href: product.productUrl, target: '_blank' },
+            { href: product.productUrl, target: '_blank', className: 'button-margin-left' },
             _react2.default.createElement('span', {
               className: 'glyphicon glyphicon-new-window',
               'aria-hidden': 'true',
@@ -30850,6 +30885,23 @@ var reducer = function reducer() {
 
     case _search.REMOVE_REPOSITORY:
       return _extends({}, state, action.products, action.productsArr);
+
+    case _search.SORT_AZ:
+      return _extends({}, state, {
+        productsArr: action.productsArr.sort(function (a, b) {
+          if (a.name < b.name) return -1;
+          if (a.name > b.name) return 1;
+          return 0;
+        })
+      });
+    case _search.SORT_ZA:
+      return _extends({}, state, {
+        productsArr: action.productsArr.sort(function (a, b) {
+          if (a.name > b.name) return -1;
+          if (a.name < b.name) return 1;
+          return 0;
+        })
+      });
 
     default:
       return state;

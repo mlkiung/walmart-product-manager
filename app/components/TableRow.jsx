@@ -53,7 +53,7 @@ class TableRow extends Component {
     return (
       <tr>
         <td><img src={product && product.thumbnailImage}/></td>
-        <td>{product.name}<a href={product.productUrl} target="_blank" className="product-url-button">
+        <td>{product.name}<a href={product.productUrl} target="_blank" className="button-margin-left">
           <span
             className="glyphicon glyphicon-new-window"
             aria-hidden="true"
@@ -61,7 +61,7 @@ class TableRow extends Component {
         {
           this.state.editable
             ? <BrandInput product={product} handleClick={this.handleClick} />
-            : <BrandToggle product={product} newBrand={this.state.newBrandName} handleClick={this.handleClick} />
+            : <BrandToggle product={product} newBrand={this.state.newBrandName ? this.state.newBrandName : product.newBrandName} handleClick={this.handleClick} />
         }
         <td>{product.categoryPath}</td>
         <td>{`$${product.salePrice}`}</td>

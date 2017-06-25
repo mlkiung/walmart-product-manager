@@ -3,14 +3,17 @@ import store from './store'
 const getStorage = () => {
   return new Promise((resolve, reject) => {
     const products = {}
+    const productsArr = []
+    const resultArr = []
 
     for (let i = 0; i < window.localStorage.length; i++) {
       const key = window.localStorage.key(i)
       const value = JSON.parse(window.localStorage.getItem(key))
       products[key] = value
+      productsArr.push(value)
     }
-
-    resolve(products)
+    resultArr.push(products, productsArr)
+    resolve(resultArr)
     reject(new Error('Error retrieving products from localStorage!'))
   })
 }
@@ -22,9 +25,10 @@ const receiveProducts = (data) => {
 }
 
 const getAllProducts = () => {
-  const products = getStorage()
-  products.then((products) => {
-    store.dispatch(loadAllProducts(products))
+  const results = getStorage()
+  results.then((results) => {
+    const products = results[0], productsArr = results[1]
+    store.dispatch(loadAllProducts(products, productsArr))
   }).catch(console.error)
 }
 
@@ -45,9 +49,10 @@ const deleteProduct = (itemId) => {
 
 const updateBrand = (itemId, brand) => {
   const item = JSON.parse(window.localStorage.getItem(itemId))
-  item.brandName = brand
+  item.newBrandName = brand
   window.localStorage.setItem(itemId, JSON.stringify(item))
   getAllProducts()
+  // store.dispatch(loadNewBrand())
 }
 
 const deleteRepository = () => {
@@ -83,9 +88,10 @@ const loadProducts = (products, productsArr) => ({
   productsArr
 })
 
-const loadAllProducts = (products) => ({
+const loadAllProducts = (products, productsArr) => ({
   type: LOAD_ALL_PRODUCTS,
-  products
+  products,
+  productsArr
 })
 
 const loadQuery = (query) => ({

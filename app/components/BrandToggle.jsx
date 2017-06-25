@@ -6,6 +6,7 @@ class BrandToggle extends Component {
 
     this.state = {
       product: this.props.product,
+      brandName: this.props.product.brandName
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -24,7 +25,7 @@ class BrandToggle extends Component {
     const newBrand = this.props.newBrand
     return (
       <td>
-        {newBrand !== '' ? newBrand : product.brandName}
+        {newBrand !== '' ? newBrand : product.newBrandName ? product.newBrandName : null}
         <a
           href="#"
           onClick={this.handleClick}>
