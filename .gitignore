@@ -1,4 +1,5 @@
 /node_modules*
 npm-debug.log
-/build*
+/build/index.html
+/build/bundle.js
 api.config.js
