@@ -33,7 +33,6 @@ const makeQueryString = (input, startingNumber) => {
   buildOptions.forEach((buildOption) => {
     buildOption && buildArr.push(buildOption)
   })
-  console.log('query', buildArr.join(''))
   return buildArr.join('')
 }
 

@@ -30808,7 +30808,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var makeQueryString = function makeQueryString(input, startingNumber) {
   // CONSTANTS ('input' is an array of search parameters)
-  console.log(input.brandName);
   var queryStarter = 'http://api.walmartlabs.com/v1/search?';
   var apiKey = '&apiKey=' + _api2.default;
   var json = '&format=json';

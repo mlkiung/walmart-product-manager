@@ -14,8 +14,6 @@ const store = createStore(
     thunkMiddleware))
 )
 
-console.log('STORE STATE', store.getState())
-
 // any time an action is dispatched, saveState() will be called
 store.subscribe(() => saveState())
 
