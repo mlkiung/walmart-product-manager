@@ -22,6 +22,16 @@ Walmart Product Manager is an interface for working with locally-managed data pu
 1. `npm start`
 1. Navigate to http://localhost:8080
 
+## Use
+* To pull products directly from the Walmart Open API and populate a new data store, enter a search query in the top toolbar
+* Filter results using the search feature above the data table
+* To clear all results and start a new request, click the 'Clear Table' button (this is permanent!)
+* To append to the current data store (localStorage) with an additional request, simply enter a new query in the top toolbar. The API will check for duplicity in results and update localStorage and state accordingly!
+* To edit brand name, click on the carat and an editable field will open; make changes to the suggested name to update, or submit without changes to cancel
+* Columns with a caret next to them are sortable in both ascending and descending order; click on the caret to toggle
+* Click on the link next to the product name to take you to the product URL on Walmart.com
+* To delete a project from the locally-managed data, click the 'X' on the right-hand side of the product row
+
 ## Areas for Further Development
 * Add a button to pull more search results from Walmart Open API where the previous search left off (max pull at one time is 25 products)
 * Add pagination as product list grows, with an option to customize number of results per page
