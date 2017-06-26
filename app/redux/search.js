@@ -69,11 +69,6 @@ const sort123 = (sortDir, productsArr, sortName) => {
   sortDir ? store.dispatch(sortAsc(productsArr, sortName)) : store.dispatch(sortDesc(productsArr, sortName))
 }
 
-const loadMoreProducts = (query) => {
-  console.log('query', query)
-  
-}
-
 // constants
 const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
 const LOAD_ALL_PRODUCTS = 'LOAD_ALL_PRODUCTS'

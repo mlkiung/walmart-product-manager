@@ -6,7 +6,6 @@ import { deleteProduct, updateBrand, deleteRepository, searchProducts, sortAbc, 
 import TableHead from './TableHead'
 import TableRow from './TableRow'
 import SearchInput from './SearchInput'
-import GetMoreProductsButton from './GetMoreProductsButton'
 
 class SearchableProductsContainer extends Component {
   constructor(props) {
@@ -34,7 +33,7 @@ class SearchableProductsContainer extends Component {
     const targetId = event.target.id.slice(0, 14)
     const sortName = event.target.id && event.target.id.slice(14)
     if (event.target.name === 'delete-repository') this.props.deleteRepository()
-    if (event.target.name === 'get-more-products') this.props.loadMoreProducts(this.props.query)
+    // if (event.target.name === 'get-more-products') this.props.loadMoreProducts(this.props.query)
     if (event.target.name === 'sort-products-name') {
       this.setState({ sortAsc: !this.state.sortAsc })
       this.props.products && this.props.sortAbc(this.state.sortAsc, this.props.products)
@@ -72,13 +71,12 @@ class SearchableProductsContainer extends Component {
               ))}
           </tbody>
         </table>
-        <GetMoreProductsButton handleClick={this.handleClick} query={this.props.query} />
       </div>
     )
   }
 }
 
-const mstp = (state) => ({ products: state.productsArr, query: state.query })
-const mdtp = (dispatch) => ({ deleteRepository, searchProducts, sortAbc, sort123, loadMoreProducts })
+const mstp = (state) => ({ products: state.productsArr })
+const mdtp = (dispatch) => ({ deleteRepository, searchProducts, sortAbc, sort123 })
 
 export default connect(mstp, mdtp)(SearchableProductsContainer)

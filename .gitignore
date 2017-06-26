@@ -4,3 +4,4 @@ npm-debug.log
 /build/bundle.js
 api.config.js
 .eslintrc.js
+/app/components/GetMoreProductsButton.jsx
