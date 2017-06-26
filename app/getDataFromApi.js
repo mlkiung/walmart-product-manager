@@ -38,6 +38,7 @@ const makeQueryString = (input, startingNumber) => {
 }
 
 const formatNewData = (data) => {
+  // takes data from api and formats it into an object containing data about the last query, an object with key: product Id and value: info about each product (for lookup), and an array of all product objects (for mapping and sorting)
   const query = {
     numItems: data.numItems,
     query: data.query,
@@ -56,7 +57,7 @@ const formatNewData = (data) => {
       name: item.name,
       brandName: item.brandName,
       newBrandName: '',
-      customerRating: item.customerRating,
+      customerRating: Number(item.customerRating),
       customerRatingImage: item.customerRatingImage,
       itemId: item.itemId,
       categoryPath: item.categoryPath,
@@ -85,21 +86,5 @@ const getDataFromApi = function(queryObj) {
       .catch((ex) => new Error('parsing failed', ex))
   })
 }
-
-// const getDataFromApi = function(queryObj) {
-//   const queryString = makeQueryString(queryObj)
-//   console.log('queryString', queryString)
-
-//   // uses fetchJsonp library to get products from Walmart API
-//   fetchJsonp(queryString)
-//     .then((response) => response.json())
-//     .then((json) => {
-//       console.log('parsed json', json)
-//       const formattedData = formatNewData(json)
-//       return formattedData
-//     })
-//     // .catch((ex) => console.log('parsing failed', ex))
-//     .catch((ex) => new Error('parsing failed', ex))
-// }
 
 export { getDataFromApi }

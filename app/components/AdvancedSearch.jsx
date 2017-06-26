@@ -34,7 +34,7 @@ class AdvancedSearch extends Component {
         {
           // making the input boxes for brandName, results, and startAt
           advancedSearchOptions.map((advancedSearchOption, i) => (
-            <div className="input-group col-lg-2" key={i}>
+            <div className="input-group" key={i}>
               <input
                 type="text"
                 className="form-control"

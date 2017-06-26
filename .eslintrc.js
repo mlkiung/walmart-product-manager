@@ -37,7 +37,7 @@ module.exports = {
     // so we're leaving it off for now (although stock Bones passes
     // the linter with it on). If you decide you want to enforce
     // this rule, change "off" to "error".
-    "comma-style": ["off", "first", {
+    "comma-style": ["error", "first", {
       exceptions: {
         ArrayExpression: true,
         ObjectExpression: true,

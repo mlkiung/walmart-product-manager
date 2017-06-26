@@ -20,8 +20,9 @@ const getStorage = () => {
 
 // get products from API
 const receiveProducts = (data) => {
-  store.dispatch(loadProducts(data[1], data[2]))
-  store.dispatch(loadQuery(data[0]))
+  const query = data[0], products = data[1], productsArr = data[2]
+  store.dispatch(loadProducts(products, productsArr))
+  store.dispatch(loadQuery(query))
 }
 
 const getAllProducts = () => {
@@ -52,7 +53,6 @@ const updateBrand = (itemId, brand) => {
   item.newBrandName = brand
   window.localStorage.setItem(itemId, JSON.stringify(item))
   getAllProducts()
-  // store.dispatch(loadNewBrand())
 }
 
 const deleteRepository = () => {
@@ -61,12 +61,17 @@ const deleteRepository = () => {
   window.localStorage.clear()
 }
 
-const searchProducts = (term) => {
-  return ''
+const sortAbc = (sortDir, productsArr) => {
+  sortDir ? store.dispatch(sortAZ(productsArr)) : store.dispatch(sortZA(productsArr))
 }
 
-const sortByName = (orderAToZ, productsArr) => {
-  orderAToZ ? store.dispatch(sortAZ(productsArr)) : store.dispatch(sortZA(productsArr))
+const sort123 = (sortDir, productsArr, sortName) => {
+  sortDir ? store.dispatch(sortAsc(productsArr, sortName)) : store.dispatch(sortDesc(productsArr, sortName))
+}
+
+const loadMoreProducts = (query) => {
+  console.log('query', query)
+  
 }
 
 // constants
@@ -78,6 +83,8 @@ const RELOAD_BRAND = 'RELOAD_BRAND'
 const REMOVE_REPOSITORY = 'REMOVE_REPOSITORY'
 const SORT_AZ = 'SORT_AZ'
 const SORT_ZA = 'SORT_ZA'
+const SORT_ASC = 'SORT_ASC'
+const SORT_DESC = 'SORT_DESC'
 
 // action creators
 const loadProducts = (products, productsArr) => ({
@@ -124,4 +131,16 @@ const sortZA = (productsArr) => ({
   productsArr
 })
 
-export { receiveProducts, getAllProducts, deleteProduct, updateBrand, deleteRepository, searchProducts, sortByName, LOAD_PRODUCTS, LOAD_QUERY, LOAD_ALL_PRODUCTS, REMOVE_PRODUCT, RELOAD_BRAND, REMOVE_REPOSITORY, SORT_AZ, SORT_ZA }
+const sortAsc = (productsArr, sortName) => ({
+  type: SORT_ASC,
+  productsArr,
+  sortName
+})
+
+const sortDesc = (productsArr, sortName) => ({
+  type: SORT_DESC,
+  productsArr,
+  sortName
+})
+
+export { receiveProducts, getAllProducts, deleteProduct, updateBrand, deleteRepository, sortAbc, sort123, LOAD_PRODUCTS, LOAD_QUERY, LOAD_ALL_PRODUCTS, REMOVE_PRODUCT, RELOAD_BRAND, REMOVE_REPOSITORY, SORT_AZ, SORT_ZA, SORT_ASC, SORT_DESC }

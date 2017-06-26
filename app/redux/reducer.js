@@ -1,5 +1,5 @@
 import store from './store'
-import { LOAD_PRODUCTS, LOAD_ALL_PRODUCTS, LOAD_QUERY, REMOVE_PRODUCT, RELOAD_BRAND, REMOVE_REPOSITORY, SORT_AZ, SORT_ZA } from './search'
+import { LOAD_PRODUCTS, LOAD_ALL_PRODUCTS, LOAD_QUERY, REMOVE_PRODUCT, RELOAD_BRAND, REMOVE_REPOSITORY, SORT_AZ, SORT_ZA, SORT_ASC, SORT_DESC } from './search'
 
 const initialState = {}
 
@@ -7,7 +7,13 @@ const reducer = (state = initialState, action) => {
 
   switch (action.type) {
   case LOAD_PRODUCTS:
-    return { ...state, products: { ...state.products, ...action.products }, productsArr: [...state.productsArr, ...action.productsArr] }
+  /* filters products, removing duplicates for both obj and array, when initial data is pulled from api */
+    return {
+      ...state,
+      products: { ...state.products, ...action.products },
+      productsArr: [...state.productsArr, ...action.productsArr.filter((product) => {
+        for (const id in state.products) return product.itemId !== id
+      })] }
 
   case LOAD_ALL_PRODUCTS:
     return { ...state, products: action.products, productsArr: action.productsArr }
@@ -30,8 +36,33 @@ const reducer = (state = initialState, action) => {
     return { ...state, products: action.products }
 
   case REMOVE_REPOSITORY:
+  /* empties out all of localStorage */
     return { ...state, products: { ...action.products }, productsArr: [...action.productsArr] }
 
+    /* ========== Sorting for Numbers ========== */
+  case SORT_ASC :
+    const sortByAz = action.sortName
+    return {
+      ...state,
+      productsArr: action.productsArr.sort((a, b) => {
+        if (a[sortByAz] - b[sortByAz] < 0) return -1
+        if (a[sortByAz] - b[sortByAz] > 0) return 1
+        return 0
+      })
+    }
+
+  case SORT_DESC :
+    const sortByZa = action.sortName
+    return {
+      ...state,
+      productsArr: action.productsArr.sort((a, b) => {
+        if (a[sortByZa] - b[sortByZa] > 0) return -1
+        if (a[sortByZa] - b[sortByZa] < 0) return 1
+        return 0
+      })
+    }
+
+    /* ========== Sorting for Strings ========== */
   case SORT_AZ:
     return {
       ...state,
@@ -41,7 +72,8 @@ const reducer = (state = initialState, action) => {
         return 0
       })
     }
-  case SORT_ZA:
+
+  case SORT_ZA :
     return {
       ...state,
       productsArr: action.productsArr.sort((a, b) => {

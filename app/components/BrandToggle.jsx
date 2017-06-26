@@ -27,7 +27,7 @@ class BrandToggle extends Component {
       <td>
         {newBrand !== '' ? newBrand : product.newBrandName ? product.newBrandName : null}
         <button
-          className="btn btn-default"
+          className="btn btn-default button-no-border"
           onClick={this.handleClick}
           id={`toggle-brand-${product.itemId}`}>
           <span className="caret"></span></button>

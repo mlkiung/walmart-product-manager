@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { values } from 'lodash'
-import { deleteProduct, updateBrand, deleteRepository, searchProducts, sortByName } from '../redux/search'
+
+import { deleteProduct, updateBrand, deleteRepository, searchProducts, sortAbc, sort123, loadMoreProducts } from '../redux/search'
 import TableHead from './TableHead'
 import TableRow from './TableRow'
 import SearchInput from './SearchInput'
+import GetMoreProductsButton from './GetMoreProductsButton'
 
 class SearchableProductsContainer extends Component {
   constructor(props) {
@@ -12,7 +14,7 @@ class SearchableProductsContainer extends Component {
 
     this.state = {
       inputValue: '',
-      orderAToZ: false,
+      sortAsc: false,
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -29,12 +31,17 @@ class SearchableProductsContainer extends Component {
 
   handleClick(event) {
     event.preventDefault()
-    console.log('event name', event.target)
+    const targetId = event.target.id.slice(0, 14)
+    const sortName = event.target.id && event.target.id.slice(14)
     if (event.target.name === 'delete-repository') this.props.deleteRepository()
-    if (event.target.id === 'sort-products-name') {
-      this.setState({ orderAToZ: !this.state.orderAToZ })
-      this.props.products && console.log('prductsArr', this.props.products)
-      this.props.products && this.props.sortByName(this.state.orderAToZ, this.props.products)
+    if (event.target.name === 'get-more-products') this.props.loadMoreProducts(this.props.query)
+    if (event.target.name === 'sort-products-name') {
+      this.setState({ sortAsc: !this.state.sortAsc })
+      this.props.products && this.props.sortAbc(this.state.sortAsc, this.props.products)
+    }
+    if (targetId && targetId === 'sort-products-') {
+      this.setState({ sortAsc: !this.state.sortAsc })
+      this.props.products && this.props.sort123(this.state.sortAsc, this.props.products, sortName)
     }
   }
 
@@ -54,7 +61,7 @@ class SearchableProductsContainer extends Component {
     return (
       <div>
         <SearchInput handleChange={this.handleChange} handleClick={this.handleClick} inputValue={this.props.inputValue} />
-        <table className="table table-condensed table-bordered table-striped">
+        <table className="table table-condensed table-bordered panel-adjust">
           <TableHead handleClick={this.handleClick} />
           <tbody>
             {
@@ -65,12 +72,13 @@ class SearchableProductsContainer extends Component {
               ))}
           </tbody>
         </table>
+        <GetMoreProductsButton handleClick={this.handleClick} query={this.props.query} />
       </div>
     )
   }
 }
 
-const mstp = (state) => ({ products: state.productsArr })
-const mdtp = (dispatch) => ({deleteRepository, searchProducts, sortByName})
+const mstp = (state) => ({ products: state.productsArr, query: state.query })
+const mdtp = (dispatch) => ({ deleteRepository, searchProducts, sortAbc, sort123, loadMoreProducts })
 
 export default connect(mstp, mdtp)(SearchableProductsContainer)

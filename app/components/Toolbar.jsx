@@ -43,13 +43,8 @@ class Toolbar extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-
-    const query = this.state.query,
-      brandName = this.state.brandName,
-      results = this.state.results,
-      startAt = this.state.startAt,
-      sortOption = this.state.sortOption,
-      queryObj = { query, brandName, results, startAt, sortOption }
+    const queryObj = { ...this.state }
+    const query = this.state.query
 
     if (query && query !== '') {
       const data = getDataFromApi(queryObj)
@@ -64,28 +59,25 @@ class Toolbar extends Component {
 
   render() {
     return (
-      <div className="panel panel-default">
+      <div className="panel panel-default panel-adjust panel-no-border">
         <div className="panel-body">
-          <div className="row">
-            <div className="input-group col-lg-2">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Query (required)"
-                aria-describedby="basic-addon1"
-                value={this.state.query}
-                name="query"
-                onChange={this.handleChange} />
-              <span className="input-group-btn"><button className="btn btn-default" type="button" onClick={this.handleSubmit}>Go!</button></span>
-            </div>
+          <div className="input-group row" id="toolbar">
+            <input
+              type="text"
+              className="form-control half-width"
+              placeholder="Search Walmart database"
+              aria-describedby="basic-addon1"
+              value={this.state.query}
+              name="query"
+              onChange={this.handleChange} />
+            <span className="input-group-btn"><button className="btn btn-default" type="button" onClick={this.handleSubmit}>Go!</button></span>
             {
               this.state.showAdvanced ? <AdvancedSearch handleChange={this.handleChange} search={this.state} /> : null
             }
-            <div className="col-lg-2">
-              <button type="button" className="btn btn-link" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</button>
-            </div>
+            <button type="button" className="btn btn-link" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</button>
           </div>
         </div>
+        <hr />
       </div>
     )
   }

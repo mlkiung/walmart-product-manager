@@ -1,7 +1,50 @@
-.toolbar {
-  margin-top: 2em;
+#toolbar {
+  margin: 0.5em;
 }
 
 .button-margin-left {
   margin-left: 1em;
 }
+
+#clear-table-button {
+  margin-top: 1em;
+}
+
+.button-no-border {
+  border: none;
+}
+
+.breadcrumb {
+  background-color: white;
+}
+
+.button-background-color {
+  background-color: #f5f5f5;
+}
+
+.img-resize {
+  height: 5em;
+  width: 5em;
+}
+
+.center-rows {
+  margin-top: 2em;
+}
+
+.panel-adjust {
+  margin: 1em;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.panel-no-border {
+  border: none;
+  box-shadow: none;
+}
+
+.fetch-products-button {
+  margin-bottom: 1em;
+}
+

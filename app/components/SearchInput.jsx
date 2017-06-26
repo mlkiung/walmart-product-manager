@@ -24,7 +24,7 @@ class SearchInput extends Component {
 
   render() {
     return (
-      <div className="panel panel-default">
+      <div className="panel panel-default panel-adjust panel-no-border">
         <div className="panel-body">
           <div className="input-group">
             <span className="input-group-addon" id="sizing-addon2">
@@ -35,12 +35,13 @@ class SearchInput extends Component {
               value={this.props.inputValue}
               className="form-control"
               name="search-products"
-              placeholder="Search products"
+              placeholder="Search within results"
               aria-describedby="sizing-addon2"
               onChange={this.handleChange} />
           </div>
           <button
             className="btn btn-default"
+            id="clear-table-button"
             type="submit"
             name="delete-repository"
             onClick={this.handleClick}
