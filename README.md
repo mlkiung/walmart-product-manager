@@ -25,6 +25,7 @@ Walmart Product Manager is an interface for working with locally-managed data pu
 ## Areas for Further Development
 * Add a button to pull more search results from Walmart Open API where the previous search left off (max pull at one time is 25 products)
 * Add pagination as product list grows, with an option to customize number of results per page
+* Fix styling of toolbar when  <AdvancedSearch /> renders
 * Make editable brand name field more intuitive, e.g. not a caret
 * Add functionality to group products by category
   * Make the category path breadcrumb trail into a list of links
