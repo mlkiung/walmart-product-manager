@@ -2,5 +2,4 @@
 npm-debug.log
 /build/index.html
 /build/bundle.js
-.eslintrc.js
 /app/components/GetMoreProductsButton.jsx
