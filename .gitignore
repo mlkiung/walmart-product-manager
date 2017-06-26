@@ -2,6 +2,5 @@
 npm-debug.log
 /build/index.html
 /build/bundle.js
-api.config.js
 .eslintrc.js
 /app/components/GetMoreProductsButton.jsx
