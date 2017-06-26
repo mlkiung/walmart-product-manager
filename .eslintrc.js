@@ -33,10 +33,7 @@ module.exports = {
     "operator-linebreak": "off",
 
     // This rule enforces a comma-first style, such as
-    // npm uses. I think it's great, but it can look a bit weird,
-    // so we're leaving it off for now (although stock Bones passes
-    // the linter with it on). If you decide you want to enforce
-    // this rule, change "off" to "error".
+    // npm uses. 
     "comma-style": ["error", "first", {
       exceptions: {
         ArrayExpression: true,
