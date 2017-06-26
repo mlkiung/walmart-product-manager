@@ -43,6 +43,9 @@ Walmart Product Manager is an interface for working with locally-managed data pu
 * Integrate frontend testing using Mocha/Chai/Enzyme
 * Modularize CSS stylesheets using CSS modules and Sass
 * Integrate functionality so user can work with their own API key for queries
+* Add an alert or modal to warn user that clearing the table cannot be undone, thereby reducing the risks of accidental data loss while still preserving the option for an easy purge method
+* Integrate column-resizing functionality
+* Integrate a feature so the user can customize exactly what data is stored locally and/or displayed on the table at any given time (currently limited to product image, name, url, price, msrp, avg. customer review, number of reviews, and brand name)
 
 ## Author
 * Meredith Kiung
