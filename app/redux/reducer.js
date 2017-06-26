@@ -8,12 +8,13 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
   case LOAD_PRODUCTS:
   /* filters products, removing duplicates for both obj and array, when initial data is pulled from api */
+    const idArr = Object.keys(state.products)
+    const newProducts = action.productsArr.filter((product) => idArr.indexOf(product.itemId.toString()) < 0)
     return {
       ...state,
+      productsArr: [ ...state.productsArr, ...newProducts ],
       products: { ...state.products, ...action.products },
-      productsArr: [...state.productsArr, ...action.productsArr.filter((product) => {
-        for (const id in state.products) return product.itemId !== id
-      })] }
+    }
 
   case LOAD_ALL_PRODUCTS:
     return { ...state, products: action.products, productsArr: action.productsArr }

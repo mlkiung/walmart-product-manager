@@ -18,7 +18,6 @@ class BrandInput extends Component {
 
   handleClick(event) {
     event.preventDefault()
-    console.log('event.taret', event.target)
     this.props.handleClick(event, this.props.product.itemId, this.state.updatedBrandName)
   }
 

@@ -29647,8 +29647,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// import GetMoreProductsButton from './GetMoreProductsButton'
-
 var SearchableProductsContainer = function (_Component) {
   _inherits(SearchableProductsContainer, _Component);
 
@@ -29698,7 +29696,6 @@ var SearchableProductsContainer = function (_Component) {
     key: 'handleChange',
     value: function handleChange(event) {
       var inputValue = event.target.value;
-      console.log(inputValue);
       this.setState({ inputValue: inputValue });
     }
   }, {
@@ -30238,7 +30235,6 @@ var BrandInput = function (_Component) {
     key: 'handleClick',
     value: function handleClick(event) {
       event.preventDefault();
-      console.log('event.taret', event.target);
       this.props.handleClick(event, this.props.product.itemId, this.state.updatedBrandName);
     }
   }, {
@@ -30812,12 +30808,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var makeQueryString = function makeQueryString(input, startingNumber) {
   // CONSTANTS ('input' is an array of search parameters)
+  console.log(input.brandName);
   var queryStarter = 'http://api.walmartlabs.com/v1/search?';
   var apiKey = '&apiKey=' + _api2.default;
   var json = '&format=json';
   var responseGroup = '&responseGroup=full';
   var query = input.query ? '&query=' + input.query : null;
-  var sortOption = input.sortOption ? '&sort=' + input.sortOption : null;
+  var sortOption = input.sortOption ? '&sort=' + input.sortOption : '&sort=relevance';
   var results = input.results ? '&numItems=' + input.results : '&numItems=' + 25;
   var startAt = input.startAt ? '&start=' + input.startAt : null;
   var brandName = input.brandName ? '&facet=on&facet.filter=brand:' + input.brandName : null;
@@ -30830,7 +30827,7 @@ var makeQueryString = function makeQueryString(input, startingNumber) {
   buildOptions.forEach(function (buildOption) {
     buildOption && buildArr.push(buildOption);
   });
-
+  console.log('query', buildArr.join(''));
   return buildArr.join('');
 };
 
@@ -30976,13 +30973,14 @@ var reducer = function reducer() {
   switch (action.type) {
     case _search.LOAD_PRODUCTS:
       /* filters products, removing duplicates for both obj and array, when initial data is pulled from api */
+      var idArr = Object.keys(state.products);
+      var newProducts = action.productsArr.filter(function (product) {
+        return idArr.indexOf(product.itemId.toString()) < 0;
+      });
       return _extends({}, state, {
-        products: _extends({}, state.products, action.products),
-        productsArr: [].concat(_toConsumableArray(state.productsArr), _toConsumableArray(action.productsArr.filter(function (product) {
-          for (var id in state.products) {
-            return product.itemId !== id;
-          }
-        }))) });
+        productsArr: [].concat(_toConsumableArray(state.productsArr), _toConsumableArray(newProducts)),
+        products: _extends({}, state.products, action.products)
+      });
 
     case _search.LOAD_ALL_PRODUCTS:
       return _extends({}, state, { products: action.products, productsArr: action.productsArr });

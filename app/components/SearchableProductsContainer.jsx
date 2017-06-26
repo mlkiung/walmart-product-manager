@@ -46,7 +46,6 @@ class SearchableProductsContainer extends Component {
 
   handleChange(event) {
     const inputValue = event.target.value
-    console.log(inputValue)
     this.setState({ inputValue })
   }
 

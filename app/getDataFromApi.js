@@ -14,7 +14,7 @@ const makeQueryString = (input, startingNumber) => {
     : null
   const sortOption = input.sortOption
     ? `&sort=${input.sortOption}`
-    : null
+    : `&sort=relevance`
   const results = input.results
     ? `&numItems=${input.results}`
     : `&numItems=${25}`
@@ -33,7 +33,7 @@ const makeQueryString = (input, startingNumber) => {
   buildOptions.forEach((buildOption) => {
     buildOption && buildArr.push(buildOption)
   })
-
+  console.log('query', buildArr.join(''))
   return buildArr.join('')
 }
 
