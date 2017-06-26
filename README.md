@@ -29,7 +29,7 @@ Walmart Product Manager is an interface for working with locally-managed data pu
 * Add functionality to group products by category
   * Make the category path breadcrumb trail into a list of links
   * Clicking a link will filter the list of products to include only those within the designated category
-* Integrate frontend testing
+* Integrate frontend testing using Mocha/Chai/Enzyme
 * Modularize CSS stylesheets using CSS modules and Sass
 * Integrate functionality so user can work with their own API key for queries
 
