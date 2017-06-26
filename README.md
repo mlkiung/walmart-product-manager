@@ -20,6 +20,7 @@ Walmart Product Manager is an interface for working with locally-managed data pu
 1. `git clone`
 1. `npm install`
 1. `npm start`
+1. Navigate to http://localhost:8080
 
 ## Areas for Further Development
 * Add a button to pull more search results from Walmart OpenAPI where the previous search left off (max pull at one time is 25 products)
