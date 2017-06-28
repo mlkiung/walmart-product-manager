@@ -59,6 +59,5 @@ class BrandInput extends Component {
 }
 
 const mstp = (state, ownProps) => ({product: state.products[ownProps.product.itemId]})
-const mdtp = (dispatch) => ({})
 
-export default connect(mstp, mdtp)(BrandInput)
+export default connect(mstp)(BrandInput)
