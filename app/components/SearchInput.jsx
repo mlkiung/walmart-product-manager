@@ -6,10 +6,6 @@ class SearchInput extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      searchTerm: ''
-    }
-
     this.handleClick = this.handleClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
@@ -52,6 +48,4 @@ class SearchInput extends Component {
   }
 }
 
-const mstp = (state) => ({products: state.products})
-
-export default connect(mstp)(SearchInput)
+export default SearchInput

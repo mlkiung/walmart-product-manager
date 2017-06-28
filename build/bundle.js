@@ -3384,9 +3384,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var persistedState = (0, _localStorage.getState)();
 
-var store = (0, _redux.createStore)(_reducer2.default, persistedState, (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)((0, _reduxLogger.createLogger)({ collapsed: true }), _reduxThunk2.default)));
-
-console.log('STORE STATE', store.getState()
+var store = (0, _redux.createStore)(_reducer2.default, persistedState, (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)((0, _reduxLogger.createLogger)({ collapsed: true }), _reduxThunk2.default))
 
 // any time an action is dispatched, saveState() will be called
 );store.subscribe(function () {
@@ -29681,9 +29679,8 @@ var SearchableProductsContainer = function (_Component) {
       event.preventDefault();
       var targetId = event.target.id.slice(0, 14);
       var sortName = event.target.id && event.target.id.slice(14);
-      if (event.target.name === 'delete-repository') this.props.deleteRepository
-      // if (event.target.name === 'get-more-products') this.props.loadMoreProducts(this.props.query)
-      ();if (event.target.name === 'sort-products-name') {
+      if (event.target.name === 'delete-repository') this.props.deleteRepository();
+      if (event.target.name === 'sort-products-name') {
         this.setState({ sortAsc: !this.state.sortAsc });
         this.props.products && this.props.sortAbc(this.state.sortAsc, this.props.products);
       }
@@ -29735,7 +29732,7 @@ var mstp = function mstp(state) {
   return { products: state.productsArr };
 };
 var mdtp = function mdtp(dispatch) {
-  return { deleteRepository: _search.deleteRepository, searchProducts: _search.searchProducts, sortAbc: _search.sortAbc, sort123: _search.sort123 };
+  return { deleteRepository: _search.deleteRepository, sortAbc: _search.sortAbc, sort123: _search.sort123 };
 };
 
 exports.default = (0, _reactRedux.connect)(mstp, mdtp)(SearchableProductsContainer);
@@ -30296,11 +30293,8 @@ var BrandInput = function (_Component) {
 var mstp = function mstp(state, ownProps) {
   return { product: state.products[ownProps.product.itemId] };
 };
-var mdtp = function mdtp(dispatch) {
-  return {};
-};
 
-exports.default = (0, _reactRedux.connect)(mstp, mdtp)(BrandInput);
+exports.default = (0, _reactRedux.connect)(mstp)(BrandInput);
 
 /***/ }),
 /* 121 */
@@ -30826,7 +30820,6 @@ var makeQueryString = function makeQueryString(input, startingNumber) {
   buildOptions.forEach(function (buildOption) {
     buildOption && buildArr.push(buildOption);
   });
-  console.log('query', buildArr.join(''));
   return buildArr.join('');
 };
 

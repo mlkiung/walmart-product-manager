@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { values } from 'lodash'
 
-import { deleteProduct, updateBrand, deleteRepository, searchProducts, sortAbc, sort123, loadMoreProducts } from '../redux/search'
+import { deleteRepository, sortAbc, sort123 } from '../redux/search'
 import TableHead from './TableHead'
 import TableRow from './TableRow'
 import SearchInput from './SearchInput'
@@ -33,7 +33,6 @@ class SearchableProductsContainer extends Component {
     const targetId = event.target.id.slice(0, 14)
     const sortName = event.target.id && event.target.id.slice(14)
     if (event.target.name === 'delete-repository') this.props.deleteRepository()
-    // if (event.target.name === 'get-more-products') this.props.loadMoreProducts(this.props.query)
     if (event.target.name === 'sort-products-name') {
       this.setState({ sortAsc: !this.state.sortAsc })
       this.props.products && this.props.sortAbc(this.state.sortAsc, this.props.products)
@@ -53,7 +52,9 @@ class SearchableProductsContainer extends Component {
     const inputValue = this.state.inputValue
     const products = this.props.products && this.props.products.filter(
       product => {
-        return inputValue && inputValue !== '' ? product.name.toLowerCase().match(inputValue.toLowerCase()) : product
+        return inputValue && inputValue !== ''
+          ? product.name.toLowerCase().match(inputValue.toLowerCase())
+          : product
       })
 
     return (
@@ -76,6 +77,6 @@ class SearchableProductsContainer extends Component {
 }
 
 const mstp = (state) => ({ products: state.productsArr })
-const mdtp = (dispatch) => ({ deleteRepository, searchProducts, sortAbc, sort123 })
+const mdtp = (dispatch) => ({ deleteRepository, sortAbc, sort123 })
 
 export default connect(mstp, mdtp)(SearchableProductsContainer)
