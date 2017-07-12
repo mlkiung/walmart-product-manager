@@ -29705,7 +29705,7 @@ var SearchableProductsContainer = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'container' },
         _react2.default.createElement(_SearchInput2.default, { handleChange: this.handleChange, handleClick: this.handleClick, inputValue: this.props.inputValue }),
         _react2.default.createElement(
           'table',
@@ -29842,28 +29842,29 @@ var Toolbar = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'panel panel-default panel-adjust panel-no-border' },
+        { className: 'container' },
         _react2.default.createElement(
           'div',
-          { className: 'panel-body' },
+          { className: 'input-group', id: 'toolbar' },
           _react2.default.createElement(
             'div',
-            { className: 'input-group row', id: 'toolbar' },
+            { className: 'row' },
+            _react2.default.createElement(
+              'h1',
+              { className: 'col-sm-6', id: 'title' },
+              'Walmart Product Manager'
+            )
+          ),
+          _react2.default.createElement('hr', null),
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
             _react2.default.createElement(
               'div',
-              { className: 'col-sm-12' },
-              _react2.default.createElement(
-                'h1',
-                null,
-                'Walmart Product Manager'
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'col-sm-12' },
+              { className: 'col-sm-6' },
               _react2.default.createElement(
                 'div',
-                { className: 'col-sm-10' },
+                { className: 'col-sm-4 restrict-width' },
                 _react2.default.createElement('input', {
                   type: 'text',
                   className: 'form-control center-rows-half',
@@ -29875,39 +29876,39 @@ var Toolbar = function (_Component) {
               ),
               _react2.default.createElement(
                 'div',
-                { className: 'col-sm-2' },
+                { className: 'col-sm-1' },
                 _react2.default.createElement(
-                  'div',
-                  { className: 'col-sm-6' },
+                  'span',
+                  { className: 'input-group-btn' },
                   _react2.default.createElement(
-                    'span',
-                    { className: 'input-group-btn' },
-                    _react2.default.createElement(
-                      'button',
-                      { className: 'btn btn-default center-rows-half', type: 'button', role: 'button', onClick: this.handleSubmit },
-                      'Go!'
-                    )
+                    'button',
+                    { className: 'btn btn-default center-rows-half', type: 'button', role: 'button', onClick: this.handleSubmit },
+                    'Go!'
                   )
                 )
               )
-            ),
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
+            this.state.showAdvanced ? _react2.default.createElement(_AdvancedSearch2.default, { handleChange: this.handleChange, search: this.state }) : null
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
             _react2.default.createElement(
               'div',
-              { className: 'col-sm-12' },
-              this.state.showAdvanced ? _react2.default.createElement(_AdvancedSearch2.default, { handleChange: this.handleChange, search: this.state }) : null,
+              { className: 'col-sm-6' },
               _react2.default.createElement(
-                'div',
-                { className: 'col-sm-2' },
-                _react2.default.createElement(
-                  'button',
-                  { type: 'button', id: 'advanced-search', className: 'btn btn-link center-rows-half', onClick: this.handleClick },
-                  this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'
-                )
+                'button',
+                { type: 'button', id: 'advanced-search', className: 'btn btn-link center-rows-half', onClick: this.handleClick },
+                this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'
               )
             )
-          )
-        ),
-        _react2.default.createElement('hr', null)
+          ),
+          _react2.default.createElement('hr', null)
+        )
       );
     }
   }]);
@@ -30136,13 +30137,13 @@ var AdvancedSearch = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'col-sm-12', id: 'advanced-search-container' },
+        { className: 'col-sm-6', id: 'advanced-search-container' },
 
         // making the input boxes for brandName, results, and startAt
         advancedSearchOptions.map(function (advancedSearchOption, i) {
           return _react2.default.createElement(
             'div',
-            { className: 'input-group col-sm-2', key: i },
+            { className: 'input-group left-margin restrict-width', key: i },
             _react2.default.createElement('input', {
               type: 'text',
               className: 'form-control center-rows-half',
@@ -30155,15 +30156,15 @@ var AdvancedSearch = function (_Component) {
         }),
         _react2.default.createElement(
           'div',
-          { className: 'col-sm-12' },
+          { className: 'row left-margin' },
           _react2.default.createElement(
             'div',
-            { className: 'col-sm-2 center-rows-half' },
-            'Sorted by'
+            { className: 'col-sm-1 center-rows-half ' },
+            'Sorted by:'
           ),
           _react2.default.createElement(
             'div',
-            { className: 'col-sm-10 center-rows-half' },
+            { className: 'col-sm-3 center-rows-half' },
             _react2.default.createElement(
               'select',
               { value: this.props.sortOption, name: 'sortOption', onChange: this.handleChange },
@@ -30437,16 +30438,16 @@ var SearchInput = function (_Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'div',
-        { className: 'panel panel-default panel-adjust panel-no-border' },
+        'form',
+        { className: 'form-inline' },
         _react2.default.createElement(
           'div',
-          { className: 'panel-body' },
+          { className: 'form-group' },
           _react2.default.createElement(
             'div',
             { className: 'input-group' },
             _react2.default.createElement(
-              'span',
+              'div',
               { className: 'input-group-addon', id: 'sizing-addon2' },
               _react2.default.createElement('span', { className: 'glyphicon glyphicon-search', 'aria-hidden': 'true' })
             ),
@@ -30458,18 +30459,18 @@ var SearchInput = function (_Component) {
               placeholder: 'Search within results',
               'aria-describedby': 'sizing-addon2',
               onChange: this.handleChange })
-          ),
-          _react2.default.createElement(
-            'button',
-            {
-              className: 'btn btn-default',
-              id: 'clear-table-button',
-              type: 'submit',
-              name: 'delete-repository',
-              onClick: this.handleClick
-            },
-            'Clear Table (this cannot be undone)'
           )
+        ),
+        _react2.default.createElement(
+          'button',
+          {
+            className: 'btn btn-default',
+            id: 'clear-table-button',
+            type: 'submit',
+            name: 'delete-repository',
+            onClick: this.handleClick
+          },
+          'Clear Query'
         )
       );
     }
@@ -31987,7 +31988,7 @@ exports = module.exports = __webpack_require__(131)(undefined);
 
 
 // module
-exports.push([module.i, "#toolbar {\n  margin: 0.5em;\n}\n\n.button-margin-left {\n  margin-left: 1em;\n}\n\n#clear-table-button {\n  margin-top: 1em;\n}\n\n.button-no-border {\n  border: none;\n}\n\n.breadcrumb {\n  background-color: white;\n}\n\n.button-background-color {\n  background-color: #f5f5f5;\n}\n\n.img-resize {\n  height: 5em;\n  width: 5em;\n}\n\n.center-rows {\n  margin-top: 2em;\n}\n\n.center-rows-half {\n  margin-top: 1em;\n}\n\n.panel-adjust {\n  margin: 1em;\n}\n\n.half-width {\n  width: 50%;\n}\n\n.panel-no-border {\n  border: none;\n  box-shadow: none;\n}\n\n.fetch-products-button {\n  margin-bottom: 1em;\n}\n\n#advanced-search {\n  border-color: transparent\n}\n\n.btn:focus {\n  outline: none;\n}\n\n", ""]);
+exports.push([module.i, "#toolbar {\n  margin: 0.5em;\n  width: 100%;\n}\n\n.button-margin-left {\n  margin-left: 1em;\n}\n\n#clear-table-button {\n  margin-top: 1em;\n}\n\n.button-no-border {\n  border: none;\n}\n\n.breadcrumb {\n  background-color: white;\n}\n\n.button-background-color {\n  background-color: #f5f5f5;\n}\n\n.img-resize {\n  height: 5em;\n  width: 5em;\n}\n\n.center-rows {\n  margin-top: 2em;\n}\n\n.center-rows-half {\n  margin-top: 1em;\n}\n\n.panel-adjust {\n  margin: 1em;\n}\n\n.half-width {\n  width: 50%;\n}\n\n.panel-no-border {\n  border: none;\n  box-shadow: none;\n}\n\n.fetch-products-button {\n  margin-bottom: 1em;\n}\n\n#advanced-search {\n  border-color: transparent\n}\n\n.btn:focus {\n  outline: none;\n}\n\n.left-margin {\n  margin-left: 1em;\n}\n\n#title {\n  margin-left: 0.5em;\n}\n\n.restrict-width {\n  width: 20em;\n}\n", ""]);
 
 // exports
 
