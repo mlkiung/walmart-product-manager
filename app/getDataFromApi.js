@@ -1,7 +1,10 @@
-import key from '../api.config'
+// import key from '../api.config'
 import fetchJsonp from 'fetch-jsonp'
 import store from './redux/store'
 import { receiveProducts } from './redux/search'
+
+const key = process.env.WMRT_KEY
+console.log(process.env)
 
 const makeQueryString = (input, startingNumber) => {
   // CONSTANTS ('input' is an array of search parameters)
