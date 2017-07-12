@@ -1,4 +1,4 @@
-// import key from '../api.config'
+import key from '../api.config'
 import fetchJsonp from 'fetch-jsonp'
 import store from './redux/store'
 import { receiveProducts } from './redux/search'
@@ -8,7 +8,7 @@ console.log('process', process.env, 'wmrt', process.env.WMRT_KEY)
 const makeQueryString = (input, startingNumber) => {
   // CONSTANTS ('input' is an array of search parameters)
   const queryStarter = `https://api.walmartlabs.com/v1/search?`
-  const apiKey = `&apiKey=${process.env.WMRT_KEY}`
+  const apiKey = `&apiKey=${key}`
   const json = `&format=json`
   const responseGroup = `&responseGroup=full`
   const query = input.query
