@@ -30804,7 +30804,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var makeQueryString = function makeQueryString(input, startingNumber) {
   // CONSTANTS ('input' is an array of search parameters)
-  var queryStarter = 'http://api.walmartlabs.com/v1/search?';
+  var queryStarter = 'https://api.walmartlabs.com/v1/search?';
   var apiKey = '&apiKey=' + process.env.WMRT_KEY;
   var json = '&format=json';
   var responseGroup = '&responseGroup=full';
