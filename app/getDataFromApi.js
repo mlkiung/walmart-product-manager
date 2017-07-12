@@ -53,6 +53,8 @@ const formatNewData = (data) => {
   const mappedItems = {}
   const mappedItemsArr = []
   itemsArr.forEach((item) => {
+    const thumbnailImage = item.thumbnailImage
+    console.log('thumbnailImage', thumbnailImage)
     const key = item.itemId
     const value = {
       name: item.name,

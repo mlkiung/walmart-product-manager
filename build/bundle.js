@@ -30860,6 +30860,8 @@ var formatNewData = function formatNewData(data) {
   var mappedItems = {};
   var mappedItemsArr = [];
   itemsArr.forEach(function (item) {
+    var thumbnailImage = item.thumbnailImage;
+    console.log('thumbnailImage', thumbnailImage);
     var key = item.itemId;
     var value = {
       name: item.name,
