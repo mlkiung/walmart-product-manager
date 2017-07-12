@@ -1,5 +1,6 @@
 #toolbar {
   margin: 0.5em;
+  width: 100%;
 }
 
 .button-margin-left {
@@ -60,3 +61,14 @@
   outline: none;
 }
 
+.left-margin {
+  margin-left: 1em;
+}
+
+#title {
+  margin-left: 0.5em;
+}
+
+.restrict-width {
+  width: 20em;
+}

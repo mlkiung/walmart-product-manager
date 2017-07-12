@@ -30,11 +30,11 @@ class AdvancedSearch extends Component {
     ]
 
     return (
-      <div className="col-sm-12" id="advanced-search-container">
+      <div className="col-sm-6" id="advanced-search-container">
         {
           // making the input boxes for brandName, results, and startAt
           advancedSearchOptions.map((advancedSearchOption, i) => (
-            <div className="input-group col-sm-2" key={i}>
+            <div className="input-group left-margin restrict-width" key={i}>
               <input
                 type="text"
                 className="form-control center-rows-half"
@@ -46,9 +46,9 @@ class AdvancedSearch extends Component {
             </div>
           ))
         }
-        <div className="col-sm-12">
-          <div className="col-sm-2 center-rows-half">{'Sorted by'}</div>
-          <div className="col-sm-10 center-rows-half">
+        <div className="row left-margin">
+          <div className="col-sm-1 center-rows-half ">{'Sorted by:'}</div>
+          <div className="col-sm-3 center-rows-half">
             <select value={this.props.sortOption} name="sortOption" onChange={this.handleChange}>
               {
               // populating the "sort by" dropdown

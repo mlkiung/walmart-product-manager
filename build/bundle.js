@@ -29853,6 +29853,15 @@ var Toolbar = function (_Component) {
               'div',
               { className: 'col-sm-12' },
               _react2.default.createElement(
+                'h1',
+                null,
+                'Walmart Product Manager'
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col-sm-12' },
+              _react2.default.createElement(
                 'div',
                 { className: 'col-sm-10' },
                 _react2.default.createElement('input', {
@@ -29913,37 +29922,7 @@ var mdtp = function mdtp(dispatch) {
   return { receiveProducts: _search.receiveProducts };
 };
 
-exports.default = (0, _reactRedux.connect)(mstp, mdtp)(Toolbar
-
-/*
-
-<nav>
-        <div className="container-fluid toolbar">
-          <ul className="nav nav-pills">
-            <li role="presentation">
-              <div className="input-group col-lg-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Query (required)"
-                  aria-describedby="basic-addon1"
-                  value={this.state.query}
-                  name="query"
-                  onChange={this.handleChange} />
-                <span className="input-group-btn"><button className="btn btn-default" type="button" onClick={this.handleSubmit}>Go!</button></span>
-              </div></li>
-            {
-              this.state.showAdvanced ? <AdvancedSearch handleChange={this.handleChange} search={this.state} /> : null
-            }
-            <li>
-              <button type="button" className="btn btn-link" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</button></li>
-          </ul>
-        </div>
-        <hr />
-      </nav>
-
-*/
-);
+exports.default = (0, _reactRedux.connect)(mstp, mdtp)(Toolbar);
 
 /***/ }),
 /* 114 */

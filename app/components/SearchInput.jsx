@@ -20,12 +20,12 @@ class SearchInput extends Component {
 
   render() {
     return (
-      <div className="panel panel-default panel-adjust panel-no-border">
-        <div className="panel-body">
+      <form className="form-inline">
+        <div className="form-group">
           <div className="input-group">
-            <span className="input-group-addon" id="sizing-addon2">
+            <div className="input-group-addon" id="sizing-addon2">
               <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </span>
+            </div>
             <input
               type="text"
               value={this.props.inputValue}
@@ -35,15 +35,15 @@ class SearchInput extends Component {
               aria-describedby="sizing-addon2"
               onChange={this.handleChange} />
           </div>
-          <button
-            className="btn btn-default"
-            id="clear-table-button"
-            type="submit"
-            name="delete-repository"
-            onClick={this.handleClick}
-          >Clear Table (this cannot be undone)</button>
         </div>
-      </div>
+        <button
+          className="btn btn-default"
+          id="clear-table-button"
+          type="submit"
+          name="delete-repository"
+          onClick={this.handleClick}
+        >Clear Query</button>
+      </form>
     )
   }
 }

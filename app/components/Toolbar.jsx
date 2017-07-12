@@ -59,11 +59,15 @@ class Toolbar extends Component {
 
   render() {
     return (
-      <div className="panel panel-default panel-adjust panel-no-border">
-        <div className="panel-body">
-          <div className="input-group row" id="toolbar">
-            <div className="col-sm-12">
-              <div className="col-sm-10">
+      <div className="container">
+        <div className="input-group" id="toolbar">
+          <div className="row">
+            <h1 className="col-sm-6" id="title">Walmart Product Manager</h1>
+          </div>
+          <hr />
+          <div className="row">
+            <div className="col-sm-6">
+              <div className="col-sm-4 restrict-width">
                 <input
                   type="text"
                   className="form-control center-rows-half"
@@ -73,23 +77,23 @@ class Toolbar extends Component {
                   name="query"
                   onChange={this.handleChange} />
               </div>
-              <div className="col-sm-2">
-                <div className="col-sm-6">
-                  <span className="input-group-btn"><button className="btn btn-default center-rows-half" type="button" role="button" onClick={this.handleSubmit}>Go!</button></span>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-12">
-              {
-                this.state.showAdvanced ? <AdvancedSearch handleChange={this.handleChange} search={this.state} /> : null
-              }
-              <div className="col-sm-2">
-                <button type="button" id="advanced-search" className="btn btn-link center-rows-half" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</button>
+              <div className="col-sm-1">
+                <span className="input-group-btn"><button className="btn btn-default center-rows-half" type="button" role="button" onClick={this.handleSubmit}>Go!</button></span>
               </div>
             </div>
           </div>
+          <div className="row">
+            {
+              this.state.showAdvanced ? <AdvancedSearch handleChange={this.handleChange} search={this.state} /> : null
+            }
+          </div>
+          <div className="row">
+            <div className="col-sm-6">
+              <button type="button" id="advanced-search" className="btn btn-link center-rows-half" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</button>
+            </div>
+          </div>
+          <hr />
         </div>
-        <hr />
       </div>
     )
   }
@@ -99,32 +103,3 @@ const mstp = () => ({})
 const mdtp = (dispatch) => ({receiveProducts})
 
 export default connect(mstp, mdtp)(Toolbar)
-
-/*
-
-<nav>
-        <div className="container-fluid toolbar">
-          <ul className="nav nav-pills">
-            <li role="presentation">
-              <div className="input-group col-lg-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Query (required)"
-                  aria-describedby="basic-addon1"
-                  value={this.state.query}
-                  name="query"
-                  onChange={this.handleChange} />
-                <span className="input-group-btn"><button className="btn btn-default" type="button" onClick={this.handleSubmit}>Go!</button></span>
-              </div></li>
-            {
-              this.state.showAdvanced ? <AdvancedSearch handleChange={this.handleChange} search={this.state} /> : null
-            }
-            <li>
-              <button type="button" className="btn btn-link" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</button></li>
-          </ul>
-        </div>
-        <hr />
-      </nav>
-
-*/
