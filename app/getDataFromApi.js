@@ -3,8 +3,6 @@ import fetchJsonp from 'fetch-jsonp'
 import store from './redux/store'
 import { receiveProducts } from './redux/search'
 
-console.log('process', process.env, 'wmrt', process.env.WMRT_KEY)
-
 const makeQueryString = (input, startingNumber) => {
   // CONSTANTS ('input' is an array of search parameters)
   const queryStarter = `https://api.walmartlabs.com/v1/search?`
@@ -38,8 +36,6 @@ const makeQueryString = (input, startingNumber) => {
   return buildArr.join('')
 }
 
-// customerRatingImage http://i2.walmartimages.com/i/CustRating/4_7.gif
-
 const formatNewData = (data) => {
   // takes data from api and formats it into an object containing data about the last query, an object with key: product Id and value: info about each product (for lookup), and an array of all product objects (for mapping and sorting)
   const query = {
@@ -58,7 +54,6 @@ const formatNewData = (data) => {
     const criFirst = item.customerRatingImage.slice(0, 4)
     const criLast = item.customerRatingImage.slice(4)
     const customerRatingImage = `${criFirst}s${criLast}`
-    console.log('customerRatingImage', customerRatingImage)
     const key = item.itemId
     const value = {
       name: item.name,

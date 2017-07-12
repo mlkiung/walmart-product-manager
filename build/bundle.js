@@ -30797,7 +30797,7 @@ exports.default = (0, _reactRedux.connect)(mstp, mdtp)(TableRow);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
+
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -30819,8 +30819,6 @@ var _store2 = _interopRequireDefault(_store);
 var _search = __webpack_require__(17);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-console.log('process', process.env, 'wmrt', process.env.WMRT_KEY);
 
 var makeQueryString = function makeQueryString(input, startingNumber) {
   // CONSTANTS ('input' is an array of search parameters)
@@ -30845,8 +30843,6 @@ var makeQueryString = function makeQueryString(input, startingNumber) {
   return buildArr.join('');
 };
 
-// customerRatingImage http://i2.walmartimages.com/i/CustRating/4_7.gif
-
 var formatNewData = function formatNewData(data) {
   // takes data from api and formats it into an object containing data about the last query, an object with key: product Id and value: info about each product (for lookup), and an array of all product objects (for mapping and sorting)
   var query = {
@@ -30865,7 +30861,6 @@ var formatNewData = function formatNewData(data) {
     var criFirst = item.customerRatingImage.slice(0, 4);
     var criLast = item.customerRatingImage.slice(4);
     var customerRatingImage = criFirst + 's' + criLast;
-    console.log('customerRatingImage', customerRatingImage);
     var key = item.itemId;
     var value = {
       name: item.name,
@@ -30903,7 +30898,6 @@ var getDataFromApi = function getDataFromApi(queryObj) {
 };
 
 exports.getDataFromApi = getDataFromApi;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 126 */
