@@ -4,7 +4,7 @@ import store from './redux/store'
 import { receiveProducts } from './redux/search'
 
 const key = process.env.WMRT_KEY
-console.log(process.env)
+console.log('key', key)
 
 const makeQueryString = (input, startingNumber) => {
   // CONSTANTS ('input' is an array of search parameters)
