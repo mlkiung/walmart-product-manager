@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack && webpack-dev-server --inline --hot",
+    "start": "webpack",
+    "start-dev": "webpack && webpack-dev-server --inline --hot",
     "build": "webpack"
   },
   "author": "Meredith Kiung",
