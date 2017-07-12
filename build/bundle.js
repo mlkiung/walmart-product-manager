@@ -29791,7 +29791,8 @@ var Toolbar = function (_Component) {
       results: '',
       startAt: '',
       sortOption: 'relevance',
-      data: {}
+      data: {},
+      productsArr: []
     };
 
     _this.handleClick = _this.handleClick.bind(_this);
@@ -29801,6 +29802,11 @@ var Toolbar = function (_Component) {
   }
 
   _createClass(Toolbar, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.setState({ productsArr: this.props.productsArr });
+    }
+  }, {
     key: 'handleClick',
     value: function handleClick(event) {
       event.preventDefault();
@@ -29840,6 +29846,8 @@ var Toolbar = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      console.log('products', this.state.products);
+      console.log('productsArr', this.state.productsArr);
       return _react2.default.createElement(
         'div',
         { className: 'panel panel-default panel-adjust panel-no-border' },
@@ -29874,6 +29882,11 @@ var Toolbar = function (_Component) {
             )
           )
         ),
+        _react2.default.createElement(
+          'div',
+          null,
+          this.state.productsArr && this.state.productsArr.length ? this.state.productsArr.length : null
+        ),
         _react2.default.createElement('hr', null)
       );
     }
@@ -29883,7 +29896,7 @@ var Toolbar = function (_Component) {
 }(_react.Component);
 
 var mstp = function mstp(state) {
-  return {};
+  return { productsArr: state.productsArr };
 };
 var mdtp = function mdtp(dispatch) {
   return { receiveProducts: _search.receiveProducts };
@@ -30411,10 +30424,6 @@ var SearchInput = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (SearchInput.__proto__ || Object.getPrototypeOf(SearchInput)).call(this, props));
 
-    _this.state = {
-      searchTerm: ''
-    };
-
     _this.handleClick = _this.handleClick.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
     return _this;
@@ -30475,11 +30484,7 @@ var SearchInput = function (_Component) {
   return SearchInput;
 }(_react.Component);
 
-var mstp = function mstp(state) {
-  return { products: state.products };
-};
-
-exports.default = (0, _reactRedux.connect)(mstp)(SearchInput);
+exports.default = SearchInput;
 
 /***/ }),
 /* 123 */

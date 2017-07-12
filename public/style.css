@@ -31,6 +31,10 @@
   margin-top: 2em;
 }
 
+.center-rows-half {
+  margin-top: 1em;
+}
+
 .panel-adjust {
   margin: 1em;
 }
@@ -46,5 +50,13 @@
 
 .fetch-products-button {
   margin-bottom: 1em;
+}
+
+#advanced-search {
+  border-color: transparent
+}
+
+.btn:focus {
+  outline: none;
 }
 

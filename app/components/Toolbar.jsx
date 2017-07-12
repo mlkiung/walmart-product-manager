@@ -62,19 +62,31 @@ class Toolbar extends Component {
       <div className="panel panel-default panel-adjust panel-no-border">
         <div className="panel-body">
           <div className="input-group row" id="toolbar">
-            <input
-              type="text"
-              className="form-control half-width"
-              placeholder="Search Walmart database"
-              aria-describedby="basic-addon1"
-              value={this.state.query}
-              name="query"
-              onChange={this.handleChange} />
-            <span className="input-group-btn"><button className="btn btn-default" type="button" onClick={this.handleSubmit}>Go!</button></span>
-            {
-              this.state.showAdvanced ? <AdvancedSearch handleChange={this.handleChange} search={this.state} /> : null
-            }
-            <button type="button" className="btn btn-link" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</button>
+            <div className="col-sm-12">
+              <div className="col-sm-10">
+                <input
+                  type="text"
+                  className="form-control center-rows-half"
+                  placeholder="Search Walmart database"
+                  aria-describedby="basic-addon1"
+                  value={this.state.query}
+                  name="query"
+                  onChange={this.handleChange} />
+              </div>
+              <div className="col-sm-2">
+                <div className="col-sm-6">
+                  <span className="input-group-btn"><button className="btn btn-default center-rows-half" type="button" role="button" onClick={this.handleSubmit}>Go!</button></span>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm-12">
+              {
+                this.state.showAdvanced ? <AdvancedSearch handleChange={this.handleChange} search={this.state} /> : null
+              }
+              <div className="col-sm-2">
+                <button type="button" id="advanced-search" className="btn btn-link center-rows-half" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</button>
+              </div>
+            </div>
           </div>
         </div>
         <hr />
@@ -83,7 +95,7 @@ class Toolbar extends Component {
   }
 }
 
-const mstp = (state) => ({})
+const mstp = () => ({})
 const mdtp = (dispatch) => ({receiveProducts})
 
 export default connect(mstp, mdtp)(Toolbar)
