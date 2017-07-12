@@ -30802,6 +30802,9 @@ var _search = __webpack_require__(17);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+console.log('process', process.env, 'wmrt', process.env.WMRT_KEY); // import key from '../api.config'
+
+
 var makeQueryString = function makeQueryString(input, startingNumber) {
   // CONSTANTS ('input' is an array of search parameters)
   var queryStarter = 'https://api.walmartlabs.com/v1/search?';
@@ -30823,8 +30826,7 @@ var makeQueryString = function makeQueryString(input, startingNumber) {
     buildOption && buildArr.push(buildOption);
   });
   return buildArr.join('');
-}; // import key from '../api.config'
-
+};
 
 var formatNewData = function formatNewData(data) {
   // takes data from api and formats it into an object containing data about the last query, an object with key: product Id and value: info about each product (for lookup), and an array of all product objects (for mapping and sorting)
