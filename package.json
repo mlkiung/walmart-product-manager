@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "start": "node server/start.js",
     "start-dev": "webpack && webpack-dev-server --inline --hot",
     "build": "webpack"
   },
@@ -26,6 +26,7 @@
     "redux-logger": "^3.0.6",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
+    "volleyball": "^1.4.1",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   },
