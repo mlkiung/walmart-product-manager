@@ -30845,6 +30845,8 @@ var makeQueryString = function makeQueryString(input, startingNumber) {
   return buildArr.join('');
 };
 
+// customerRatingImage http://i2.walmartimages.com/i/CustRating/4_7.gif
+
 var formatNewData = function formatNewData(data) {
   // takes data from api and formats it into an object containing data about the last query, an object with key: product Id and value: info about each product (for lookup), and an array of all product objects (for mapping and sorting)
   var query = {
@@ -30860,7 +30862,9 @@ var formatNewData = function formatNewData(data) {
   var mappedItems = {};
   var mappedItemsArr = [];
   itemsArr.forEach(function (item) {
-    var customerRatingImage = item.customerRatingImage;
+    var criFirst = item.customerRatingImage.slice(0, 4);
+    var criLast = item.customerRatingImage.slice(4);
+    var customerRatingImage = criFirst + 's' + criLast;
     console.log('customerRatingImage', customerRatingImage);
     var key = item.itemId;
     var value = {
@@ -30868,7 +30872,7 @@ var formatNewData = function formatNewData(data) {
       brandName: item.brandName,
       newBrandName: '',
       customerRating: Number(item.customerRating),
-      customerRatingImage: item.customerRatingImage,
+      customerRatingImage: customerRatingImage,
       itemId: item.itemId,
       categoryPath: item.categoryPath,
       numReviews: item.numReviews,

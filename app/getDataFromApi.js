@@ -38,6 +38,8 @@ const makeQueryString = (input, startingNumber) => {
   return buildArr.join('')
 }
 
+// customerRatingImage http://i2.walmartimages.com/i/CustRating/4_7.gif
+
 const formatNewData = (data) => {
   // takes data from api and formats it into an object containing data about the last query, an object with key: product Id and value: info about each product (for lookup), and an array of all product objects (for mapping and sorting)
   const query = {
@@ -53,7 +55,9 @@ const formatNewData = (data) => {
   const mappedItems = {}
   const mappedItemsArr = []
   itemsArr.forEach((item) => {
-    const customerRatingImage = item.customerRatingImage
+    const criFirst = item.customerRatingImage.slice(0, 4)
+    const criLast = item.customerRatingImage.slice(4)
+    const customerRatingImage = `${criFirst}s${criLast}`
     console.log('customerRatingImage', customerRatingImage)
     const key = item.itemId
     const value = {
@@ -61,7 +65,7 @@ const formatNewData = (data) => {
       brandName: item.brandName,
       newBrandName: '',
       customerRating: Number(item.customerRating),
-      customerRatingImage: item.customerRatingImage,
+      customerRatingImage: customerRatingImage,
       itemId: item.itemId,
       categoryPath: item.categoryPath,
       numReviews: item.numReviews,
