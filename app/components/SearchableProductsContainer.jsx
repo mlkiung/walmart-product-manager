@@ -70,7 +70,7 @@ class SearchableProductsContainer extends Component {
                   products && products.map((product, i) => (
                     <TableRow
                       product={product}
-                      key={i} />
+                      key={product.itemId} />
                   ))}
               </tbody>
             </table>

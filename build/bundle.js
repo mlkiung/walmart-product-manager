@@ -29728,7 +29728,7 @@ var SearchableProductsContainer = function (_Component) {
                 products && products.map(function (product, i) {
                   return _react2.default.createElement(_TableRow2.default, {
                     product: product,
-                    key: i });
+                    key: product.itemId });
                 })
               )
             )
@@ -30287,7 +30287,7 @@ var BrandInput = function (_Component) {
         { className: 'brand-width' },
         _react2.default.createElement(
           'form',
-          { className: 'form-inline' },
+          null,
           _react2.default.createElement(
             'div',
             { className: 'form-group' },
@@ -30303,17 +30303,17 @@ var BrandInput = function (_Component) {
               name: product.itemId,
               type: 'text',
               className: 'form-control',
-              placeholder: 'Brand' }),
-            _react2.default.createElement(
-              'button',
-              {
-                type: 'submit',
-                className: 'btn btn-default',
-                id: 'input-brand-' + product.itemId,
-                name: product.itemId,
-                onClick: this.handleClick },
-              'Update Brand'
-            )
+              placeholder: 'Brand' })
+          ),
+          _react2.default.createElement(
+            'button',
+            {
+              type: 'submit',
+              className: 'btn btn-default',
+              id: 'input-brand-' + product.itemId,
+              name: product.itemId,
+              onClick: this.handleClick },
+            'Update Brand'
           )
         )
       );
@@ -30638,7 +30638,7 @@ var TableRow = function (_Component) {
   _createClass(TableRow, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.setState({ product: this.props.product });
+      this.setState({ product: this.props.product, key: this.props.key });
     }
   }, {
     key: 'shouldComponentUpdate',
@@ -30676,7 +30676,7 @@ var TableRow = function (_Component) {
 
       return _react2.default.createElement(
         'tr',
-        null,
+        { key: this.state.key },
         _react2.default.createElement(
           'td',
           { className: 'thumbnail-image-width' },

@@ -38,7 +38,7 @@ class BrandInput extends Component {
 
     return (
       <td className="brand-width">
-        <form className="form-inline">
+        <form>
           <div className="form-group">
             <label className="sr-only" htmlFor="editable-brand">Brand</label>
             <input
@@ -49,13 +49,13 @@ class BrandInput extends Component {
               type="text"
               className="form-control"
               placeholder="Brand"/>
-            <button
-              type="submit"
-              className="btn btn-default"
-              id={`input-brand-${product.itemId}`}
-              name={product.itemId}
-              onClick={this.handleClick}>Update Brand</button>
           </div>
+          <button
+            type="submit"
+            className="btn btn-default"
+            id={`input-brand-${product.itemId}`}
+            name={product.itemId}
+            onClick={this.handleClick}>Update Brand</button>
         </form>
       </td>
     )

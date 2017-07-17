@@ -19,7 +19,7 @@ class TableRow extends Component {
   }
 
   componentDidMount() {
-    this.setState({product: this.props.product})
+    this.setState({product: this.props.product, key: this.props.key})
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -47,7 +47,7 @@ class TableRow extends Component {
     const categories = product.categoryPath.split('/')
 
     return (
-      <tr>
+      <tr key={this.state.key}>
         <td className="thumbnail-image-width"><img src={product && product.thumbnailImage} className="img-responsive center-block img-rounded img-resize" alt={product.name} /></td>
         <td><div className="center-rows">{product.name}<a href={product.productUrl} target="_blank" className="button-margin-left">
           <span
