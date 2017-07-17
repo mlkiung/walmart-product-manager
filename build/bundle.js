@@ -30390,8 +30390,7 @@ var BrandToggle = function (_Component) {
         'td',
         { className: 'brand-width' },
         newBrand !== '' ? newBrand : product.newBrandName ? product.newBrandName : null,
-        _react2.default.createElement('span', {
-          type: 'submit',
+        _react2.default.createElement('button', {
           className: 'btn btn-default button-no-border glyphicon glyphicon-triangle-bottom',
           onClick: this.handleClick,
           id: 'toggle-brand-' + product.itemId })
@@ -30554,40 +30553,28 @@ var TableHead = function TableHead(props) {
         "th",
         { scope: "col" },
         "Price",
-        _react2.default.createElement(
-          "button",
-          {
-            className: "btn btn-default button-margin-left button-no-border button-background-color",
-            id: "sort-products-salePrice",
-            onClick: props.handleClick },
-          _react2.default.createElement("span", { className: "caret" })
-        )
+        _react2.default.createElement("button", {
+          className: "btn btn-default glyphicon glyphicon-triangle-bottom button-margin-left button-no-border button-background-color",
+          id: "sort-products-salePrice",
+          onClick: props.handleClick })
       ),
       _react2.default.createElement(
         "th",
         { scope: "col" },
         "MSRP",
-        _react2.default.createElement(
-          "button",
-          {
-            className: "btn btn-default button-margin-left button-no-border button-background-color",
-            id: "sort-products-msrp",
-            onClick: props.handleClick },
-          _react2.default.createElement("span", { className: "caret" })
-        )
+        _react2.default.createElement("button", {
+          className: "btn btn-default glyphicon glyphicon-triangle-bottom button-margin-left button-no-border button-background-color",
+          id: "sort-products-msrp",
+          onClick: props.handleClick })
       ),
       _react2.default.createElement(
         "th",
         { scope: "col" },
         "Reviews",
-        _react2.default.createElement(
-          "button",
-          {
-            className: "btn btn-default button-margin-left button-no-border button-background-color",
-            id: "sort-products-customerRating",
-            onClick: props.handleClick },
-          _react2.default.createElement("span", { className: "caret" })
-        )
+        _react2.default.createElement("button", {
+          className: "btn btn-default glyphicon glyphicon-triangle-bottom button-margin-left button-no-border button-background-color",
+          id: "sort-products-customerRating",
+          onClick: props.handleClick })
       ),
       _react2.default.createElement("th", { scope: "col" })
     )
