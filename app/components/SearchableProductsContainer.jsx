@@ -59,18 +59,23 @@ class SearchableProductsContainer extends Component {
 
     return (
       <div className="container">
-        <SearchInput handleChange={this.handleChange} handleClick={this.handleClick} inputValue={this.props.inputValue} />
-        <table className="table table-condensed table-bordered panel-adjust">
-          <TableHead handleClick={this.handleClick} />
-          <tbody>
-            {
-              products && products.map((product, i) => (
-                <TableRow
-                  product={product}
-                  key={i} />
-              ))}
-          </tbody>
-        </table>
+        <div className="panel panel-default">
+          <div className="panel-heading">Local Database</div>
+          <div className="panel-body">
+            <SearchInput handleChange={this.handleChange} handleClick={this.handleClick} inputValue={this.props.inputValue} />
+            <table className="table table-condensed table-bordered table-hover">
+              <TableHead handleClick={this.handleClick} />
+              <tbody>
+                {
+                  products && products.map((product, i) => (
+                    <TableRow
+                      product={product}
+                      key={i} />
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     )
   }
@@ -80,3 +85,12 @@ const mstp = (state) => ({ products: state.productsArr })
 const mdtp = (dispatch) => ({ deleteRepository, sortAbc, sort123 })
 
 export default connect(mstp, mdtp)(SearchableProductsContainer)
+
+{/* <div class="panel panel-default">
+  <div class="panel-heading">Panel heading</div>
+  <div class="panel-body">
+    <p>...</p>
+  </div>
+  <table class="table">
+  </table>
+</div> */}

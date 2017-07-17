@@ -20,7 +20,7 @@ class SearchInput extends Component {
 
   render() {
     return (
-      <form className="form-inline">
+      <form className="form-inline bottom-margin">
         <div className="form-group">
           <div className="input-group">
             <div className="input-group-addon" id="sizing-addon2">
@@ -37,12 +37,11 @@ class SearchInput extends Component {
           </div>
         </div>
         <button
-          className="btn btn-default"
-          id="clear-table-button"
+          className="btn btn-default left-margin"
           type="submit"
           name="delete-repository"
           onClick={this.handleClick}
-        >Clear Query</button>
+        >Clear Table</button>
       </form>
     )
   }

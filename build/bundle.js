@@ -29706,19 +29706,32 @@ var SearchableProductsContainer = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'container' },
-        _react2.default.createElement(_SearchInput2.default, { handleChange: this.handleChange, handleClick: this.handleClick, inputValue: this.props.inputValue }),
         _react2.default.createElement(
-          'table',
-          { className: 'table table-condensed table-bordered panel-adjust' },
-          _react2.default.createElement(_TableHead2.default, { handleClick: this.handleClick }),
+          'div',
+          { className: 'panel panel-default' },
           _react2.default.createElement(
-            'tbody',
-            null,
-            products && products.map(function (product, i) {
-              return _react2.default.createElement(_TableRow2.default, {
-                product: product,
-                key: i });
-            })
+            'div',
+            { className: 'panel-heading' },
+            'Local Database'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'panel-body' },
+            _react2.default.createElement(_SearchInput2.default, { handleChange: this.handleChange, handleClick: this.handleClick, inputValue: this.props.inputValue }),
+            _react2.default.createElement(
+              'table',
+              { className: 'table table-condensed table-bordered table-hover' },
+              _react2.default.createElement(_TableHead2.default, { handleClick: this.handleClick }),
+              _react2.default.createElement(
+                'tbody',
+                null,
+                products && products.map(function (product, i) {
+                  return _react2.default.createElement(_TableRow2.default, {
+                    product: product,
+                    key: i });
+                })
+              )
+            )
           )
         )
       );
@@ -29736,6 +29749,16 @@ var mdtp = function mdtp(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mstp, mdtp)(SearchableProductsContainer);
+
+
+{/* <div class="panel panel-default">
+   <div class="panel-heading">Panel heading</div>
+   <div class="panel-body">
+     <p>...</p>
+   </div>
+   <table class="table">
+   </table>
+  </div> */}
 
 /***/ }),
 /* 113 */
@@ -29842,7 +29865,7 @@ var Toolbar = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'container' },
+        { className: 'page-header container' },
         _react2.default.createElement(
           'div',
           { className: 'input-group', id: 'toolbar' },
@@ -29855,7 +29878,6 @@ var Toolbar = function (_Component) {
               'Walmart Product Manager'
             )
           ),
-          _react2.default.createElement('hr', null),
           _react2.default.createElement(
             'div',
             { className: 'row' },
@@ -29906,8 +29928,7 @@ var Toolbar = function (_Component) {
                 this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'
               )
             )
-          ),
-          _react2.default.createElement('hr', null)
+          )
         )
       );
     }
@@ -30442,24 +30463,20 @@ var SearchInput = function (_Component) {
         { className: 'form-inline' },
         _react2.default.createElement(
           'div',
-          { className: 'form-group' },
+          { className: 'input-group' },
           _react2.default.createElement(
             'div',
-            { className: 'input-group' },
-            _react2.default.createElement(
-              'div',
-              { className: 'input-group-addon', id: 'sizing-addon2' },
-              _react2.default.createElement('span', { className: 'glyphicon glyphicon-search', 'aria-hidden': 'true' })
-            ),
-            _react2.default.createElement('input', {
-              type: 'text',
-              value: this.props.inputValue,
-              className: 'form-control',
-              name: 'search-products',
-              placeholder: 'Search within results',
-              'aria-describedby': 'sizing-addon2',
-              onChange: this.handleChange })
-          )
+            { className: 'input-group-addon', id: 'sizing-addon2' },
+            _react2.default.createElement('span', { className: 'glyphicon glyphicon-search', 'aria-hidden': 'true' })
+          ),
+          _react2.default.createElement('input', {
+            type: 'text',
+            value: this.props.inputValue,
+            className: 'form-control',
+            name: 'search-products',
+            placeholder: 'Search within results',
+            'aria-describedby': 'sizing-addon2',
+            onChange: this.handleChange })
         ),
         _react2.default.createElement(
           'button',

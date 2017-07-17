@@ -7,10 +7,6 @@
   margin-left: 1em;
 }
 
-#clear-table-button {
-  margin-top: 1em;
-}
-
 .button-no-border {
   border: none;
 }
@@ -49,7 +45,7 @@
   box-shadow: none;
 }
 
-.fetch-products-button {
+.bottom-margin {
   margin-bottom: 1em;
 }
 

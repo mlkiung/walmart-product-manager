@@ -59,12 +59,11 @@ class Toolbar extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="page-header container">
         <div className="input-group" id="toolbar">
           <div className="row">
             <h1 className="col-sm-6" id="title">Walmart Product Manager</h1>
           </div>
-          <hr />
           <div className="row">
             <div className="col-sm-6">
               <div className="col-sm-4 restrict-width">
@@ -92,7 +91,6 @@ class Toolbar extends Component {
               <button type="button" id="advanced-search" className="btn btn-link center-rows-half" onClick={this.handleClick}>{this.state.showAdvanced && this.state.showAdvanced ? 'Hide Advanced' : 'Advanced Search'}</button>
             </div>
           </div>
-          <hr />
         </div>
       </div>
     )
