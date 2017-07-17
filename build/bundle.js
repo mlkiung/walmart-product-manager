@@ -30460,34 +30460,37 @@ var SearchInput = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'form',
-        { className: 'form-inline' },
+        { className: 'form-inline bottom-margin' },
         _react2.default.createElement(
           'div',
-          { className: 'input-group' },
+          { className: 'form-group' },
           _react2.default.createElement(
             'div',
-            { className: 'input-group-addon', id: 'sizing-addon2' },
-            _react2.default.createElement('span', { className: 'glyphicon glyphicon-search', 'aria-hidden': 'true' })
-          ),
-          _react2.default.createElement('input', {
-            type: 'text',
-            value: this.props.inputValue,
-            className: 'form-control',
-            name: 'search-products',
-            placeholder: 'Search within results',
-            'aria-describedby': 'sizing-addon2',
-            onChange: this.handleChange })
+            { className: 'input-group' },
+            _react2.default.createElement(
+              'div',
+              { className: 'input-group-addon', id: 'sizing-addon2' },
+              _react2.default.createElement('span', { className: 'glyphicon glyphicon-search', 'aria-hidden': 'true' })
+            ),
+            _react2.default.createElement('input', {
+              type: 'text',
+              value: this.props.inputValue,
+              className: 'form-control',
+              name: 'search-products',
+              placeholder: 'Search within results',
+              'aria-describedby': 'sizing-addon2',
+              onChange: this.handleChange })
+          )
         ),
         _react2.default.createElement(
           'button',
           {
-            className: 'btn btn-default',
-            id: 'clear-table-button',
+            className: 'btn btn-default left-margin',
             type: 'submit',
             name: 'delete-repository',
             onClick: this.handleClick
           },
-          'Clear Query'
+          'Clear Table'
         )
       );
     }
@@ -32005,7 +32008,7 @@ exports = module.exports = __webpack_require__(131)(undefined);
 
 
 // module
-exports.push([module.i, "#toolbar {\n  margin: 0.5em;\n  width: 100%;\n}\n\n.button-margin-left {\n  margin-left: 1em;\n}\n\n#clear-table-button {\n  margin-top: 1em;\n}\n\n.button-no-border {\n  border: none;\n}\n\n.breadcrumb {\n  background-color: white;\n}\n\n.button-background-color {\n  background-color: #f5f5f5;\n}\n\n.img-resize {\n  height: 5em;\n  width: 5em;\n}\n\n.center-rows {\n  margin-top: 2em;\n}\n\n.center-rows-half {\n  margin-top: 1em;\n}\n\n.panel-adjust {\n  margin: 1em;\n}\n\n.half-width {\n  width: 50%;\n}\n\n.panel-no-border {\n  border: none;\n  box-shadow: none;\n}\n\n.fetch-products-button {\n  margin-bottom: 1em;\n}\n\n#advanced-search {\n  border-color: transparent\n}\n\n.btn:focus {\n  outline: none;\n}\n\n.left-margin {\n  margin-left: 1em;\n}\n\n#title {\n  margin-left: 0.5em;\n}\n\n.restrict-width {\n  width: 20em;\n}\n", ""]);
+exports.push([module.i, "#toolbar {\n  margin: 0.5em;\n  width: 100%;\n}\n\n.button-margin-left {\n  margin-left: 1em;\n}\n\n.button-no-border {\n  border: none;\n}\n\n.breadcrumb {\n  background-color: white;\n}\n\n.button-background-color {\n  background-color: #f5f5f5;\n}\n\n.img-resize {\n  height: 5em;\n  width: 5em;\n}\n\n.center-rows {\n  margin-top: 2em;\n}\n\n.center-rows-half {\n  margin-top: 1em;\n}\n\n.panel-adjust {\n  margin: 1em;\n}\n\n.half-width {\n  width: 50%;\n}\n\n.panel-no-border {\n  border: none;\n  box-shadow: none;\n}\n\n.bottom-margin {\n  margin-bottom: 1em;\n}\n\n#advanced-search {\n  border-color: transparent\n}\n\n.btn:focus {\n  outline: none;\n}\n\n.left-margin {\n  margin-left: 1em;\n}\n\n#title {\n  margin-left: 0.5em;\n}\n\n.restrict-width {\n  width: 20em;\n}\n", ""]);
 
 // exports
 
