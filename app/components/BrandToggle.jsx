@@ -25,11 +25,11 @@ class BrandToggle extends Component {
     const newBrand = this.props.newBrand
     return (
       <td className="brand-width">
-        {newBrand !== '' ? newBrand : product.newBrandName ? product.newBrandName : null}
         <button
-          className="btn btn-default button-no-border glyphicon glyphicon-triangle-bottom"
+          className="btn btn-default button-no-border glyphicon glyphicon-pencil"
           onClick={this.handleClick}
           id={`toggle-brand-${product.itemId}`}></button>
+        {newBrand !== '' ? newBrand : product.newBrandName ? product.newBrandName : null}
       </td>
     )
   }

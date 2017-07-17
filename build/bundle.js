@@ -30372,28 +30372,28 @@ var BrandToggle = function (_Component) {
   }
 
   _createClass(BrandToggle, [{
-    key: 'shouldComponentUpdate',
+    key: "shouldComponentUpdate",
     value: function shouldComponentUpdate(nextProps, nextState) {
       return nextProps !== this.props || nextState !== this.state;
     }
   }, {
-    key: 'handleClick',
+    key: "handleClick",
     value: function handleClick(event) {
       this.props.handleClick(event);
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var product = this.props.product;
       var newBrand = this.props.newBrand;
       return _react2.default.createElement(
-        'td',
-        { className: 'brand-width' },
-        newBrand !== '' ? newBrand : product.newBrandName ? product.newBrandName : null,
-        _react2.default.createElement('button', {
-          className: 'btn btn-default button-no-border glyphicon glyphicon-triangle-bottom',
+        "td",
+        { className: "brand-width" },
+        _react2.default.createElement("button", {
+          className: "btn btn-default button-no-border glyphicon glyphicon-pencil",
           onClick: this.handleClick,
-          id: 'toggle-brand-' + product.itemId })
+          id: "toggle-brand-" + product.itemId }),
+        newBrand !== '' ? newBrand : product.newBrandName ? product.newBrandName : null
       );
     }
   }]);
