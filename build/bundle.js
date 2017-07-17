@@ -30303,7 +30303,7 @@ var BrandInput = function (_Component) {
               name: product.itemId,
               type: 'text',
               className: 'form-control',
-              placeholder: 'Brand' })
+              placeholder: this.state.suggestedBrandName })
           ),
           _react2.default.createElement(
             'button',

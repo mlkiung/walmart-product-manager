@@ -48,7 +48,7 @@ class BrandInput extends Component {
               name={product.itemId}
               type="text"
               className="form-control"
-              placeholder="Brand"/>
+              placeholder={this.state.suggestedBrandName} />
           </div>
           <button
             type="submit"
