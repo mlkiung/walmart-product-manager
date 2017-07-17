@@ -68,3 +68,15 @@
 .restrict-width {
   width: 20em;
 }
+
+.thumbnail-image-width {
+  width: 100px;
+}
+
+.brand-width {
+  width: 200px;
+}
+
+.container {
+  width: 75%;
+}

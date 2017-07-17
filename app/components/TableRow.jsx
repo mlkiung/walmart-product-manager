@@ -48,7 +48,7 @@ class TableRow extends Component {
 
     return (
       <tr>
-        <td><img src={product && product.thumbnailImage} className="img-responsive center-block img-rounded img-resize" /></td>
+        <td className="thumbnail-image-width"><img src={product && product.thumbnailImage} className="img-responsive center-block img-rounded img-resize" alt={product.name} /></td>
         <td><div className="center-rows">{product.name}<a href={product.productUrl} target="_blank" className="button-margin-left">
           <span
             className="glyphicon glyphicon-new-window"

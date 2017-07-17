@@ -24,13 +24,13 @@ class BrandToggle extends Component {
     const product = this.props.product
     const newBrand = this.props.newBrand
     return (
-      <td>
+      <td className="brand-width">
         {newBrand !== '' ? newBrand : product.newBrandName ? product.newBrandName : null}
-        <button
-          className="btn btn-default button-no-border"
+        <span
+          type="submit"
+          className="btn btn-default button-no-border glyphicon glyphicon-triangle-bottom"
           onClick={this.handleClick}
-          id={`toggle-brand-${product.itemId}`}>
-          <span className="caret"></span></button>
+          id={`toggle-brand-${product.itemId}`}></span>
       </td>
     )
   }

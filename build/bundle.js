@@ -30261,7 +30261,11 @@ var BrandInput = function (_Component) {
     key: 'handleClick',
     value: function handleClick(event) {
       event.preventDefault();
-      this.props.handleClick(event, this.props.product.itemId, this.state.updatedBrandName);
+      var brandName = this.state.updatedBrandName !== '' ? this.state.updatedBrandName : this.state.suggestedBrandName;
+
+      console.log(this.props.product.itemId, brandName);
+
+      this.props.product.itemId && this.props.handleClick(event, this.props.product.itemId, brandName);
     }
   }, {
     key: 'handleChange',
@@ -30280,7 +30284,7 @@ var BrandInput = function (_Component) {
 
       return _react2.default.createElement(
         'td',
-        null,
+        { className: 'brand-width' },
         _react2.default.createElement(
           'form',
           { className: 'form-inline' },
@@ -30384,16 +30388,13 @@ var BrandToggle = function (_Component) {
       var newBrand = this.props.newBrand;
       return _react2.default.createElement(
         'td',
-        null,
+        { className: 'brand-width' },
         newBrand !== '' ? newBrand : product.newBrandName ? product.newBrandName : null,
-        _react2.default.createElement(
-          'button',
-          {
-            className: 'btn btn-default button-no-border',
-            onClick: this.handleClick,
-            id: 'toggle-brand-' + product.itemId },
-          _react2.default.createElement('span', { className: 'caret' })
-        )
+        _react2.default.createElement('span', {
+          type: 'submit',
+          className: 'btn btn-default button-no-border glyphicon glyphicon-triangle-bottom',
+          onClick: this.handleClick,
+          id: 'toggle-brand-' + product.itemId })
       );
     }
   }]);
@@ -30695,8 +30696,8 @@ var TableRow = function (_Component) {
         null,
         _react2.default.createElement(
           'td',
-          null,
-          _react2.default.createElement('img', { src: product && product.thumbnailImage, className: 'img-responsive center-block img-rounded img-resize' })
+          { className: 'thumbnail-image-width' },
+          _react2.default.createElement('img', { src: product && product.thumbnailImage, className: 'img-responsive center-block img-rounded img-resize', alt: product.name })
         ),
         _react2.default.createElement(
           'td',
@@ -32008,7 +32009,7 @@ exports = module.exports = __webpack_require__(131)(undefined);
 
 
 // module
-exports.push([module.i, "#toolbar {\n  margin: 0.5em;\n  width: 100%;\n}\n\n.button-margin-left {\n  margin-left: 1em;\n}\n\n.button-no-border {\n  border: none;\n}\n\n.breadcrumb {\n  background-color: white;\n}\n\n.button-background-color {\n  background-color: #f5f5f5;\n}\n\n.img-resize {\n  height: 5em;\n  width: 5em;\n}\n\n.center-rows {\n  margin-top: 2em;\n}\n\n.center-rows-half {\n  margin-top: 1em;\n}\n\n.panel-adjust {\n  margin: 1em;\n}\n\n.half-width {\n  width: 50%;\n}\n\n.panel-no-border {\n  border: none;\n  box-shadow: none;\n}\n\n.bottom-margin {\n  margin-bottom: 1em;\n}\n\n#advanced-search {\n  border-color: transparent\n}\n\n.btn:focus {\n  outline: none;\n}\n\n.left-margin {\n  margin-left: 1em;\n}\n\n#title {\n  margin-left: 0.5em;\n}\n\n.restrict-width {\n  width: 20em;\n}\n", ""]);
+exports.push([module.i, "#toolbar {\n  margin: 0.5em;\n  width: 100%;\n}\n\n.button-margin-left {\n  margin-left: 1em;\n}\n\n.button-no-border {\n  border: none;\n}\n\n.breadcrumb {\n  background-color: white;\n}\n\n.button-background-color {\n  background-color: #f5f5f5;\n}\n\n.img-resize {\n  height: 5em;\n  width: 5em;\n}\n\n.center-rows {\n  margin-top: 2em;\n}\n\n.center-rows-half {\n  margin-top: 1em;\n}\n\n.panel-adjust {\n  margin: 1em;\n}\n\n.half-width {\n  width: 50%;\n}\n\n.panel-no-border {\n  border: none;\n  box-shadow: none;\n}\n\n.bottom-margin {\n  margin-bottom: 1em;\n}\n\n#advanced-search {\n  border-color: transparent\n}\n\n.btn:focus {\n  outline: none;\n}\n\n.left-margin {\n  margin-left: 1em;\n}\n\n#title {\n  margin-left: 0.5em;\n}\n\n.restrict-width {\n  width: 20em;\n}\n\n.thumbnail-image-width {\n  width: 100px;\n}\n\n.brand-width {\n  width: 200px;\n}\n\n.container {\n  width: 75%;\n}\n", ""]);
 
 // exports
 

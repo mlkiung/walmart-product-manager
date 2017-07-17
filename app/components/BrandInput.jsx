@@ -18,7 +18,11 @@ class BrandInput extends Component {
 
   handleClick(event) {
     event.preventDefault()
-    this.props.handleClick(event, this.props.product.itemId, this.state.updatedBrandName)
+    const brandName = this.state.updatedBrandName !== '' ? this.state.updatedBrandName : this.state.suggestedBrandName
+
+    console.log(this.props.product.itemId, brandName)
+
+    this.props.product.itemId && this.props.handleClick(event, this.props.product.itemId, brandName)
   }
 
   handleChange(event) {
@@ -33,7 +37,7 @@ class BrandInput extends Component {
     const product = this.props.product
 
     return (
-      <td>
+      <td className="brand-width">
         <form className="form-inline">
           <div className="form-group">
             <label className="sr-only" htmlFor="editable-brand">Brand</label>
