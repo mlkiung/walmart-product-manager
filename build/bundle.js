@@ -30530,14 +30530,10 @@ var TableHead = function TableHead(props) {
         "th",
         { scope: "col" },
         "Product",
-        _react2.default.createElement(
-          "button",
-          {
-            className: "btn btn-default button-margin-left button-no-border button-background-color",
-            name: "sort-products-name",
-            onClick: props.handleClick },
-          _react2.default.createElement("span", { className: "caret" })
-        )
+        _react2.default.createElement("button", {
+          className: "btn btn-default glyphicon glyphicon-triangle-bottom button-margin-left button-no-border button-background-color",
+          name: "sort-products-name",
+          onClick: props.handleClick })
       ),
       _react2.default.createElement(
         "th",

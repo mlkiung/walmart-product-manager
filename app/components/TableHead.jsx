@@ -6,10 +6,9 @@ const TableHead = (props) => (
       <th scope="col"></th>
       <th scope="col">Product
         <button
-          className="btn btn-default button-margin-left button-no-border button-background-color"
+          className="btn btn-default glyphicon glyphicon-triangle-bottom button-margin-left button-no-border button-background-color"
           name="sort-products-name"
-          onClick={props.handleClick}>
-          <span className="caret"></span></button></th>
+          onClick={props.handleClick}></button></th>
       <th scope="col">Brand Name</th>
       <th scope="col">Category</th>
       <th scope="col">Price
