@@ -12,6 +12,10 @@ class BrandToggle extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
+  componentDidMount() {
+    
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     return nextProps !== this.props || nextState !== this.state
   }
@@ -27,6 +31,9 @@ class BrandToggle extends Component {
       <td className="brand-width">
         <button
           className="btn btn-default button-no-border glyphicon glyphicon-pencil"
+          data-toggle="tooltip"
+          data-placement="left"
+          title="Tooltip on left"
           onClick={this.handleClick}
           id={`toggle-brand-${product.itemId}`}></button>
         {newBrand !== '' ? newBrand : product.newBrandName ? product.newBrandName : null}
