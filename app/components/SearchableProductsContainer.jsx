@@ -63,7 +63,7 @@ class SearchableProductsContainer extends Component {
           <div className="panel-heading">Local Database</div>
           <div className="panel-body">
             <SearchInput handleChange={this.handleChange} handleClick={this.handleClick} inputValue={this.props.inputValue} />
-            <table className="table table-condensed table-bordered table-hover">
+            <table className="table table-condensed table-bordered">
               <TableHead handleClick={this.handleClick} />
               <tbody>
                 {

@@ -29720,7 +29720,7 @@ var SearchableProductsContainer = function (_Component) {
             _react2.default.createElement(_SearchInput2.default, { handleChange: this.handleChange, handleClick: this.handleClick, inputValue: this.props.inputValue }),
             _react2.default.createElement(
               'table',
-              { className: 'table table-condensed table-bordered table-hover' },
+              { className: 'table table-condensed table-bordered' },
               _react2.default.createElement(_TableHead2.default, { handleClick: this.handleClick }),
               _react2.default.createElement(
                 'tbody',
