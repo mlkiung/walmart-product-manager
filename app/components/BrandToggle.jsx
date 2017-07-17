@@ -12,10 +12,6 @@ class BrandToggle extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  componentDidMount() {
-    
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return nextProps !== this.props || nextState !== this.state
   }

@@ -30372,9 +30372,6 @@ var BrandToggle = function (_Component) {
   }
 
   _createClass(BrandToggle, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {}
-  }, {
     key: "shouldComponentUpdate",
     value: function shouldComponentUpdate(nextProps, nextState) {
       return nextProps !== this.props || nextState !== this.state;
