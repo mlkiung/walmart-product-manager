@@ -26,11 +26,10 @@ class BrandToggle extends Component {
     return (
       <td className="brand-width">
         {newBrand !== '' ? newBrand : product.newBrandName ? product.newBrandName : null}
-        <span
-          type="submit"
+        <button
           className="btn btn-default button-no-border glyphicon glyphicon-triangle-bottom"
           onClick={this.handleClick}
-          id={`toggle-brand-${product.itemId}`}></span>
+          id={`toggle-brand-${product.itemId}`}></button>
       </td>
     )
   }

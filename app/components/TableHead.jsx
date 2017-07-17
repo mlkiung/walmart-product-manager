@@ -14,22 +14,19 @@ const TableHead = (props) => (
       <th scope="col">Category</th>
       <th scope="col">Price
         <button
-          className="btn btn-default button-margin-left button-no-border button-background-color"
+          className="btn btn-default glyphicon glyphicon-triangle-bottom button-margin-left button-no-border button-background-color"
           id="sort-products-salePrice"
-          onClick={props.handleClick}>
-          <span className="caret"></span></button></th>
+          onClick={props.handleClick}></button></th>
       <th scope="col">MSRP
         <button
-          className="btn btn-default button-margin-left button-no-border button-background-color"
+          className="btn btn-default glyphicon glyphicon-triangle-bottom button-margin-left button-no-border button-background-color"
           id="sort-products-msrp"
-          onClick={props.handleClick}>
-          <span className="caret"></span></button></th>
+          onClick={props.handleClick}></button></th>
       <th scope="col">Reviews
         <button
-          className="btn btn-default button-margin-left button-no-border button-background-color"
+          className="btn btn-default glyphicon glyphicon-triangle-bottom button-margin-left button-no-border button-background-color"
           id="sort-products-customerRating"
-          onClick={props.handleClick}>
-          <span className="caret"></span></button></th>
+          onClick={props.handleClick}></button></th>
       <th scope="col"></th>
     </tr>
   </thead>
