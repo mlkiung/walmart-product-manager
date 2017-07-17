@@ -30391,9 +30391,6 @@ var BrandToggle = function (_Component) {
         { className: "brand-width" },
         _react2.default.createElement("button", {
           className: "btn btn-default button-no-border glyphicon glyphicon-pencil",
-          "data-toggle": "tooltip",
-          "data-placement": "left",
-          title: "Tooltip on left",
           onClick: this.handleClick,
           id: "toggle-brand-" + product.itemId }),
         newBrand !== '' ? newBrand : product.newBrandName ? product.newBrandName : null
