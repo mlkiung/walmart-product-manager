@@ -30389,11 +30389,15 @@ var BrandToggle = function (_Component) {
       return _react2.default.createElement(
         "td",
         { className: "brand-width" },
-        _react2.default.createElement("button", {
-          className: "btn btn-default button-no-border glyphicon glyphicon-pencil",
-          onClick: this.handleClick,
-          id: "toggle-brand-" + product.itemId }),
-        newBrand !== '' ? newBrand : product.newBrandName ? product.newBrandName : null
+        _react2.default.createElement(
+          "div",
+          { className: "center-rows" },
+          _react2.default.createElement("button", {
+            className: "btn btn-default button-no-border glyphicon glyphicon-pencil",
+            onClick: this.handleClick,
+            id: "toggle-brand-" + product.itemId }),
+          newBrand !== '' ? newBrand : product.newBrandName ? product.newBrandName : null
+        )
       );
     }
   }]);
